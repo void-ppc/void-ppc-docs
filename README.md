@@ -45,7 +45,7 @@ The binary repository will transform into an overlay repository containing testi
 The main project binary location is https://void-ppc64.octaforge.org.
 
 - xbps repository (`ppc64le`): https://void-ppc64.octaforge.org/current
-- xbps repository (`ppc64le-musl`, `ppc64-musl`): https://void-ppc64.octaforge.org/musl
+- xbps repository (`ppc64le-musl`, `ppc64-musl`): https://void-ppc64.octaforge.org/current/musl
 - static xbps for both endians (built using musl): https://void-ppc64.octaforge.org/static
 - rsync for mirroring: `rsync://octaforge.org/void-ppc64`
 
