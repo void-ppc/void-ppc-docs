@@ -13,7 +13,7 @@ Until there are official builds, the project will continue to provide certain no
 This project primarily aims to support modern, high performance systems, without a particular focus on old hardware. That does not mean it is unsupported, however. There are three targets the project aims to support.
 
 - Little endian glibc (`ppc64le`)
-- Little endian musl (`ppc64le-musl`)https://ftp.octaforge.org/void-ppc64/
+- Little endian musl (`ppc64le-musl`)
 - Big endian musl (`ppc64-musl`)
 
 The first two, being little endian, are only meant to work on POWER8 and higher, and are the primary targets, because of smoothest software support (least likely to encounter issues getting it to build or run). Big endian `musl` target should work on all POWER4 and newer systems, such as PowerPC G5/970 present on Power Macs. 32-bit PowerPC is out of scope of the project, and is already being done elsewhere.
