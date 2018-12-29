@@ -4,23 +4,23 @@ This is the Void Linux porting project for 64-bit PowerPC/POWER systems. Keep in
 
 ## Rationale
 
-Void currently has no support for ppc64. Since ppc64 is becoming more relevant again with high systems such as Raptor Talos 2, it is desirable to have support for it in the distribution; this project's aim is to become a staging area for all porting work before it makes it upstream in Void Linux.
+Void currently has no support for ppc64. Since ppc64 is becoming more relevant again with high performance systems such as Raptor Talos 2, it is desirable to have support for it in the distribution; this project's aim is to become a staging area for all porting work before it makes it upstream in Void Linux.
 
-Until there are official builds, the project will continue to provide certain non-mergeable modifications into the repositories for smoothest user experience, such as builds of `xbps` packages with the default repo location pointing to the unofficial one in order to avoid having to manually configure things.
+Until there are official builds, the project will continue to provide certain non-mergeable modifications into the repositories for smoothest user experience, such as builds of `xbps` packages with the default repo location pointing to the unofficial one (as well as providing the correct unofficial signing key out of box) in order to avoid having to manually configure things.
 
 ## Supported targets
 
 This project primarily aims to support modern, high performance systems, without a particular focus on old hardware. That does not mean it is unsupported, however. There are three targets the project aims to support.
 
 - Little endian glibc (`ppc64le`)
-- Little endian musl (`ppc64le-musl`)
+- Little endian musl (`ppc64le-musl`)https://ftp.octaforge.org/void-ppc64/
 - Big endian musl (`ppc64-musl`)
 
 The first two, being little endian, are only meant to work on POWER8 and higher, and are the primary targets, because of smoothest software support (least likely to encounter issues getting it to build or run). Big endian `musl` target should work on all POWER4 and newer systems, such as PowerPC G5/970 present on Power Macs. 32-bit PowerPC is out of scope of the project, and is already being done elsewhere.
 
 ## Project stages
 
-We are currently still in stage 1.
+We are currently still in stage 1. The commits are currently being prepared for initial upstream submissions, at which point we will move on to stage 2 and remain there for a while. ISO releases as well as rootfs tarballs will also get prepared during this time.
 
 ### Stage 1
 
@@ -42,17 +42,39 @@ The binary repository will transform into an overlay repository containing testi
 
 ## Package/build mirrors
 
-The main project binary location is https://ftp.octaforge.org/void-ppc64/.
+The main project binary location is https://void-ppc64.octaforge.org.
 
-- xbps repository (`ppc64le`): https://ftp.octaforge.org/void-ppc64/current
-- xbps repository (`ppc64le-musl`, `ppc64-musl`): https://ftp.octaforge.org/void-ppc64/musl
-- static xbps for both endians: https://ftp.octaforge.org/void-ppc64/static
+- xbps repository (`ppc64le`): https://void-ppc64.octaforge.org/current
+- xbps repository (`ppc64le-musl`, `ppc64-musl`): https://void-ppc64.octaforge.org/musl
+- static xbps for both endians (built using musl): https://void-ppc64.octaforge.org/static
 - rsync for mirroring: `rsync://octaforge.org/void-ppc64`
 
-### Mirrors
+### Mirror list
 
 Since my server space is not free, mirrors are always appreciated! Let me know if you set up a mirror. Use `rsync`, the URL is provided above.
 
 Current list:
 
-- http://mirrors.servercentral.com/voidlinux-ppc64/ (provided by `zdykstra` from Void/Talos community, also hosts a Void mirror)
+- https://mirrors.servercentral.com/voidlinux-ppc64/ (provided by `zdykstra` of the Void Linux as well Talos community, also hosts a Void mirror)
+- https://ppc.exqa.de/ (provided by `Cogitri` of the Void Linux community)
+
+Big thanks to all the mirror providers, as my bandwidth is limited and shared with my other projects.
+
+## Repository structure
+
+_Note: this is not yet in place, is more of a proposal that is yet to be implemented_
+
+The primary area where porting happens is the `void-packages` repository, which mirrors the structure of the upstream template database. It consists of several branches:
+
+- `master` - this branch has its consistency ensured, i.e. force pushes are forbidden and it's always pullable; it consists of the upstream `master` branch plus non-mergeable changes of the `void-ppc64` project, e.g. the `xbps` updates; it is not useful until the project has entered stage 2, since it may not contain all of the necessary porting work
+- `staging` - this contains the latest porting work meant for submission into upstream; it does not contain any non-mergeable changes and does not ensure consistency, i.e. it may get rebased at any time
+- `testing` - this is essentially a combination of the `master` and `staging` branches, it contains everything from `staging` but it also ensures consistency, i.e. it's always pullable, and also contains the non-mergeable changes from `master`
+- any other branch is typically temporary, containing a pull request or experiments
+
+## Contributing
+
+If you wish to contribute into the project, you should typically want to base your changes on top of the `testing` branch and then submit a pull request.
+
+Once the change is good and has been merged into `testing`, it will great cleaned up and cherry-picked (or otherwise merged) into `staging` and will go through the usual rebasing process, before being submitted as an upstream pull request.
+
+Of course, once the project has reached stage 2 (i.e. at least initial porting work has made it upstream), you will also be able to submit your changes into Void upstream directly. This is the preferred way; in that case, it's best to mention me (`q66`) in the pull request so I can keep track and potentially review the changeset. Such changes will get pulled back into `void-ppc64` from upstream.
