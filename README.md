@@ -22,19 +22,49 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 
 #### ppc64le glibc
 
-The primary target. Over 2500 binary packages built, including common software such as Xorg, Wayland, Gtk2/3, Qt5, GNOME 3, Xfce 4, Firefox and others. Current focus is mostly on fixing individual templates. Cross toolchain for this target is made, but not tested, since I don't have an x86 Void installation.
+- [x] `base-chroot`
+- [x] `base-voidstrap`
+- [x] `base-system`
+- [ ] `cross-powerpc64le-linux-gnu` (made, pending testing on an x86 setup)
+- [x] `linux`
+- [x] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
+- [x] `rust`
+- [x] `go`
+- [ ] `java`
+- [ ] installer images
+- [ ] rootfs tarballs
 
 #### ppc64le musl
 
-Currently `base-system` is built (kernel + basic userland). Cross toolchain was made and is tested; all of the existing packages are cross compiled from a `ppc64le` glibc system. No attempt to build graphical applications or frameworks has been made, and there isn't any support for languages that need bootstrapping such as Rust and Go, as is the case with glibc. This support will be added once bootstrap compilers are made and and uploaded.
+- [x] `base-chroot`
+- [x] `base-voidstrap`
+- [x] `base-system`
+- [x] `cross-powerpc64le-linux-musl`
+- [x] `linux`
+- [ ] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
+- [ ] `rust`
+- [ ] `go`
+- [ ] `java`
+- [ ] installer images
+- [ ] rootfs tarballs
 
 #### ppc64 musl
 
-Same as above applies, and packages are being built concurrently for both endians. It is possible that this one will fail more than the little endian targets, but so far this hasn't been the case.
+- [x] `base-chroot`
+- [x] `base-voidstrap`
+- [x] `base-system`
+- [x] `cross-powerpc64le-linux-musl`
+- [x] `linux`
+- [ ] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
+- [ ] `rust`
+- [ ] `go`
+- [ ] `java`
+- [ ] installer images
+- [ ] rootfs tarballs
 
 ## Project stages
 
-We are currently still in stage 1. The commits are currently being prepared for initial upstream submissions, at which point we will move on to stage 2 and remain there for a while. ISO releases as well as rootfs tarballs will also get prepared during this time.
+**Current: stage1** (initial PR being prepared)
 
 ### Stage 1
 
