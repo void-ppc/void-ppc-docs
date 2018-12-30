@@ -122,3 +122,11 @@ If you wish to contribute into the project, you should typically want to base yo
 Once the change is good and has been merged into `testing`, it will great cleaned up and cherry-picked (or otherwise merged) into `staging` and will go through the usual rebasing process, before being submitted as an upstream pull request.
 
 Of course, once the project has reached stage 2 (i.e. at least initial porting work has made it upstream), you will also be able to submit your changes into Void upstream directly. This is the preferred way; in that case, it's best to mention me (`q66`) in the pull request so I can keep track and potentially review the changeset. Such changes will get pulled back into `void-ppc64` from upstream.
+
+## FAQ
+
+**Q:** Why is there no big endian `glibc` target?  
+**A:** The project only aims to support targets supporting the ELFv2 ABI. While the ABI is endian independent, only `musl` uses it for big endian. Big endian `glibc` `ppc64` use the old ELFv1 ABI instead. Introducing an ELFv1 target would mean having to preserve backwards compatibility later, so it is explicitly omitted.
+
+**Q:** Will multilib be supported?  
+**A:** For now it is not planned; it might be investigated at some later point, but since there is fairly little practical binary only software for `ppc`/`ppc64`, it is not a priority. If you do have such software, you can likely easily use a `chroot`.
