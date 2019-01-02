@@ -60,17 +60,7 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 
 #### ppc64 musl
 
-- [x] `base-chroot`
-- [x] `base-voidstrap`
-- [x] `base-system`
-- [x] `cross-powerpc64-linux-musl`
-- [x] `linux`
-- [ ] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
-- [ ] `rust` (waiting for 1.32)
-- [x] `go` (cross only)
-- [ ] `java`
-- [ ] installer images
-- [ ] rootfs tarballs
+Same as `ppc64le-musl`. Any potential differences will be mentioned.
 
 ## Project stages
 
