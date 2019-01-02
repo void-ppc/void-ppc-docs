@@ -4,9 +4,19 @@ This is the Void Linux porting project for 64-bit PowerPC/POWER systems. Keep in
 
 ## Rationale
 
-Void currently has no support for ppc64. Since ppc64 is becoming more relevant again with high performance systems such as Raptor Talos 2, it is desirable to have support for it in the distribution; this project's aim is to become a staging area for all porting work before it makes it upstream in Void Linux.
+Void currently has no support for ppc64. Since ppc64 is becoming more relevant again with high performance systems such as Raptor Talos 2, it is desirable to have support for it in the distribution; this project's aim is to become a staging area for all porting work, with the intention of submitting a majority of the patches upstream.
 
-Until there are official builds, the project will continue to provide certain non-mergeable modifications into the repositories for smoothest user experience, such as builds of `xbps` packages with the default repo location pointing to the unofficial one (as well as providing the correct unofficial signing key out of box) in order to avoid having to manually configure things.
+There are several types of patches in the repository:
+
+1) Patches intended for upstream submission. This makes up the majority of patches in the repository and it is assumed that they will be submitted upstream as soon as possible.
+2) Patches adding functionality that is meant for eventual upstream submission, but not in its current form. These are typically things that there is some kind of disagreement about design-wise, or simply experimental patches or proof of concept patches.
+3) Patches not meant for upstream submission. These will likely never make it into upstream repos and tend to include things such as updates to repo URLs, `xbps-src` itself or other things specific to `void-ppc64` but not the upstream project.
+
+There is another goal to this project, and that is to enhance building of packages on native `ppc64` machines as well as improve cross compilation from native `ppc64` machines to other targets, such as `aarch64` or `x86_64`. While this is also intended for upstream submission, it is much less useful for upstream at this point and might be met with different concerns.
+
+The project will continue to provide its own repos even after majority of the changes are upstreamed and official builds are made. The reason is that it is unlikely that the upstream project will be making native builds, and cross compilation is not always possible or results in features missing from the final builds; `void-ppc64` wants to provide a repository of the same quality as `x86_64` repositories (with the exception of unportable or proprietary software).
+
+Additionally, smooth user experience is important for `void-ppc64`, so the default `xbps` repo locations as well as signing keys will be updated for the provided packages. Installer and `rootfs` builds will also be provided by the project, as well as static `xbps` and other pieces of infrastructure.
 
 ## Supported targets
 
@@ -29,7 +39,7 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 - [x] `linux`
 - [x] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
 - [x] `rust`
-- [x] `go`
+- [x] `go` (using gcc-go)
 - [ ] `java`
 - [ ] installer images
 - [ ] rootfs tarballs
@@ -64,25 +74,25 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 
 ## Project stages
 
-**Current: stage1** (initial PR being prepared)
+**Current: stage1 -> stage2** (initial PR submitted, but not merged)
+
+The project will provide a binary repository during all stages. See the rationale section for how that is intended to be done.
 
 ### Stage 1
 
 This is the state where no platform specific work is held in upstream Void Linux repositories and therefore all changes are downstream in `void-ppc64`. The goal is to move on as soon as possible.
 
-At this point, the project maintains an unofficial binary repository and eventually ISO and rootfs builds. The unofficial repository is fully working and best covers the `ppc64le` target but others are also being built.
-
 ### Stage 2
 
-At this point, changes will start making it into upstream `void-packages` and potentially other repositories. At this point, Void still won't provide any official packages. This project will act as a staging area for new changes, which will get submitted into upstream as soon as they reach mergeable status.
-
-This project will still provide a binary repository of packages, snapshots etc. for anyone's use.
+At this point, changes will start making it into upstream `void-packages` and potentially other repositories. At this point, Void still won't provide any official packages. This project will act as a staging area for new changes, which will get submitted into upstream as soon as they reach mergeable status, or held downstream when not intended for merge.
 
 ### Stage 3
 
 At this point Void Linux should start providing binary packages, which is the ultimate goal; it is yet unsure what path will be taken as cross-compilation is often impossible or results in missing features. It is unsure when the upstream project will do this, so `void-ppc64` is ready to provide continuously updated binary builds indefinitely, built on native hardware rather than through the means of cross-compilation (which means fully featured packages). The project will continue acting as a staging area for new commits to make it upstream.
 
-The binary repository will transform into an overlay repository containing testing packages.
+### Stage 4
+
+This is the point when `void-ppc64` stops being useful. It is unlikely when or if this will happen; at this point the binary repository will become a simple overlay of testing changes.
 
 ## Package/build mirrors
 
@@ -106,20 +116,19 @@ Big thanks to all the mirror providers, as my bandwidth is limited and shared wi
 
 ## Repository structure
 
-_Note: this is not yet in place, is more of a proposal that is yet to be implemented_
+The primary area where porting happens is the `void-packages` repository, which mirrors the structure of the upstream template database. It consists of two primary branches:
 
-The primary area where porting happens is the `void-packages` repository, which mirrors the structure of the upstream template database. It consists of several branches:
+- `master` - this branch has its consistency ensured, i.e. force pushes are forbidden and it's always pullable; it contains all of the changes, but not necessarily in the correct order or with a pretty `git` history; changes may be split between different commits. It is meant primarily for users and contributors.
+- `staging` - same contents as `master`, but without ensuring consistency; this branch is rebased and force pushed into as much as is necessary, and commits are squashed, edited and reordered as is seen fit. All pull request branches are made from this one.
+- any other branch is typically temporary, containing a pull request or experiments.
 
-- `master` - this branch has its consistency ensured, i.e. force pushes are forbidden and it's always pullable; it consists of the upstream `master` branch plus non-mergeable changes of the `void-ppc64` project, e.g. the `xbps` updates; it is not useful until the project has entered stage 2, since it may not contain all of the necessary porting work
-- `staging` - this contains the latest porting work meant for submission into upstream; it does not contain any non-mergeable changes and does not ensure consistency, i.e. it may get rebased at any time
-- `testing` - this is essentially a combination of the `master` and `staging` branches, it contains everything from `staging` but it also ensures consistency, i.e. it's always pullable, and also contains the non-mergeable changes from `master`
-- any other branch is typically temporary, containing a pull request or experiments
+Both primary branches contain all types of changes as described in the Rationale section. Individual changes or commit ranges are cherry picked into temporary branches for submission.
 
 ## Contributing
 
-If you wish to contribute into the project, you should typically want to base your changes on top of the `testing` branch and then submit a pull request.
+If you wish to contribute into the project, you should typically want to base your changes on top of the `master` branch and then submit a pull request. That is because the `staging` branch changes history very often and it would mean breaking all pull requests made from it continuously; changes made over `master` can be easily rebased.
 
-Once the change is good and has been merged into `testing`, it will great cleaned up and cherry-picked (or otherwise merged) into `staging` and will go through the usual rebasing process, before being submitted as an upstream pull request.
+Once the change is good and has been merged into `master`, it will get cleaned up and cherry-picked (or otherwise merged) into `staging` and will go through the usual rebasing process, before being submitted as an upstream pull request.
 
 Of course, once the project has reached stage 2 (i.e. at least initial porting work has made it upstream), you will also be able to submit your changes into Void upstream directly. This is the preferred way; in that case, it's best to mention me (`q66`) in the pull request so I can keep track and potentially review the changeset. Such changes will get pulled back into `void-ppc64` from upstream.
 
@@ -130,3 +139,6 @@ Of course, once the project has reached stage 2 (i.e. at least initial porting w
 
 **Q:** Will multilib be supported?  
 **A:** For now it is not planned; it might be investigated at some later point, but since there is fairly little practical binary only software for `ppc`/`ppc64`, it is not a priority. If you do have such software, you can likely easily use a `chroot`.
+
+**Q:** What hardware is supported?
+**A:** For little endian targets, at least POWER8 is necessary, while for big endian `musl`, the minimum requirement is PowerPC 970 aka G5, which is a derivative of POWER4. All packages are built with AltiVec enabled and tuned for POWER9.
