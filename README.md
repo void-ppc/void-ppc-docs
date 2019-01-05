@@ -64,13 +64,13 @@ Same as `ppc64le-musl`. Any potential differences will be mentioned.
 
 ## Project stages
 
-**Current: stage1 -> stage2** (initial PR submitted, but not merged)
+**Current: initial support merged (good enough for base-voidstrap)**
 
 The project will provide a binary repository during all stages. See the rationale section for how that is intended to be done.
 
-### Stage 1
+### ~~Stage 1~~
 
-This is the state where no platform specific work is held in upstream Void Linux repositories and therefore all changes are downstream in `void-ppc64`. The goal is to move on as soon as possible.
+~~This is the state where no platform specific work is held in upstream Void Linux repositories and therefore all changes are downstream in `void-ppc64`. The goal is to move on as soon as possible.~~
 
 ### Stage 2
 
