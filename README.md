@@ -64,7 +64,7 @@ Same as `ppc64le-musl`. Any potential differences will be mentioned.
 
 ## Project stages
 
-**Current: initial support merged (good enough for base-voidstrap)**
+**Current: continuous merging, most changes upstream**
 
 The project will provide a binary repository during all stages. See the rationale section for how that is intended to be done.
 
