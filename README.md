@@ -60,7 +60,9 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 
 #### ppc64 musl
 
-Same as `ppc64le-musl`. Any potential differences will be mentioned.
+Same as `ppc64le-musl`, except the following:
+
+- **BROKEN**: go (reason: ELFv2 unsupported by upstream on big endian)
 
 ## Project stages
 
