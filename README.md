@@ -35,7 +35,7 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 - [x] `base-chroot`
 - [x] `base-voidstrap`
 - [x] `base-system`
-- [ ] `cross-powerpc64le-linux-gnu` (made, pending testing on an x86 setup)
+- [x] `cross-powerpc64le-linux-gnu`
 - [x] `linux`
 - [x] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
 - [x] `rust`
@@ -53,7 +53,7 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 - [x] `linux`
 - [ ] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
 - [ ] `rust` (waiting for 1.32)
-- [x] `go` (cross only)
+- [x] `go` (cross only, gcc-go on musl WiP)
 - [ ] `java`
 - [ ] installer images
 - [ ] rootfs tarballs
