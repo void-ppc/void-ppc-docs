@@ -52,7 +52,7 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 - [x] `cross-powerpc64le-linux-musl`
 - [x] `linux`
 - [ ] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
-- [ ] `rust` (waiting for 1.32)
+- [x] `rust` (native and cross)
 - [x] `go` (cross only, gcc-go on musl WiP)
 - [ ] `java`
 - [ ] installer images
