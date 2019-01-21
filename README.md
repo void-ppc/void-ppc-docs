@@ -132,5 +132,7 @@ Of course, once the project has reached stage 2 (i.e. at least initial porting w
 **Q:** Will multilib be supported?  
 **A:** For now it is not planned; it might be investigated at some later point, but since there is fairly little practical binary only software for `ppc`/`ppc64`, it is not a priority. If you do have such software, you can likely easily use a `chroot`.
 
-**Q:** What hardware is supported?
+**Q:** What hardware is supported?  
 **A:** For little endian targets, at least POWER8 is necessary, while for big endian `musl`, the minimum requirement is PowerPC 970 aka G5, which is a derivative of POWER4. All packages are built with AltiVec enabled and tuned for POWER9.
+
+If you have any questions, suggestions or anything else, I'm on IRC (Freenode: `#talos-workstation`, `#voidlinux`, `#xbps` and others) as well as on Twitter (`@octaforge`).
