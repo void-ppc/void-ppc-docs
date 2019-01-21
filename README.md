@@ -63,7 +63,6 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 Same as `ppc64le-musl`, except the following notable cases:
 
 - **BROKEN**: go (reason: ELFv2 unsupported by upstream on big endian)
-- **BROKEN**: nodejs, nodejs-lts (reason: unsupported by upstream on big endian)
 
 ## Project stages
 
