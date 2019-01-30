@@ -40,7 +40,7 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 - [x] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
 - [x] `rust`
 - [x] `go` (`gcc-go` native bootstrap)
-- [ ] `java`
+- [x] `java` (binary bootstrap from AdoptOpenJDK)
 - [ ] installer images
 - [ ] rootfs tarballs
 
