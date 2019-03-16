@@ -41,6 +41,7 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 - [x] `rust`
 - [x] `go` (`gcc-go` native bootstrap)
 - [x] `java` (binary bootstrap from AdoptOpenJDK)
+- [x] `ghc`
 - [ ] installer images
 - [ ] rootfs tarballs
 
@@ -55,6 +56,7 @@ The first two, being little endian, are only meant to work on POWER8 and higher,
 - [x] `rust` (native and cross)
 - [x] `go` (cross only, `gcc-go` on musl is WiP)
 - [ ] `java`
+- [ ] `ghc`
 - [ ] installer images
 - [ ] rootfs tarballs
 
