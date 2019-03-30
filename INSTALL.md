@@ -121,6 +121,7 @@ For glibc targets, it is necessary to enable a locale. The list is in `/etc/defa
 ```
 $ sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /etc/default/libc-locales
 $ xbps-reconfigure -f glibc-locales
+$ echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 ```
 
 You also need to set a timezone and a hostname.
