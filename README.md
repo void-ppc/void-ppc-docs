@@ -20,13 +20,13 @@ Additionally, smooth user experience is important for `void-ppc64`, so the defau
 
 ## Supported targets
 
-This project primarily aims to support modern, high performance systems, without a particular focus on old hardware. That does not mean it is unsupported, however. There are three targets the project aims to support.
+| Target       | Min. CPU requirement    | Notes                                       |
+| ------------ | ----------------------- | ------------------------------------------- |
+| ppc64le      | `powerpc64le` (generic) | `-maltivec -mtune=power9`, POWER8 or better |
+| ppc64le-musl | `powerpc64le` (generic) | `-maltivec -mtune=power9`, POWER8 or better |
+| ppc64-musl   | 970 / G5                | `-maltivec -mtune=power9`, POWER4 or better |
 
-- Little endian glibc (`ppc64le`)
-- Little endian musl (`ppc64le-musl`)
-- Big endian musl (`ppc64-musl`)
-
-The first two, being little endian, are only meant to work on POWER8 and higher, and are the primary targets, because of smoothest software support (least likely to encounter issues getting it to build or run). Big endian `musl` target should work on all POWER4 and newer systems, such as PowerPC G5/970 present on Power Macs. 32-bit PowerPC is out of scope of the project, and is already being done elsewhere.
+The typical expected little endian target is the Raptor Talos 2, but any POWER8 or better system will work (this should include `e6500` also). The typical expected big endian target is older hardware such as Power Mac G5, but it will also work on modern POWER8 and newer hardware. Note that hardware without AltiVec support (e.g. the NXP `e5500` SoCs) is not supported and will not work. All targets are tuned for POWER9.
 
 ### Target status
 
