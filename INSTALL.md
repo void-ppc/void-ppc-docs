@@ -78,7 +78,7 @@ $ cp /etc/resolv.conf /media/rootfs/etc # for network access
 $ cp /etc/hosts /media/rootfs/etc       # for network access
 $ mount --bind /dev /media/rootfs/dev
 $ mount --bind /proc /media/rootfs/proc
-$ mount --binf /sys /media/rootfs/sys
+$ mount --bind /sys /media/rootfs/sys
 ```
 
 If the `dev`, `proc` and `sys` directories do not exist in the target for some reason, create them. This is a sign of a failed configuration step, if the output of `xbps-install` doesn't show any errors, you should probably be fine.
