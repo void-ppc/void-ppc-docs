@@ -2,6 +2,8 @@
 
 As of 2019-03-30, there is no installation media provided, but it's possible to install the system manually without great difficulties.
 
+Also, only `ppc64le` glibc systems are currently properly supported. The `musl` targets don't have a lot of packages built (only `base-system` plus a few extras, which should be a fully bootable system, but command-line only). Big endian kernels are not confirmed to work on all hardware yet.
+
 ## Preparation
 
 You will need the following:
