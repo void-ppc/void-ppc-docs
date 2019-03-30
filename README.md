@@ -138,7 +138,7 @@ Of course, once the project has reached stage 2 (i.e. at least initial porting w
 **Q:** Will multilib be supported?  
 **A:** No, it is not planned. However, the compiler is built as bi-arch, which means `-m32` works, and you can have it emit 32-bit code. This is useful for low level stuff (e.g. GRUB, which needs to emit 32-bit big endian code independent on a libc) while not burdening the higher level infrastructure. If you really need to build or use 32-bit software, use a 32-bit chroot, it should work just fine.
 
-**Q:** What hardware is supported?  
-**A:** For little endian targets, at least POWER8 is necessary, while for big endian `musl`, the minimum requirement is PowerPC 970 aka G5, which is a derivative of POWER4. All packages are built with AltiVec enabled and tuned for POWER9.
+**Q:** How do I install this?  
+**A:** https://github.com/void-ppc64/documentation/blob/master/INSTALL.md
 
 If you have any questions, suggestions or anything else, I'm on IRC (Freenode: `#talos-workstation`, `#voidlinux`, `#xbps` and others) as well as on Twitter (`@octaforge`).
