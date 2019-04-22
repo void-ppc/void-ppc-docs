@@ -133,7 +133,8 @@ Of course, once the project has reached stage 2 (i.e. at least initial porting w
 ## FAQ
 
 **Q:** Why is there no big endian `glibc` target?  
-**A:** The project only aims to support targets supporting the ELFv2 ABI. While the ABI is endian independent, only `musl` uses it for big endian. Big endian `glibc` `ppc64` use the old ELFv1 ABI instead. Introducing an ELFv1 target would mean having to preserve backwards compatibility later, so it is explicitly omitted.
+**A:** ~~The project only aims to support targets supporting the ELFv2 ABI. While the ABI is endian independent, only `musl` uses it for big endian. Big endian `glibc` `ppc64` use the old ELFv1 ABI instead. Introducing an ELFv1 target would mean having to preserve backwards compatibility later, so it is explicitly omitted.~~
+**A:** Big endian glibc target with ELFv2 ABI support coming soon.
 
 **Q:** Will multilib be supported?  
 **A:** No, it is not planned. However, the compiler is built as bi-arch, which means `-m32` works, and you can have it emit 32-bit code. This is useful for low level stuff (e.g. GRUB, which needs to emit 32-bit big endian code independent on a libc) while not burdening the higher level infrastructure. If you really need to build or use 32-bit software, use a 32-bit chroot, it should work just fine.
