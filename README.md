@@ -111,9 +111,13 @@ This is the point when `void-ppc64` stops being useful. It is unlikely when or i
 The main project binary location is https://void-ppc64.octaforge.org.
 
 - xbps repository (`ppc64le` direct): https://repo.void-ppc64.octaforge.org/current
-- xbps repository (`ppc64le-musl`, `ppc64-musl` direct): https://repo.void-ppc64.octaforge.org/current/musl
+- xbps repository (`ppc64le-musl` direct): https://repo.void-ppc64.octaforge.org/current/musl
+- xbps repository (`ppc64` direct): https://repo.void-ppc64.octaforge.org/current/be
+- xbps repository (`ppc64-musl` direct): https://repo.void-ppc64.octaforge.org/current/be/musl
 - xbps repository (`ppc64le` load balancing): https://auto.void-ppc64.octaforge.org/current
-- xbps repository (`ppc64le-musl`, `ppc64-musl` load balancing): https://auto.void-ppc64.octaforge.org/current/musl
+- xbps repository (`ppc64le-musl` load balancing): https://auto.void-ppc64.octaforge.org/current/musl
+- xbps repository (`ppc64le` load balancing): https://auto.void-ppc64.octaforge.org/current/be
+- xbps repository (`ppc64-musl` load balancing): https://auto.void-ppc64.octaforge.org/current/be/musl
 - static xbps for both endians (built using musl): https://void-ppc64.octaforge.org/static
 - rsync for mirroring: `rsync://octaforge.org/void-ppc64`
 
