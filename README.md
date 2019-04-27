@@ -24,9 +24,12 @@ Additionally, smooth user experience is important for `void-ppc64`, so the defau
 | ------------ | ----------------------- | ------------------------------------------- |
 | ppc64le      | `powerpc64le` (generic) | `-maltivec -mtune=power9`, POWER8 or better |
 | ppc64le-musl | `powerpc64le` (generic) | `-maltivec -mtune=power9`, POWER8 or better |
+| ppc64        | 970 / G5                | `-maltivec -mtune=power9`, POWER4 or better |
 | ppc64-musl   | 970 / G5                | `-maltivec -mtune=power9`, POWER4 or better |
 
 The typical expected little endian target is the Raptor Talos 2, but any POWER8 or better system will work (this should include `e6500` also). The typical expected big endian target is older hardware such as Power Mac G5, but it will also work on modern POWER8 and newer hardware. Note that hardware without AltiVec support (e.g. the NXP `e5500` SoCs) is not supported and will not work. All targets are tuned for POWER9.
+
+**All targets, including BE glibc and musl, use the ELFv2 ABI.** The `musl` libc always uses ELFv2 regardless of endianness, glibc uses ELFv2 by default on little endian on all distros but big endian distros typically default to the older ELFv1 ABI; this is for legacy and compatibility reasons, but ELFv2 has other benefits and we have no legacy support, therefore we're targeting ELFv2 on BE glibc as one of the first distributions to do so.
 
 ### Target status
 
@@ -56,6 +59,21 @@ The typical expected little endian target is the Raptor Talos 2, but any POWER8 
 - [x] `rust` (native and cross)
 - [x] `go` (cross only, `gcc-go` on musl is WiP)
 - [ ] `java`
+- [ ] `ghc`
+- [ ] installer images
+- [ ] rootfs tarballs
+
+#### ppc64 glibc
+
+- [ ] `base-chroot`
+- [ ] `base-voidstrap`
+- [ ] `base-system`
+- [x] `cross-powerpc64-linux-gnu`
+- [ ] `linux`
+- [ ] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
+- [ ] `rust`
+- [ ] `go` (`gcc-go` native bootstrap)
+- [ ] `java` (binary bootstrap from AdoptOpenJDK)
 - [ ] `ghc`
 - [ ] installer images
 - [ ] rootfs tarballs
@@ -131,10 +149,6 @@ Once the change is good and has been merged into `master`, it will get cleaned u
 Of course, once the project has reached stage 2 (i.e. at least initial porting work has made it upstream), you will also be able to submit your changes into Void upstream directly. This is the preferred way; in that case, it's best to mention me (`q66`) in the pull request so I can keep track and potentially review the changeset. Such changes will get pulled back into `void-ppc64` from upstream.
 
 ## FAQ
-
-**Q:** Why is there no big endian `glibc` target?  
-**A:** ~~The project only aims to support targets supporting the ELFv2 ABI. While the ABI is endian independent, only `musl` uses it for big endian. Big endian `glibc` `ppc64` use the old ELFv1 ABI instead. Introducing an ELFv1 target would mean having to preserve backwards compatibility later, so it is explicitly omitted.~~
-**A:** Big endian glibc target with ELFv2 ABI support coming soon.
 
 **Q:** Will multilib be supported?  
 **A:** No, it is not planned. However, the compiler is built as bi-arch, which means `-m32` works, and you can have it emit 32-bit code. This is useful for low level stuff (e.g. GRUB, which needs to emit 32-bit big endian code independent on a libc) while not burdening the higher level infrastructure. If you really need to build or use 32-bit software, use a 32-bit chroot, it should work just fine.
