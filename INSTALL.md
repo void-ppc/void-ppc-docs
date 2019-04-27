@@ -65,9 +65,10 @@ Let's assume we have a target rootfs partition mounted at `/media/rootfs`, as se
 Then proceed to install a minimal system. Again, anything `# foo` is a comment.
 
 ```
-$ export XBPS_ARCH=ppc64le # use ppc64le-musl or ppc64-nusl if you want musl/big endian
+$ export XBPS_ARCH=ppc64le # ppc64 for big endian, append -musl for musl
 $ # install base-voidstrap, a minimal base system package for container environments
 $ # -R == repository URL, -r == target directory, -S == sync
+$ # add /be to URL for big endian, and /musl for musl (/be/musl for BE musl)
 $ ./xbps-install.static -R https://repo.void-ppc64.octaforge.org/current -r /media/rootfs -S base-voidstrap
 ```
 
