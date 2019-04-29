@@ -2,7 +2,7 @@
 
 As of 2019-03-30, there is no installation media provided, but it's possible to install the system manually without great difficulties.
 
-Also, only `ppc64le` glibc systems are currently properly supported. The `musl` targets don't have a lot of packages built (only `base-system` plus a few extras, which should be a fully bootable system, but command-line only). Big endian kernels are not confirmed to work on all hardware yet.
+Also, only `ppc64le` glibc systems currently have the majority of the packages built. The other systems (`ppc64le-musl` as well as big endian `ppc64` and `ppc64-musl`) only have the base system and a few others built. They are known to work, though (tested on both modern Talos 2 POWER9 hardware and older Power Mac G5 hardware).
 
 ## Preparation
 
@@ -11,16 +11,19 @@ You will need the following:
 1. A USB stick of any Linux distribution for the target you want to install (little endian distro for LE Void, BE distro for BE Void)
 2. A copy of the `xbps` package manager, available at https://void-ppc64.octaforge.org/static/
 
-Don't worry about `musl`, these work the same on `glibc` as well. The key point here is that the binaries are statically linked, so they will work on any distribution/environment regardless of the software packages you have. **You just need to get the right archive for the endianness you want.**
+Don't worry about the archives being marked `musl`, these work the same on `glibc` as well. The key point here is that the binaries are statically linked, so they will work on any distribution/environment regardless of the software packages you have. **You just need to get the right archive for the endianness you want.**
 
-**It is advisable to get a modern distribution (for example, the latest version of Ubuntu or Fedora) in order to not run into any issues with HTTPS certificates (all the links use Let's Encrypt).**
+**It is advisable to get a modern distribution (for example, the latest version of Ubuntu or Fedora for little endian, and Adélie Linux for big endian) in order to not run into any issues with HTTPS certificates (all the links use Let's Encrypt).**
 
 ## Booting and setting up environment
 
 Boot your Linux USB stick and fetch+extract the archive in a directory, like this:
 
 ```
+$ # little endian
 $ wget https://void-ppc64.octaforge.org/static/xbps-static-0.53_1.ppc64le-musl.tar.xz
+$ # big endian
+$ wget https://void-ppc64.octaforge.org/static/xbps-static-0.53_1.ppc64-musl.tar.xz
 $ mkdir sxbps && cd sxbps
 $ tar xvf ../xbps-static*.tar.xz
 ```
