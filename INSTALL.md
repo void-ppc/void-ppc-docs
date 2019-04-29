@@ -20,9 +20,9 @@ Don't worry about the archives being marked `musl`, these work the same on `glib
 Boot your Linux USB stick and fetch+extract the archive in a directory, like this:
 
 ```
-$ # little endian
+$ # only for a little endian system
 $ wget https://void-ppc64.octaforge.org/static/xbps-static-0.53_1.ppc64le-musl.tar.xz
-$ # big endian
+$ # only for a big endian system
 $ wget https://void-ppc64.octaforge.org/static/xbps-static-0.53_1.ppc64-musl.tar.xz
 $ mkdir sxbps && cd sxbps
 $ tar xvf ../xbps-static*.tar.xz
@@ -114,7 +114,13 @@ $ xbps-install grub-utils  # to generate a grub.cfg
 $ xbps-install grub-powerpc-ieee1275 # only for non-OpenPOWER systems without Petitboot if you want to use grub
 ```
 
-Create a location for `grub.cfg`. We will use `grub-utils` to generate a `grub.cfg` so that Petitboot can read kernel entries from it. For OpenFirmware systems, this is TBD.
+At the point of writing this, the default kernel is 4.19. Our kernels are generic, i.e. for big endian systems they're built for POWER4 and newer. They are known for panic on modern POWER8 and newer hardware; this seems to have gotten fixed with kernel 5.0. Therefore, if you are installing a big endian system, you will need to install a 5.0 or newer kernel (or recompile the 4.19 kernel for POWER8 and newer CPUs). On little endian, there is no problem and you don't have to do anything (they are compiled for POWER8 by default).
+
+```
+$ xbps-install linux5.0
+```
+
+Afterwards, create a location for `grub.cfg`. We will use `grub-utils` to generate a `grub.cfg` so that Petitboot can read kernel entries from it. For OpenFirmware systems, this is TBD.
 
 ```
 $ mkdir /boot/grub
