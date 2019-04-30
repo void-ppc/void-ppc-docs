@@ -65,13 +65,13 @@ The typical expected little endian target is the Raptor Talos 2, but any POWER8 
 
 #### ppc64 glibc
 
-- [ ] `base-chroot`
-- [ ] `base-voidstrap`
-- [ ] `base-system`
+- [x] `base-chroot`
+- [x] `base-voidstrap`
+- [x] `base-system`
 - [x] `cross-powerpc64-linux-gnu`
-- [ ] `linux`
-- [ ] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
-- [ ] `rust`
+- [x] `linux`
+- [x] graphical environment (only xorg + dependencies, wayland core, some minimal WMs)
+- [x] `rust`
 - [ ] `go` (`gcc-go` native bootstrap)
 - [ ] `java` (binary bootstrap from AdoptOpenJDK)
 - [ ] `ghc`
@@ -156,6 +156,9 @@ Of course, once the project has reached stage 2 (i.e. at least initial porting w
 
 **Q:** Will multilib be supported?  
 **A:** No, it is not planned. However, the compiler is built as bi-arch, which means `-m32` works, and you can have it emit 32-bit code. This is useful for low level stuff (e.g. GRUB, which needs to emit 32-bit big endian code independent on a libc) while not burdening the higher level infrastructure. If you really need to build or use 32-bit software, use a 32-bit chroot, it should work just fine.
+
+**Q:** I'm using big endian with an ASpeed VGA and colors are broken.  
+**A:** This is a problem with the kernel `ast` driver. Since the fix appears to be non-trivial and there is no proper patch available, this is WONTFIX from our side. Either use a dedicated GPU (ideally PCIe, USB2 DisplayLink is known to work) or use little endian if you really need the `ast` to work properly.
 
 **Q:** How do I install this?  
 **A:** https://github.com/void-ppc64/documentation/blob/master/INSTALL.md
