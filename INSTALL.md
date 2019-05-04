@@ -2,7 +2,7 @@
 
 As of 2019-03-30, there is no installation media provided, but it's possible to install the system manually without great difficulties.
 
-Also, only `ppc64le` glibc systems currently have the majority of the packages built. The other systems (`ppc64le-musl` as well as big endian `ppc64` and `ppc64-musl`) only have the base system and a few others built. They are known to work, though (tested on both modern Talos 2 POWER9 hardware and older Power Mac G5 hardware).
+`ppc64le` glibc is the best supported target right now and includes the majority of packages normally offered by Void. `ppc64le-musl` is catching up right now and should also provide a usable desktop system with several desktop environments. The big endian ports are installable but have much fewer packages built for now. All targets are known to boot on their supported hardware.
 
 ## Preparation
 
