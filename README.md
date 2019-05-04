@@ -27,7 +27,7 @@ Additionally, smooth user experience is important for `void-ppc64`, so the defau
 | ppc64        | 970 / G5                | `-maltivec -mtune=power9`, POWER4 or better |
 | ppc64-musl   | 970 / G5                | `-maltivec -mtune=power9`, POWER4 or better |
 
-The typical expected little endian target is the Raptor Talos 2, but any POWER8 or better system will work (this should include `e6500` also). The typical expected big endian target is older hardware such as Power Mac G5, but it will also work on modern POWER8 and newer hardware. Note that hardware without AltiVec support (e.g. the NXP `e5500` SoCs) is not supported and will not work. All targets are tuned for POWER9.
+The typical expected little endian target is the Raptor Talos 2, but any POWER8 or better system will work (but the NXP e6500 will not, as it lacks little endian altivec; on big endian it will work). The typical expected big endian target is older hardware such as Power Mac G5, but it will also work on modern POWER8 and newer hardware. Note that hardware without AltiVec support (e.g. the NXP `e5500` SoCs) is not supported and will not work. All targets are tuned for POWER9.
 
 **All targets, including BE glibc and musl, use the ELFv2 ABI.** The `musl` libc always uses ELFv2 regardless of endianness, glibc uses ELFv2 by default on little endian on all distros but big endian distros typically default to the older ELFv1 ABI; this is for legacy and compatibility reasons, but ELFv2 has other benefits and we have no legacy support, therefore we're targeting ELFv2 on BE glibc as one of the first distributions to do so.
 
@@ -55,7 +55,7 @@ The typical expected little endian target is the Raptor Talos 2, but any POWER8 
 - [x] `base-system`
 - [x] `cross-powerpc64le-linux-musl`
 - [x] `linux`
-- [ ] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
+- [x] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
 - [x] `rust` (native and cross)
 - [x] `go` (cross only, `gcc-go` on musl is WiP)
 - [ ] `java`
@@ -80,9 +80,18 @@ The typical expected little endian target is the Raptor Talos 2, but any POWER8 
 
 #### ppc64 musl
 
-Same as `ppc64le-musl`, except the following notable cases:
-
-- **BROKEN**: go (reason: ELFv2 unsupported by upstream on big endian)
+- [x] `base-chroot`
+- [x] `base-voidstrap`
+- [x] `base-system`
+- [x] `cross-powerpc64le-linux-musl`
+- [x] `linux`
+- [ ] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
+- [x] `rust` (native and cross)
+- [ ] `go` (cross only, `gcc-go` on musl is WiP)
+- [ ] `java`
+- [ ] `ghc`
+- [ ] installer images
+- [ ] rootfs tarballs
 
 ## Project stages
 
