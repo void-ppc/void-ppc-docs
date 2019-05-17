@@ -57,7 +57,7 @@ The typical expected little endian target is the Raptor Talos 2, but any POWER8 
 - [x] `linux`
 - [x] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
 - [x] `rust` (native and cross)
-- [x] `go` (cross only, `gcc-go` on musl is WiP)
+- [ ] `go` (cross-libc same-arch is broken)
 - [ ] `java`
 - [ ] `ghc`
 - [ ] installer images
@@ -72,7 +72,7 @@ The typical expected little endian target is the Raptor Talos 2, but any POWER8 
 - [x] `linux`
 - [x] graphical environment (only xorg + dependencies, wayland core, some minimal WMs)
 - [x] `rust`
-- [ ] `go` (`gcc-go` native bootstrap)
+- [ ] `go` (unsupported on ELFv2 BE, also power8+ only)
 - [ ] `java` (binary bootstrap from AdoptOpenJDK)
 - [ ] `ghc`
 - [ ] installer images
@@ -87,7 +87,7 @@ The typical expected little endian target is the Raptor Talos 2, but any POWER8 
 - [x] `linux`
 - [ ] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
 - [x] `rust` (native and cross)
-- [ ] `go` (cross only, `gcc-go` on musl is WiP)
+- [ ] `go` (unsupported on ELFv2 BE, also power8+ only)
 - [ ] `java`
 - [ ] `ghc`
 - [ ] installer images
