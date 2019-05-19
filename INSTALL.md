@@ -2,28 +2,30 @@
 
 As of 2019-03-30, there is no installation media provided, but it's possible to install the system manually without great difficulties.
 
-`ppc64le` glibc is the best supported target right now and includes the majority of packages normally offered by Void. `ppc64le-musl` is catching up right now and should also provide a usable desktop system with several desktop environments. The big endian ports are installable but have much fewer packages built for now. All targets are known to boot on their supported hardware.
+`ppc64le` glibc is the best supported target right now and includes the majority of packages normally offered by Void. `ppc64le-musl` is catching up right now and should also provide a usable desktop system with several desktop environments. The big endian ports are installable but have much fewer packages built for now, same with the 32-bit ports. All targets are known to boot on their supported hardware.
 
 ## Preparation
 
 You will need the following:
 
-1. A USB stick of any Linux distribution for the target you want to install (little endian distro for LE Void, BE distro for BE Void)
-2. A copy of the `xbps` package manager, available at https://void-ppc64.octaforge.org/static/
+1. A USB stick of any Linux distribution for the target you want to install (64-bit little endian distro for 64-bit LE Void, 64-bit BE distro for 64-bit BE Void, for 32-bit you need any BE environment, either 64 or 32-bit)
+2. A copy of the `xbps` package manager, available at https://void-power.octaforge.org/static/
 
 Don't worry about the archives being marked `musl`, these work the same on `glibc` as well. The key point here is that the binaries are statically linked, so they will work on any distribution/environment regardless of the software packages you have. **You just need to get the right archive for the endianness you want.**
 
-**It is advisable to get a modern distribution (for example, the latest version of Ubuntu or Fedora for little endian, and Adélie Linux for big endian) in order to not run into any issues with HTTPS certificates (all the links use Let's Encrypt).**
+**It is advisable to get a modern distribution (for example, the latest version of Ubuntu or Fedora for little endian, and Adélie Linux for big endian as well as 32-bit) in order to not run into any issues with HTTPS certificates (all the links use Let's Encrypt).**
 
 ## Booting and setting up environment
 
 Boot your Linux USB stick and fetch+extract the archive in a directory, like this:
 
 ```
-$ # only for a little endian system
-$ wget https://void-ppc64.octaforge.org/static/xbps-static-0.53_1.ppc64le-musl.tar.xz
-$ # only for a big endian system
-$ wget https://void-ppc64.octaforge.org/static/xbps-static-0.53_1.ppc64-musl.tar.xz
+$ # only for a 64-bit little endian system
+$ wget https://void-power.octaforge.org/static/xbps-static-0.53_1.ppc64le-musl.tar.xz
+$ # only for a 64-bit big endian system
+$ wget https://void-power.octaforge.org/static/xbps-static-0.53_1.ppc64-musl.tar.xz
+$ # only for a 32-bit system
+$ wget https://void-power.octaforge.org/static/xbps-static-0.53_1.ppc-musl.tar.xz
 $ mkdir sxbps && cd sxbps
 $ tar xvf ../xbps-static*.tar.xz
 ```
@@ -114,7 +116,7 @@ $ xbps-install grub-utils  # to generate a grub.cfg
 $ xbps-install grub-powerpc-ieee1275 # only for non-OpenPOWER systems without Petitboot if you want to use grub
 ```
 
-At the point of writing this, the default kernel is 4.19. Our kernels are generic, i.e. for big endian systems they're built for POWER4 and newer. They are known for panic on modern POWER8 and newer hardware; this seems to have gotten fixed with kernel 5.0. Therefore, if you are installing a big endian system, you will need to install a 5.0 or newer kernel (or recompile the 4.19 kernel for POWER8 and newer CPUs). On little endian, there is no problem and you don't have to do anything (they are compiled for POWER8 by default).
+At the point of writing this, the default kernel is 4.19. Our kernels are generic, i.e. for 64-bit big endian systems they're built for POWER4 and newer. They are known for panic on modern POWER8 and newer hardware; this seems to have gotten fixed with kernel 5.0. Therefore, if you are installing a big endian system, you will need to install a 5.0 or newer kernel (or recompile the 4.19 kernel for POWER8 and newer CPUs). On little endian, there is no problem and you don't have to do anything (they are compiled for POWER8 by default).
 
 ```
 $ xbps-install linux5.0
