@@ -140,11 +140,15 @@ The main project binary location is https://void-power.octaforge.org.
 - xbps repository (`ppc64le-musl` direct): https://repo.void-power.octaforge.org/current/musl
 - xbps repository (`ppc64` direct): https://repo.void-power.octaforge.org/current/be
 - xbps repository (`ppc64-musl` direct): https://repo.void-power.octaforge.org/current/be/musl
+- xbps repository (`ppc` direct): https://repo.void-power.octaforge.org/current/ppc
+- xbps repository (`ppc-musl` direct): https://repo.void-power.octaforge.org/current/ppc/musl
 - xbps repository (`ppc64le` load balancing): https://auto.void-power.octaforge.org/current
 - xbps repository (`ppc64le-musl` load balancing): https://auto.void-power.octaforge.org/current/musl
-- xbps repository (`ppc64le` load balancing): https://auto.void-power.octaforge.org/current/be
+- xbps repository (`ppc64` load balancing): https://auto.void-power.octaforge.org/current/be
 - xbps repository (`ppc64-musl` load balancing): https://auto.void-power.octaforge.org/current/be/musl
-- static xbps for both endians (built using musl): https://void-power.octaforge.org/static
+- xbps repository (`ppc` load balancing): https://auto.void-power.octaforge.org/current/ppc
+- xbps repository (`ppc-musl` load balancing): https://auto.void-power.octaforge.org/current/ppc/musl
+- static xbps for all (built using musl): https://void-power.octaforge.org/static
 - rsync for mirroring: `rsync://octaforge.org/void-power`
 
 The load balancing variants will try to use different mirrors and are default for our `xbps` packages and so on.
