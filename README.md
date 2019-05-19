@@ -1,10 +1,10 @@
-# Void Linux ppc64
+# Void Linux for Power architecture
 
-This is the Void Linux porting project for 64-bit PowerPC/POWER systems. Keep in mind that **it is unofficial at this point**.
+This is the Void Linux porting project for the Power architecture and PowerPC, both 32 and 64-bit. Keep in mind that **it is unofficial at this point**.
 
 ## Rationale
 
-Void currently has no support for ppc64. Since ppc64 is becoming more relevant again with high performance systems such as Raptor Talos 2, it is desirable to have support for it in the distribution; this project's aim is to become a staging area for all porting work, with the intention of submitting a majority of the patches upstream.
+Void currently has no official support for the architecture. There are two reasons for this project; one is general availability of high performance Power hardware (such as the Raptor Talos 2/Blackbird etc.), the other is enabling Void Linux to run on older PowerPC hardware, such as iBooks/PowerBooks, Power Macs and so on; this project's aim is to become a staging area for all porting work, with the intention of submitting a majority of the patches upstream.
 
 There are several types of patches in the repository:
 
@@ -12,9 +12,9 @@ There are several types of patches in the repository:
 2) Patches adding functionality that is meant for eventual upstream submission, but not in its current form. These are typically things that there is some kind of disagreement about design-wise, or simply experimental patches or proof of concept patches.
 3) Patches not meant for upstream submission. These will likely never make it into upstream repos and tend to include things such as updates to repo URLs, `xbps-src` itself or other things specific to `void-ppc64` but not the upstream project.
 
-There is another goal to this project, and that is to enhance building of packages on native `ppc64` machines as well as improve cross compilation from native `ppc64` machines to other targets, such as `aarch64` or `x86_64`. While this is also intended for upstream submission, it is much less useful for upstream at this point and might be met with different concerns.
+There is another goal to this project, and that is to enhance building of packages on native machines as well as improve cross compilation from native machines (particularly the high performance ones) to other targets, such as `aarch64` or `x86_64`. While this is also intended for upstream submission, it is much less useful for upstream at this point and might be met with different concerns.
 
-The project will continue to provide its own repos even after majority of the changes are upstreamed and official builds are made. The reason is that it is unlikely that the upstream project will be making native builds, and cross compilation is not always possible or results in features missing from the final builds; `void-ppc64` wants to provide a repository of the same quality as `x86_64` repositories (with the exception of unportable or proprietary software).
+The project will continue to provide its own repos even after majority of the changes are upstreamed. The longer-term goal is to have official, natively built (no cross compilation) packages in Void Linux itself; if this is not possible, the project will continue providing the repos indefinitely, as quality equivalent to the `x86_64` target is required.
 
 Additionally, smooth user experience is important for `void-ppc64`, so the default `xbps` repo locations as well as signing keys will be updated for the provided packages. Installer and `rootfs` builds will also be provided by the project, as well as static `xbps` and other pieces of infrastructure.
 
@@ -26,12 +26,20 @@ Additionally, smooth user experience is important for `void-ppc64`, so the defau
 | ppc64le-musl | `powerpc64le` (generic) | `-maltivec -mtune=power9`, POWER8 or better |
 | ppc64        | 970 / G5                | `-maltivec -mtune=power9`, POWER4 or better |
 | ppc64-musl   | 970 / G5                | `-maltivec -mtune=power9`, POWER4 or better |
+| ppc          | `powerpc` (generic)     | `-mno-altivec -mtune=G4`                    |
+| ppc-musl     | `powerpc` (generic)     | `-mno-altivec -mtune=G4`                    |
 
-The typical expected little endian target is the Raptor Talos 2, but any POWER8 or better system will work (but the NXP e6500 will not, as it lacks little endian altivec; on big endian it will work). The typical expected big endian target is older hardware such as Power Mac G5, but it will also work on modern POWER8 and newer hardware. Note that hardware without AltiVec support (e.g. the NXP `e5500` SoCs) is not supported and will not work. All targets are tuned for POWER9.
+The typical expected 64-bit little endian target is the Raptor Talos 2, but it is also confirmed to work on POWER8 and possibly other Power ISA 2.07+ hardware. However, notably the NXP e6500 will not work, as it lacks little endian AltiVec support.
 
-**All targets, including BE glibc and musl, use the ELFv2 ABI.** The `musl` libc always uses ELFv2 regardless of endianness, glibc uses ELFv2 by default on little endian on all distros but big endian distros typically default to the older ELFv1 ABI; this is for legacy and compatibility reasons, but ELFv2 has other benefits and we have no legacy support, therefore we're targeting ELFv2 on BE glibc as one of the first distributions to do so.
+For 64-bit big endian, the PowerPC 970 (also known as the G5) is the minimum supported target. AltiVec support is required, so e.g. the e5500 will not work. Modern POWER8/POWER9 is however known to boot and work out of box.
+
+For 32-bit there are no specific restrictions, there is no AltiVec requirement and no specific CPU requirement. The builds are tuned for the G4 though.
+
+**All 64-bit targets, including BE glibc and musl, use the ELFv2 ABI.** The `musl` libc always uses ELFv2 regardless of endianness, glibc uses ELFv2 by default on little endian on all distros but big endian distros typically default to the older ELFv1 ABI; this is for legacy and compatibility reasons, but ELFv2 has other benefits and we have no legacy support, therefore we're targeting ELFv2 on BE glibc as one of the first distributions to do so.
 
 ### Target status
+
+This is for the packages currently covered in the binary repository, it does not necessarily reflect what is *possible* or currently working if you build it yourself.
 
 #### ppc64le glibc
 
@@ -42,7 +50,7 @@ The typical expected little endian target is the Raptor Talos 2, but any POWER8 
 - [x] `linux`
 - [x] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
 - [x] `rust`
-- [x] `go` (`gcc-go` native bootstrap)
+- [x] `go` (native bootstrap)
 - [x] `java` (binary bootstrap from AdoptOpenJDK)
 - [x] `ghc`
 - [ ] installer images
@@ -85,7 +93,7 @@ The typical expected little endian target is the Raptor Talos 2, but any POWER8 
 - [x] `base-system`
 - [x] `cross-powerpc64le-linux-musl`
 - [x] `linux`
-- [ ] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
+- [x] graphical environment (a bit less than ppc64 glibc)
 - [x] `rust` (native and cross)
 - [ ] `go` (unsupported on ELFv2 BE, also power8+ only)
 - [ ] `java`
@@ -93,42 +101,51 @@ The typical expected little endian target is the Raptor Talos 2, but any POWER8 
 - [ ] installer images
 - [ ] rootfs tarballs
 
-## Project stages
 
-**Current: continuous merging, most changes upstream**
+#### ppc glibc
 
-The project will provide a binary repository during all stages. See the rationale section for how that is intended to be done.
+- [x] `base-chroot`
+- [x] `base-voidstrap`
+- [x] `base-system`
+- [x] `cross-powerpc-linux-gnu`
+- [x] `linux`
+- [ ] graphical environment
+- [x] `rust`
+- [ ] `go` (not supported upstream)
+- [ ] `java`
+- [ ] `ghc`
+- [ ] installer images
+- [ ] rootfs tarballs
 
-### ~~Stage 1~~
+#### ppc musl
 
-~~This is the state where no platform specific work is held in upstream Void Linux repositories and therefore all changes are downstream in `void-ppc64`. The goal is to move on as soon as possible.~~
-
-### Stage 2
-
-At this point, changes will start making it into upstream `void-packages` and potentially other repositories. At this point, Void still won't provide any official packages. This project will act as a staging area for new changes, which will get submitted into upstream as soon as they reach mergeable status, or held downstream when not intended for merge.
-
-### Stage 3
-
-At this point Void Linux should start providing binary packages, which is the ultimate goal; it is yet unsure what path will be taken as cross-compilation is often impossible or results in missing features. It is unsure when the upstream project will do this, so `void-ppc64` is ready to provide continuously updated binary builds indefinitely, built on native hardware rather than through the means of cross-compilation (which means fully featured packages). The project will continue acting as a staging area for new commits to make it upstream.
-
-### Stage 4
-
-This is the point when `void-ppc64` stops being useful. It is unlikely when or if this will happen; at this point the binary repository will become a simple overlay of testing changes.
+- [x] `base-chroot`
+- [x] `base-voidstrap`
+- [x] `base-system`
+- [x] `cross-powerpc-linux-musl`
+- [x] `linux`
+- [ ] graphical environment
+- [x] `rust`
+- [ ] `go` (not supported upstream)
+- [ ] `java`
+- [ ] `ghc`
+- [ ] installer images
+- [ ] rootfs tarballs
 
 ## Package/build mirrors
 
-The main project binary location is https://void-ppc64.octaforge.org.
+The main project binary location is https://void-power.octaforge.org.
 
-- xbps repository (`ppc64le` direct): https://repo.void-ppc64.octaforge.org/current
-- xbps repository (`ppc64le-musl` direct): https://repo.void-ppc64.octaforge.org/current/musl
-- xbps repository (`ppc64` direct): https://repo.void-ppc64.octaforge.org/current/be
-- xbps repository (`ppc64-musl` direct): https://repo.void-ppc64.octaforge.org/current/be/musl
-- xbps repository (`ppc64le` load balancing): https://auto.void-ppc64.octaforge.org/current
-- xbps repository (`ppc64le-musl` load balancing): https://auto.void-ppc64.octaforge.org/current/musl
-- xbps repository (`ppc64le` load balancing): https://auto.void-ppc64.octaforge.org/current/be
-- xbps repository (`ppc64-musl` load balancing): https://auto.void-ppc64.octaforge.org/current/be/musl
-- static xbps for both endians (built using musl): https://void-ppc64.octaforge.org/static
-- rsync for mirroring: `rsync://octaforge.org/void-ppc64`
+- xbps repository (`ppc64le` direct): https://repo.void-power.octaforge.org/current
+- xbps repository (`ppc64le-musl` direct): https://repo.void-power.octaforge.org/current/musl
+- xbps repository (`ppc64` direct): https://repo.void-power.octaforge.org/current/be
+- xbps repository (`ppc64-musl` direct): https://repo.void-power.octaforge.org/current/be/musl
+- xbps repository (`ppc64le` load balancing): https://auto.void-power.octaforge.org/current
+- xbps repository (`ppc64le-musl` load balancing): https://auto.void-power.octaforge.org/current/musl
+- xbps repository (`ppc64le` load balancing): https://auto.void-power.octaforge.org/current/be
+- xbps repository (`ppc64-musl` load balancing): https://auto.void-power.octaforge.org/current/be/musl
+- static xbps for both endians (built using musl): https://void-power.octaforge.org/static
+- rsync for mirroring: `rsync://octaforge.org/void-power`
 
 The load balancing variants will try to use different mirrors and are default for our `xbps` packages and so on.
 
@@ -155,11 +172,15 @@ Both primary branches contain all types of changes as described in the Rationale
 
 ## Contributing
 
-If you wish to contribute into the project, you should typically want to base your changes on top of the `master` branch and then submit a pull request. That is because the `staging` branch changes history very often and it would mean breaking all pull requests made from it continuously; changes made over `master` can be easily rebased.
+If your changes are ready for upstream submission, please submit them upstream and mention the respective maintainers from this org for review and tracking.
 
-Once the change is good and has been merged into `master`, it will get cleaned up and cherry-picked (or otherwise merged) into `staging` and will go through the usual rebasing process, before being submitted as an upstream pull request.
+Current maintainers:
 
-Of course, once the project has reached stage 2 (i.e. at least initial porting work has made it upstream), you will also be able to submit your changes into Void upstream directly. This is the preferred way; in that case, it's best to mention me (`q66`) in the pull request so I can keep track and potentially review the changeset. Such changes will get pulled back into `void-ppc64` from upstream.
+- `q66` - mention always
+- `pullmoll` - anything affecting 64-bit big endian
+- `stenstorp` - anything affecting 32-bit
+
+If you do not wish to submit it upstream yet, you can try submitting it here, by raising a pull request and/or opening an issue. Then it can receive feedback and potentially make it upstream.
 
 ## FAQ
 
@@ -172,4 +193,4 @@ Of course, once the project has reached stage 2 (i.e. at least initial porting w
 **Q:** How do I install this?  
 **A:** https://github.com/void-ppc64/documentation/blob/master/INSTALL.md
 
-If you have any questions, suggestions or anything else, I'm on IRC (Freenode: `#talos-workstation`, `#voidlinux`, `#xbps` and others) as well as on Twitter (`@octaforge`).
+If you have any questions, suggestions or anything else, I'm (`q66`) available on IRC (Freenode: `#talos-workstation`, `#voidlinux`, `#xbps` and others) as well as on Twitter (`@octaforge`).
