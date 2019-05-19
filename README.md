@@ -159,7 +159,7 @@ Since my server space is not free, mirrors are always appreciated! Let me know i
 
 Current list:
 
-- https://mirrors.servercentral.com/voidlinux-ppc64/ (provided by `zdykstra` of the Void Linux as well as the Talos community, also hosts a Void mirror)
+- https://mirrors.servercentral.com/void-power/ (provided by `zdykstra` of the Void Linux as well as the Talos community, also hosts a Void mirror)
 - https://ppc.exqa.de/ (provided by `Cogitri` of the Void Linux community)
 
 Big thanks to all the mirror providers, as my bandwidth is limited and shared with my other projects.
