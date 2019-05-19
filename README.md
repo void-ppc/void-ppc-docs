@@ -10,13 +10,13 @@ There are several types of patches in the repository:
 
 1) Patches intended for upstream submission. This makes up the majority of patches in the repository and it is assumed that they will be submitted upstream as soon as possible.
 2) Patches adding functionality that is meant for eventual upstream submission, but not in its current form. These are typically things that there is some kind of disagreement about design-wise, or simply experimental patches or proof of concept patches.
-3) Patches not meant for upstream submission. These will likely never make it into upstream repos and tend to include things such as updates to repo URLs, `xbps-src` itself or other things specific to `void-ppc64` but not the upstream project.
+3) Patches not meant for upstream submission. These will likely never make it into upstream repos and tend to include things such as updates to repo URLs, `xbps-src` itself or other things specific to the fork but not the upstream project.
 
 There is another goal to this project, and that is to enhance building of packages on native machines as well as improve cross compilation from native machines (particularly the high performance ones) to other targets, such as `aarch64` or `x86_64`. While this is also intended for upstream submission, it is much less useful for upstream at this point and might be met with different concerns.
 
 The project will continue to provide its own repos even after majority of the changes are upstreamed. The longer-term goal is to have official, natively built (no cross compilation) packages in Void Linux itself; if this is not possible, the project will continue providing the repos indefinitely, as quality equivalent to the `x86_64` target is required.
 
-Additionally, smooth user experience is important for `void-ppc64`, so the default `xbps` repo locations as well as signing keys will be updated for the provided packages. Installer and `rootfs` builds will also be provided by the project, as well as static `xbps` and other pieces of infrastructure.
+Additionally, smooth user experience is important for the project, so the default `xbps` repo locations as well as signing keys will be updated for the provided packages. Installer and `rootfs` builds will also be provided by the project, as well as static `xbps` and other pieces of infrastructure.
 
 ## Supported targets
 
@@ -195,6 +195,6 @@ If you do not wish to submit it upstream yet, you can try submitting it here, by
 **A:** This is a problem with the kernel `ast` driver. Since the fix appears to be non-trivial and there is no proper patch available, this is WONTFIX from our side. Either use a dedicated GPU (ideally PCIe, USB2 DisplayLink is known to work) or use little endian if you really need the `ast` to work properly.
 
 **Q:** How do I install this?  
-**A:** https://github.com/void-ppc64/documentation/blob/master/INSTALL.md
+**A:** https://github.com/void-power/documentation/blob/master/INSTALL.md
 
 If you have any questions, suggestions or anything else, I'm (`q66`) available on IRC (Freenode: `#talos-workstation`, `#voidlinux`, `#xbps` and others) as well as on Twitter (`@octaforge`).
