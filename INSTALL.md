@@ -59,9 +59,85 @@ $ mount /dev/sda1 /media/rootfs
 
 And that's it.
 
-#### OpenFirmware
+#### PowerPC Macs
 
-OpenFirmware is used on older pre-OpenPOWER hardware as well as some niche enterprise systems. This section is TBD, I don't own any such hardware myself.
+**NOTE:** this section is preliminary and may not actually work.
+
+PowerPC Mac systems use OpenFirmware. You will need to create an Apple Partition Map on the drive, in this kind of layout, when using the `GRUB2` bootloader: 
+
+| Device    | Type                | Name      | Size | System             |
+|-----------|---------------------|-----------|------|--------------------|
+| /dev/sda1 | Apple_partition_map | Apple     | -    | Partition map      |
+| /dev/sda2 | Apple_Bootstrap     | bootstrap | ~10M | NewWorld bootblock |
+| /dev/sda3 | Apple_UNIX_SVR2     | rootfs    | any  | Linux native       |
+| /dev/sda4 | Apple_UNIX_SVR2     | swap      | any  | Linux swap         |
+
+You also have a choice of using the `yaboot` bootloader, which wants a smaller bootstrap partition around ~`800k`. `GRUB2` is more powerful, however. For instructions on how to use `yaboot`, you will need to look it up elsewhere.
+
+First partition is also the partition table. Swap is optional. You can use `mac-fdisk` to create the partition layout for `GRUB2`:
+
+```
+$ mac-fdisk
+> i # initialize the partition map
+> C # create bootstrap partition, say 10m for size and Apple_Bootstrap for type
+> c # create rootfs partition, specify a size you want
+> c # create swap partition, specify a size you want
+> w # write changes
+```
+
+And for `yaboot`:
+
+```
+$ mac-fdisk
+> i # initialize the partition map
+> b # create an 800k bootstrap partition for yaboot
+> c # create rootfs partition, specify a size you want
+> c # create swap partition, specify a size you want
+> w # write changes
+```
+
+`GRUB2` requires the bootstrap partition to be formatted with plain old HFS (**not** HFS+). This will then be used as `/boot/grub`.
+
+```
+$ mkfs.hfs -h /dev/sda2 # create legacy HFS partition using -h
+$ mkfs.ext4 /dev/sda3   # create a filesystem for root
+```
+
+With the filesystems ready, mount the rootfs:
+
+```
+$ mkdir -p /media/rootfs
+$ mount /dev/sda3 /media/rootfs
+```
+
+And that's it.
+
+#### Other OpenFirmware
+
+**NOTE:** this section is preliminary and may not actually work.
+
+Non-Mac OpenFirmware is different. You will need a `PReP` partition and a root partition at least. You don't need a special partition for `/boot/grub`, that can go on the root partition just fine. You should also be able to use `GPT`.
+
+```
+$ # our target drive is /dev/sda, we will use fdisk, which is commonly present
+$ # do not type any of the comments in here (# foo) into the command line
+$ fdisk /dev/sda # this brings up a prompt of a sort
+> g # create a GUID partition table (GPT)
+> n # create a partition for PReP boot, primary, ~10M
+> t # to change type to PReP Boot - select partition 1, hex code 41 for PPC PReP Boot
+> n # create a second partition and fill the rest of the disk
+> w # write changes and quit
+$ mkfs.ext4 /dev/sda2 # create an ext4 filesystem on the target drive
+```
+
+Now we have a target filesystem at `/dev/sda2`. Mount it:
+
+```
+$ mkdir -p /media/rootfs
+$ mount /dev/sda2 /media/rootfs
+```
+
+And that's it.
 
 ## Installing initial system
 
@@ -112,20 +188,12 @@ We can proceed to install everything else.
 $ update-ca-certificates   # just in case, make sure the certs are all up to date
 $ xbps-install -S          # fetch package database from repository
 $ xbps-install base-system # this is a full base package with a kernel etc.
-$ xbps-install grub-utils  # to generate a grub.cfg
-$ xbps-install grub-powerpc-ieee1275 # only for non-OpenPOWER systems without Petitboot if you want to use grub
 ```
 
 At the point of writing this, the default kernel is 4.19. Our kernels are generic, i.e. for 64-bit big endian systems they're built for POWER4 and newer. They are known for panic on modern POWER8 and newer hardware; this seems to have gotten fixed with kernel 5.0. Therefore, if you are installing a big endian system, you will need to install a 5.0 or newer kernel (or recompile the 4.19 kernel for POWER8 and newer CPUs). On little endian, there is no problem and you don't have to do anything (they are compiled for POWER8 by default).
 
 ```
 $ xbps-install linux5.0
-```
-
-Afterwards, create a location for `grub.cfg`. We will use `grub-utils` to generate a `grub.cfg` so that Petitboot can read kernel entries from it. For OpenFirmware systems, this is TBD.
-
-```
-$ mkdir /boot/grub
 ```
 
 For glibc targets, it is necessary to enable a locale. The list is in `/etc/default/libc-locales`. You then need to reconfigure the appropriate package. For example:
@@ -158,19 +226,78 @@ $ ln -s /etc/sv/sshd /etc/runit/runsvdir/default/
 
 You need `dhcpcd` for internet access (it's set up for DHCP out of box, can be configured for static IP) and `sshd` is optional. You can pre-enable any other services in `/etc/sv` the same way.
 
-At last, update your GRUB options. For that, edit `/etc/default/grub`. It is a good idea to add the following line:
+## Bootloader setup
+
+### OpenPOWER
+
+As OpenPOWER systems use Petitboot, which is embedded in the firmware, there is very little you have to do. Only a few things:
+
+```
+$ xbps-install grub-utils  # to generate a grub.cfg
+$ mkdir -p /boot/grub
+```
+
+We only install the utils, as we'll be using those to generate a `GRUB` configuration file, which Petitboot can read and parse. Edit `/etc/default/grub` to update your kernel commandline. It is also a good idea to add the following line:
 
 ```
 GRUB_DISABLE_OS_PROBER=true
 ```
 
-At very least on OpenPOWER systems with Petitboot, every drive is scanned separately, and this drastically reduces the time needed to generate the configuration file.
+This drastically reduces the time needed to generate the configuration file, and `os-prober` is kinda useless on Petitboot anyway as it scans every storage medium separately.
 
 You also want to remove all pre-set parameters from `GRUB_CMDLINE_LINUX_DEFAULT`. If you are on an OpenPOWER system and plan to have your default console go to a dedicated GPU instead of the onboard ASpeed VGA, add `modprobe.blacklist=ast` to it, but this is dependent on the particular hardware you are using and not specific to Void.
 
 Finally, generate the configuration file
 
 ```
+$ update-grub
+```
+
+#### PowerPC Macs
+
+**NOTE:** this section is preliminary and may not actually work.
+
+We will need to install the OpenFirmware bootloader:
+
+```
+$ xbps-install grub-utils grub-powerpc-ieee1275
+```
+
+Also utilities to mount HFS:
+
+```
+$ xbps-install hfsprogs
+```
+
+Then create a mountpoint for the bootstrap partition and mount it:
+
+```
+$ mkdir -p /boot/grub
+$ mount -t hfsplus /dev/sda2 /boot/grub
+```
+
+And proceed to install the bootloader, followed by configuration file generation:
+
+```
+$ grub-install /dev/sda
+$ update-grub
+```
+
+#### Other OpenFirmware
+
+**NOTE:** this section is preliminary and may not actually work.
+
+We will need to install the OpenFirmware bootloader:
+
+```
+$ xbps-install grub-utils grub-powerpc-ieee1275
+```
+
+There is no partition to mount for `/boot/grub` like on Macs, as it uses `PReP Boot`. Just install the bootloader and generate the config:
+
+```
+$ mkdir -p /boot/grub
+$ grub-install /dev/sda
 $ update-grub
 ```
 
