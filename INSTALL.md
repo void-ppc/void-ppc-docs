@@ -61,7 +61,7 @@ And that's it.
 
 #### PowerPC Macs
 
-**NOTE:** this section is preliminary and may not actually work.
+This should apply to all NewWorld Macs at very least - OldWorld stuff is not tested.
 
 PowerPC Mac systems use OpenFirmware. You will need to create an Apple Partition Map on the drive, in this kind of layout, when using the `GRUB2` bootloader: 
 
@@ -74,7 +74,7 @@ PowerPC Mac systems use OpenFirmware. You will need to create an Apple Partition
 
 You also have a choice of using the `yaboot` bootloader, which wants a smaller bootstrap partition around ~`800k`. `GRUB2` is more powerful, however. For instructions on how to use `yaboot`, you will need to look it up elsewhere.
 
-You will need `hfsutils` installed to format the bootstrap partition as well as `mac-fdisk`. Void Live images supply those by default, in other distributions you can install them.
+You will need `mac-fdisk` installed to partition the drive. Void Live images supply that by default, in other distributions you can install it from their repositories.
 
 First partition is also the partition table. Swap is optional. You can use `pmac-fdisk` (if not present, it can also be called `mac-fdisk`) to create the partition layout for `GRUB2`:
 
@@ -92,22 +92,20 @@ To explain what's going on here: The Apple Partition Map is also a partition in 
 
 For rootfs, we need the `Apple_UNIX_SVR2` partition type, so the more compact `c` command can be used (or you can use `C` and supply the fourth argument). You can specify `3p` as length if you don't want swap and want to fill the rest of the disk. You can use the `p` command anytime to show the current layout.
 
-`GRUB2` requires the bootstrap partition to be formatted with plain old HFS (**not** HFS+). This will then be used as `/boot/grub`. Also format the rootfs partition.
+Proceed to format the root filesystem partition with the filesystem of your choice:
 
 ```
-$ dd if=/dev/zero of=/dev/sda2 bs=512
-$ hformat -l bootstrap /dev/sda2
-$ mkfs.ext4 /dev/sda3   # create a filesystem for root
+$ mkfs.ext4 /dev/sda3
 ```
 
-With the filesystems ready, mount the rootfs:
+With the filesystem ready, mount the rootfs:
 
 ```
 $ mkdir -p /media/rootfs
 $ mount /dev/sda3 /media/rootfs
 ```
 
-And that's it.
+And that's it. We'll take care of formatting and setting up the bootstrap partition from within the installed system later.
 
 #### Other OpenFirmware
 
@@ -252,33 +250,58 @@ $ update-grub
 
 #### PowerPC Macs
 
-**NOTE:** this section is preliminary and may not actually work.
-
 We will need to install the OpenFirmware bootloader:
 
 ```
 $ xbps-install grub-utils grub-powerpc-ieee1275
 ```
 
-Also utilities to mount HFS:
+Also utilities to deal with HFS:
 
 ```
-$ xbps-install hfsprogs
+$ xbps-install hfsutils hfsprogs
 ```
 
-Then create a mountpoint for the bootstrap partition and mount it:
+Then create a mountpoint for the bootstrap partition, format it and mount it:
 
 ```
-$ mkdir -p /boot/grub
-$ mount -t hfsplus /dev/sda2 /boot/grub
+$ mkdir -p /media/bootstrap
+$ dd if=/dev/zero of=/dev/sda2 bs=512
+$ hformat -l bootstrap /dev/sda2
+$ mount -t hfs /dev/sda2 /boot/grub
 ```
 
-And proceed to install the bootloader, followed by configuration file generation:
+And proceed to install the bootloader, then unmount the bootstrap partition:
 
 ```
-$ grub-install /dev/sda
+$ grub-install --macppc-directory=/media/bootstrap
+$ umount /media/bootstrap
+$ rmdir /media/bootstrap
+```
+
+Unfortunately, that's not all you need to do. You still need to bless the directory with the bootloader and set up the file type for the boot script:
+
+
+```
+$ hmount /dev/sda2
+$ hattrib -t tbxi -c UNIX :System:Library:CoreServices:BootX
+$ hattrib -b :System:Library:CoreServices
+$ humount
+```
+
+Finally, generate the configuration file:
+
+```
 $ update-grub
 ```
+
+Now your installed system should be bootable without any further intervention. If graphical `GRUB` for some reason fails to start (happens in QEMU), you will need to modify `/etc/default/grub` (you can use the live media and `chroot` into the system again) and uncomment the following line:
+
+```
+GRUB_TERMINAL_OUTPUT=console
+```
+
+and then run `update-grub` again. You can also add `GRUB_DISABLE_OS_PROBER=true` to prevent `update-grub` from scanning other drives, which speeds it up considerably.
 
 #### Other OpenFirmware
 
