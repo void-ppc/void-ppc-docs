@@ -74,32 +74,29 @@ PowerPC Mac systems use OpenFirmware. You will need to create an Apple Partition
 
 You also have a choice of using the `yaboot` bootloader, which wants a smaller bootstrap partition around ~`800k`. `GRUB2` is more powerful, however. For instructions on how to use `yaboot`, you will need to look it up elsewhere.
 
-First partition is also the partition table. Swap is optional. You can use `mac-fdisk` to create the partition layout for `GRUB2`:
+You will need `hfsutils` installed to format the bootstrap partition as well as `mac-fdisk`. Void Live images supply those by default, in other distributions you can install them.
+
+First partition is also the partition table. Swap is optional. You can use `pmac-fdisk` (if not present, it can also be called `mac-fdisk`) to create the partition layout for `GRUB2`:
 
 ```
-$ mac-fdisk
-> i # initialize the partition map
-> C # create bootstrap partition, say 10m for size and Apple_Bootstrap for type
-> c # create rootfs partition, specify a size you want
-> c # create swap partition, specify a size you want
-> w # write changes
+$ pmac-fdisk /dev/sda
+> i                                  # partition table
+> C 2p 10M bootstrap Apple_Bootstrap # bootstrap partition
+> c 3p 120G rootfs                   # rootfs partition
+> c 4p 4p swap                       # swap partition
+> w                                  # write, confirm
+> q                                  # quit
 ```
 
-And for `yaboot`:
+To explain what's going on here: The Apple Partition Map is also a partition in itself. The `i` command will create it and it will be `/dev/sda1`. Then we need to create the bootstrap partition. For `yaboot`, which only needs a specific `800k` sized partition, there is already a command called `b` but we need a bigger partition. Therefore, we'll be using the full `C` command which takes partition start as the first argument, size as the second, name as the third and type as the fourth argument. You can specify `<number>p` for either the start or the size; when we say `2p` for the start, it refers to the free space partition, i.e. the bootstrap partition will begin where the free space partition begins.
+
+For rootfs, we need the `Apple_UNIX_SVR2` partition type, so the more compact `c` command can be used (or you can use `C` and supply the fourth argument). You can specify `3p` as length if you don't want swap and want to fill the rest of the disk. You can use the `p` command anytime to show the current layout.
+
+`GRUB2` requires the bootstrap partition to be formatted with plain old HFS (**not** HFS+). This will then be used as `/boot/grub`. Also format the rootfs partition.
 
 ```
-$ mac-fdisk
-> i # initialize the partition map
-> b # create an 800k bootstrap partition for yaboot
-> c # create rootfs partition, specify a size you want
-> c # create swap partition, specify a size you want
-> w # write changes
-```
-
-`GRUB2` requires the bootstrap partition to be formatted with plain old HFS (**not** HFS+). This will then be used as `/boot/grub`.
-
-```
-$ mkfs.hfs -h /dev/sda2 # create legacy HFS partition using -h
+$ dd if=/dev/zero of=/dev/sda2 bs=512
+$ hformat -l bootstrap /dev/sda2
 $ mkfs.ext4 /dev/sda3   # create a filesystem for root
 ```
 
