@@ -61,7 +61,7 @@ And that's it.
 
 #### PowerPC Macs
 
-This should apply to all NewWorld Macs at very least - OldWorld stuff is not tested.
+This is for NewWorld Macs only (all iMac, all iBook, Power Mac G3 Blue and White, Bronze keyboard PowerBook G3 and everything with G4/G5). OldWorld Macs don't support `GRUB` or `yaboot` and require special setup that will not be covered here.
 
 PowerPC Mac systems use OpenFirmware. You will need to create an Apple Partition Map on the drive, in this kind of layout, when using the `GRUB2` bootloader: 
 
