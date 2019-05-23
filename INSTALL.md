@@ -9,7 +9,7 @@ As of 2019-03-30, there is no installation media provided, but it's possible to 
 You will need the following:
 
 1. A USB stick of any Linux distribution for the target you want to install (64-bit little endian distro for 64-bit LE Void, 64-bit BE distro for 64-bit BE Void, for 32-bit you need any BE environment, either 64 or 32-bit)
-2. A copy of the `xbps` package manager, available at https://void-power.octaforge.org/static/
+2. A copy of the `xbps` package manager, available at https://void-power.octaforge.org/static/ - not needed when 1) is a Void image
 
 Don't worry about the archives being marked `musl`, these work the same on `glibc` as well. The key point here is that the binaries are statically linked, so they will work on any distribution/environment regardless of the software packages you have. **You just need to get the right archive for the endianness you want.**
 
@@ -17,7 +17,7 @@ Don't worry about the archives being marked `musl`, these work the same on `glib
 
 ## Booting and setting up environment
 
-Boot your Linux USB stick and fetch+extract the archive in a directory, like this:
+Boot your Linux USB stick. If it does not come with `xbps`, fetch+extract the archive in a directory, like this:
 
 ```
 $ # only for a 64-bit little endian system
@@ -107,11 +107,9 @@ $ mount /dev/sda3 /media/rootfs
 
 And that's it. We'll take care of formatting and setting up the bootstrap partition from within the installed system later.
 
-#### Other OpenFirmware
+#### SLOF (non-Mac OpenFirmware)
 
-**NOTE:** this section is preliminary and may not actually work.
-
-Non-Mac OpenFirmware is different. You will need a `PReP` partition and a root partition at least. You don't need a special partition for `/boot/grub`, that can go on the root partition just fine. You should also be able to use `GPT`.
+Non-Mac OpenFirmware is different. You will need a `PReP` partition and a root partition at least. You should just use the GPT partition table.
 
 ```
 $ # our target drive is /dev/sda, we will use fdisk, which is commonly present
@@ -119,11 +117,13 @@ $ # do not type any of the comments in here (# foo) into the command line
 $ fdisk /dev/sda # this brings up a prompt of a sort
 > g # create a GUID partition table (GPT)
 > n # create a partition for PReP boot, primary, ~10M
-> t # to change type to PReP Boot - select partition 1, hex code 41 for PPC PReP Boot
+> t # change partition type to PowerPC PReP boot
 > n # create a second partition and fill the rest of the disk
 > w # write changes and quit
 $ mkfs.ext4 /dev/sda2 # create an ext4 filesystem on the target drive
 ```
+
+When using the `t` command to change the partition type, `PowerPC PReP boot` should be `7`. However, it could be different on older versions, so list them if unsure; `fdisk` will tell you what type it's changing to.
 
 Now we have a target filesystem at `/dev/sda2`. Mount it:
 
@@ -145,6 +145,7 @@ $ export XBPS_ARCH=ppc64le # ppc64 for big endian, append -musl for musl
 $ # install base-voidstrap, a minimal base system package for container environments
 $ # -R == repository URL, -r == target directory, -S == sync
 $ # add /be to URL for big endian, and /musl for musl (/be/musl for BE musl)
+$ # use just xbps-install if host distro comes with xbps
 $ ./xbps-install.static -R https://repo.void-ppc64.octaforge.org/current -r /media/rootfs -S base-voidstrap
 ```
 
@@ -240,7 +241,7 @@ GRUB_DISABLE_OS_PROBER=true
 
 This drastically reduces the time needed to generate the configuration file, and `os-prober` is kinda useless on Petitboot anyway as it scans every storage medium separately.
 
-You also want to remove all pre-set parameters from `GRUB_CMDLINE_LINUX_DEFAULT`. If you are on an OpenPOWER system and plan to have your default console go to a dedicated GPU instead of the onboard ASpeed VGA, add `modprobe.blacklist=ast` to it, but this is dependent on the particular hardware you are using and not specific to Void.
+You might also want to tweak `GRUB_CMDLINE_LINUX_DEFAULT` (clearing all contents works, but results in a verbose output). If you are on an OpenPOWER system and plan to have your default console go to a dedicated GPU instead of the onboard ASpeed VGA, add `modprobe.blacklist=ast` to it, but this is dependent on the particular hardware you are using and not specific to Void.
 
 Finally, generate the configuration file
 
@@ -274,7 +275,7 @@ $ mount -t hfs /dev/sda2 /boot/grub
 And proceed to install the bootloader, then unmount the bootstrap partition:
 
 ```
-$ grub-install --macppc-directory=/media/bootstrap
+$ grub-install --macppc-directory=/media/bootstrap /dev/sda # specifying the device is optional
 $ umount /media/bootstrap
 $ rmdir /media/bootstrap
 ```
@@ -301,11 +302,9 @@ Now your installed system should be bootable without any further intervention. I
 GRUB_TERMINAL_OUTPUT=console
 ```
 
-and then run `update-grub` again. You can also add `GRUB_DISABLE_OS_PROBER=true` to prevent `update-grub` from scanning other drives, which speeds it up considerably.
+and then run `update-grub` again. You can also add `GRUB_DISABLE_OS_PROBER=true` to prevent `update-grub` from scanning other drives, which speeds it up considerably. Again, you can also tweak `GRUB_CMDLINE_LINUX_DEFAULT`, clear to empty for most verbose output.
 
 #### Other OpenFirmware
-
-**NOTE:** this section is preliminary and may not actually work.
 
 We will need to install the OpenFirmware bootloader:
 
@@ -313,13 +312,14 @@ We will need to install the OpenFirmware bootloader:
 $ xbps-install grub-utils grub-powerpc-ieee1275
 ```
 
-There is no partition to mount for `/boot/grub` like on Macs, as it uses `PReP Boot`. Just install the bootloader and generate the config:
+Then we will need to install the bootloader into the `PowerPC PReP boot` partition, with some files going to `/boot/grub`. That's easy:
 
 ```
-$ mkdir -p /boot/grub
-$ grub-install /dev/sda
+$ grub-install --boot-directory=/boot /dev/sda1 # must point it to the PReP partition
 $ update-grub
 ```
+
+Before doing `update-grub`, maybe tweak your `/etc/default/grub`, see the OpenPOWER section.
 
 ## Booting
 
