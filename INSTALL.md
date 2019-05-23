@@ -269,7 +269,7 @@ Then create a mountpoint for the bootstrap partition, format it and mount it:
 $ mkdir -p /media/bootstrap
 $ dd if=/dev/zero of=/dev/sda2 bs=512
 $ hformat -l bootstrap /dev/sda2
-$ mount -t hfs /dev/sda2 /boot/grub
+$ mount -t hfs /dev/sda2 /media/bootstrap
 ```
 
 And proceed to install the bootloader, then unmount the bootstrap partition:
