@@ -16,7 +16,7 @@ There is another goal to this project, and that is to enhance building of packag
 
 The project will continue to provide its own repos even after majority of the changes are upstreamed. The longer-term goal is to have official, natively built (no cross compilation) packages in Void Linux itself; if this is not possible, the project will continue providing the repos indefinitely, as quality equivalent to the `x86_64` target is required.
 
-Additionally, smooth user experience is important for the project, so the default `xbps` repo locations as well as signing keys will be updated for the provided packages. Installer and `rootfs` builds will also be provided by the project, as well as static `xbps` and other pieces of infrastructure.
+Additionally, smooth user experience is important for the project, so the default `xbps` repo locations as well as signing keys will be updated for the provided packages. Installer, live iso images and rootfs tarballs are also provided by the project, as well as static `xbps` and other pieces of infrastructure.
 
 ## Supported targets
 
@@ -152,6 +152,10 @@ The main project binary location is https://void-power.octaforge.org.
 - rsync for mirroring: `rsync://octaforge.org/void-power`
 
 The load balancing variants will try to use different mirrors and are default for our `xbps` packages and so on.
+
+## Live images and rootfs tarballs
+
+The primary location is https://void-power.octaforge.org/live/ and contains regularly updated ISO images (at very least for base system for every supported target) and rootfs tarballs (`base-voidstrap` for each supported target, useful for containers and so on). By extension, every mirror below also provides those images.
 
 ### Mirror list
 
