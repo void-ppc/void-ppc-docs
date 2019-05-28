@@ -1,19 +1,15 @@
-# Installation
+# Manual installation
 
-As of 2019-03-30, there is no installation media provided, but it's possible to install the system manually without great difficulties.
-
-`ppc64le` glibc is the best supported target right now and includes the majority of packages normally offered by Void. `ppc64le-musl` is catching up right now and should also provide a usable desktop system with several desktop environments. The big endian ports are installable but have much fewer packages built for now, same with the 32-bit ports. All targets are known to boot on their supported hardware.
+Use this if https://github.com/void-power/documentation/blob/master/INSTALL.md does not suffice or if you need more control over the process. You can use a Void live image or any other distro's.
 
 ## Preparation
 
 You will need the following:
 
 1. A USB stick of any Linux distribution for the target you want to install (64-bit little endian distro for 64-bit LE Void, 64-bit BE distro for 64-bit BE Void, for 32-bit you need any BE environment, either 64 or 32-bit)
-2. A copy of the `xbps` package manager, available at https://void-power.octaforge.org/static/ - not needed when 1) is a Void image
+2. A static binary copy of the `xbps` package manager, available at https://void-power.octaforge.org/static/ - not needed when 1) is a Void image
 
 Don't worry about the archives being marked `musl`, these work the same on `glibc` as well. The key point here is that the binaries are statically linked, so they will work on any distribution/environment regardless of the software packages you have. **You just need to get the right archive for the endianness you want.**
-
-**It is advisable to get a modern distribution (for example, the latest version of Ubuntu or Fedora for little endian, and Adélie Linux for big endian as well as 32-bit) in order to not run into any issues with HTTPS certificates (all the links use Let's Encrypt).**
 
 ## Booting and setting up environment
 
@@ -109,13 +105,13 @@ And that's it. We'll take care of formatting and setting up the bootstrap partit
 
 #### SLOF (non-Mac OpenFirmware)
 
-Non-Mac OpenFirmware is different. You will need a `PReP` partition and a root partition at least. You should just use the GPT partition table.
+Non-Mac OpenFirmware is different. You will need a `PReP` partition and a root partition at least. You should generally use Master Boot Record (MBR, aka the DOS partition table). Starting with POWER8 based SLOF hardware, GPT should also work, but may be incomplete.
 
 ```
 $ # our target drive is /dev/sda, we will use fdisk, which is commonly present
 $ # do not type any of the comments in here (# foo) into the command line
 $ fdisk /dev/sda # this brings up a prompt of a sort
-> g # create a GUID partition table (GPT)
+> o # for MBR, or g for GPT
 > n # create a partition for PReP boot, primary, ~10M
 > t # change partition type to PowerPC PReP boot
 > n # create a second partition and fill the rest of the disk
@@ -123,7 +119,7 @@ $ fdisk /dev/sda # this brings up a prompt of a sort
 $ mkfs.ext4 /dev/sda2 # create an ext4 filesystem on the target drive
 ```
 
-When using the `t` command to change the partition type, `PowerPC PReP boot` should be `7`. However, it could be different on older versions, so list them if unsure; `fdisk` will tell you what type it's changing to.
+When using the `t` command to change the partition type, `PowerPC PReP boot` should be `7` for GPT, or `41` for MBR, `fdisk` will tell you what type it's changing to.
 
 Now we have a target filesystem at `/dev/sda2`. Mount it:
 
@@ -249,7 +245,7 @@ Finally, generate the configuration file
 $ update-grub
 ```
 
-#### PowerPC Macs
+### PowerPC Macs
 
 We will need to install the OpenFirmware bootloader:
 
@@ -304,7 +300,7 @@ GRUB_TERMINAL_OUTPUT=console
 
 and then run `update-grub` again. You can also add `GRUB_DISABLE_OS_PROBER=true` to prevent `update-grub` from scanning other drives, which speeds it up considerably. Again, you can also tweak `GRUB_CMDLINE_LINUX_DEFAULT`, clear to empty for most verbose output.
 
-#### Other OpenFirmware
+### Other OpenFirmware
 
 We will need to install the OpenFirmware bootloader:
 
