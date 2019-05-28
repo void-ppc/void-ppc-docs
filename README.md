@@ -157,7 +157,7 @@ The load balancing variants will try to use different mirrors and are default fo
 
 The primary location is https://void-power.octaforge.org/live/ and contains regularly updated ISO images (at very least for base system for every supported target) and rootfs tarballs (`base-voidstrap` for each supported target, useful for containers and so on). By extension, every mirror below also provides those images.
 
-### Mirror list
+## Mirror list
 
 Since my server space is not free, mirrors are always appreciated! Let me know if you set up a mirror. Use `rsync`, the URL is provided above.
 
