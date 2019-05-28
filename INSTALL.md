@@ -25,21 +25,21 @@ Simply `dd` the image onto your USB stick (recommended) or burn the image onto y
 
 Once you're done, boot up your media on your target hardware. You should be presented with `GRUB`, where you can pick the way to run your live OS. You can go with either way, the first one is better for low RAM machines.
 
-<picture>
+![Live GRUB](https://i.imgur.com/GdY8T3c.png)
 
 Once booted, you will be asked to log in. Once you do that, you will have a live system at your disposal, which can be used for recovery or installation or anything else.
 
-<picture>
+![Live OS](https://i.imgur.com/8RrB9yU.png)
 
 ## Starting the installation
 
 Start the installation by typing `void-installer`. The installer will automatically detect your hardware and present you with the appropriate options. You can exit the installer at any time and restart it later, the configuration is saved.
 
-<picture>
+![Installer](https://i.imgur.com/2m1Csbq.png)
 
 Most settings are obvious, so configure your keyboard, network, locale and so on. The only one worth pointing out at the beginning is the installation source. You should use a network installation, which will download packages from the Internet, giving you a clean system. Local installation just copies the live system into the hard drive.
 
-<picture>
+![Installation source](https://i.imgur.com/EPUHboZ.png)
 
 ## Partitioning the target drive
 
@@ -47,11 +47,11 @@ Once you're done configuring the generic bits, you will need to partition your t
 
 This is what you will be presented with when installing on an OpenPOWER of SLOF system:
 
-<picture>
+![SLOF partitioning](https://i.imgur.com/Y3tH8xb.png)
 
 And on a Mac system:
 
-<picture>
+![Mac partitioning](https://i.imgur.com/ZgwB9Jw.png)
 
 ### OpenPOWER
 
@@ -59,7 +59,7 @@ OpenPOWER systems don't use an external bootloader, they have their Petitboot bo
 
 The partitioning tool of choice is `cfdisk`. It is recommended that you create a GUID Partition Table (GPT). Then set it up as required. It should be at least something like this:
 
-<picture>
+![OpenPOWER cfdisk](https://i.imgur.com/Q83Fvht.png)
 
 ### SLOF
 
@@ -67,7 +67,7 @@ For SLOF systems, you want to install `GRUB`. You need a special partition (`Pow
 
 The recommended partition table for most SLOF machines is `MBR` (`DOS`). It is also possible to use `GPT` for POWER8 and newer SLOF machines, but not recommended. Anyway, you want something like this:
 
-<picture>
+![SLOF cfdisk](https://i.imgur.com/W3Gd6GH.png)
 
 ### NewWorld PowerPC Macs
 
@@ -75,7 +75,7 @@ These use their specific flavor of OpenFirmware. The partitioning tool of choice
 
 The partitioning scheme is `APM` (Apple Partition Map). You will want something like this:
 
-<picture>
+![pmac-fdisk](https://i.imgur.com/afs9kWx.png)
 
 ### OldWorld PowerPC Macs
 
@@ -93,7 +93,7 @@ Once you have your drive partitioned, you will need to put filesystems on it.
 
 There it's straightforward. It will present you with one (or two with `swap`) partition.
 
-<picture>
+![OpenPOWER filesystem](https://i.imgur.com/asdUyqu.png)
 
 Format this partition with your preferred filesystem and give it the `/` mount point. Then if you have swap, mark it with `swap` and when asked whether to create a filesystem on it, answer `yes`. It does not actually create a real file system, but it will set up the `swap`. Then you're good to go.
 
@@ -101,11 +101,11 @@ Format this partition with your preferred filesystem and give it the `/` mount p
 
 You will have two partitions.
 
-<picture>
+![SLOF filesystem](https://i.imgur.com/AaAU3vG.png)
 
 The `PowerPC PReP boot` partition needs to be marked as `ppc_prep` and when asked whether to create a filesystem on it, answer `yes`. It does not actually contain a real file system, but the installer will do some preparation on it.
 
-<picture>
+![SLOF prep](https://i.imgur.com/lKQa2cr.png)
 
 Then format the root partition with your preferred filesystem, give it the `/` mount point and let the installer create a filesystem on it. If you have `swap`, mark it with `swap` and when asked whether to create a filesystem, answer `yes`. Then you're good to go.
 
@@ -113,15 +113,15 @@ Then format the root partition with your preferred filesystem, give it the `/` m
 
 You will be given something like this:
 
-<picture>
+![Mac filesystem](https://i.imgur.com/Zpq6dsr.png)
 
 The first partition is also the partition table itself, so leave it alone. You want to format the `bootstrap` partition as `hfs`:
 
-<picture>
+![Mac bootstrap](https://i.imgur.com/WCRbEPY.png)
 
 Have it mount at `/boot/apple_bootstrap`:
 
-<picture>
+![Bootstrap mount](https://i.imgur.com/YoUkTVX.png)
 
 Then format the root filesystem partition as you wish, and if you have `swap`, mark it with `swap` and when asked whether to create a filesystem, answer `yes`. That's pretty much it.
 
@@ -139,7 +139,7 @@ These will have their own specific ways.
 
 As there is no bootloader to install on OpenPOWER, the installer will only ask you this:
 
-<picture>
+![OpenPOWER GRUB](https://i.imgur.com/A5krLeH.png)
 
 You will want to answer `yes`. That will make sure to create a `GRUB` configuration file (without actually installing `GRUB`) which the firmware bootloader can then parse to present you with options.
 
@@ -147,16 +147,15 @@ You will want to answer `yes`. That will make sure to create a `GRUB` configurat
 
 You will be asked something like this:
 
-<picture>
+![SLOF GRUB](https://i.imgur.com/BYF8TwI.png)
 
 Select the `PowerPC PReP boot` partition. Whether to use a graphical bootloader or not is up to you, so answer whichever you want. If you select `no`, you will be given a text menu (but still interactive).
 
 ### NewWorld PowerPC Macs
 
-<picture>
+![Mac GRUB](https://i.imgur.com/FdgWEUl.png)
 
 You will probably want to select the drive you will be booting.
-
 
 ### OldWorld PowerPC Macs
 
@@ -170,33 +169,32 @@ You need to set these up manually.
 
 Finally, you will be presented with one of the three:
 
-<picture>
-<picture>
-<picture>
+![Install 1](https://i.imgur.com/vMXUs9K.png)
+![Install 2](https://i.imgur.com/s2XdH33.png)
+![Install 3](https://i.imgur.com/EZICOUh.png)
 
 That depends on your hardware configuration. If you selected network installation, the installer will download some packages, after which you will need to confirm it to resume installation.
 
-<picture>
+![Downloaded](https://i.imgur.com/WfNcNnn.png)
 
 ## Finalizing
 
 Once this is all done, you will be asked whether you want to enter the installed system's shell:
 
-<picture>
+![Shell](https://i.imgur.com/LfF7V0A.png)
 
 Considering you will only have the base command line system installed, this is a chance to do some more installations or finishing touches before rebooting. If you choose to enter the shell, you will be brought into a `chroot` of the system.
 
 When you're done, simply type `exit` and then you will be asked whether to reboot the system:
 
-<picture>
+![Reboot](https://i.imgur.com/Nkw5feY.png)
 
 ## Booting
 
 If everything went well, you will get something like this after reboot:
 
-<picture>
+![Final GRUB](https://i.imgur.com/gjQWTED.png)
 
 Then you can boot and enjoy your new Void system:
 
-<picture>
-
+![Final Void](https://i.imgur.com/xAPTsKR.png)
