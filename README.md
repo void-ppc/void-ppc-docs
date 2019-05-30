@@ -190,6 +190,12 @@ Current maintainers:
 
 If you do not wish to submit it upstream yet, you can try submitting it here, by raising a pull request and/or opening an issue. Then it can receive feedback and potentially make it upstream.
 
+## Communication
+
+We have an IRC channel on Freenode, `#voidlinux-ppc`, which can be used for general POWER/PowerPC related debate as well. Otherwise, the main communication channel for technical decisions is here, in the Issues section of the respective repository (with general project related issues belonging to this `documentation` repo).
+
+Otherwise, for general Void related things, you can use the official Void channels, `#voidlinux` and `#xbps`. For POWER related things, there is `#talos-workstation` besides others.
+
 ## FAQ
 
 **Q:** Will multilib be supported?  
@@ -200,5 +206,3 @@ If you do not wish to submit it upstream yet, you can try submitting it here, by
 
 **Q:** How do I install this?  
 **A:** https://github.com/void-power/documentation/blob/master/INSTALL.md
-
-If you have any questions, suggestions or anything else, I'm (`q66`) available on IRC (Freenode: `#talos-workstation`, `#voidlinux`, `#xbps` and others) as well as on Twitter (`@octaforge`).
