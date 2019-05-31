@@ -47,11 +47,11 @@ Once you're done configuring the generic bits, you will need to partition your t
 
 This is what you will be presented with when installing on an OpenPOWER of SLOF system:
 
-![SLOF partitioning](https://i.imgur.com/Y3tH8xb.png)
+![SLOF partitioning](https://i.imgur.com/WJnFhrA.png)
 
 And on a Mac system:
 
-![Mac partitioning](https://i.imgur.com/ZgwB9Jw.png)
+![Mac partitioning](https://i.imgur.com/p1so4it.png)
 
 ### OpenPOWER
 
@@ -103,27 +103,15 @@ You will have two partitions.
 
 ![SLOF filesystem](https://i.imgur.com/AaAU3vG.png)
 
-The `PowerPC PReP boot` partition needs to be marked as `ppc_prep` and when asked whether to create a filesystem on it, answer `yes`. It does not actually contain a real file system, but the installer will do some preparation on it.
-
-![SLOF prep](https://i.imgur.com/lKQa2cr.png)
-
-Then format the root partition with your preferred filesystem, give it the `/` mount point and let the installer create a filesystem on it. If you have `swap`, mark it with `swap` and when asked whether to create a filesystem, answer `yes`. Then you're good to go.
+Ignore the `PReP` partition for now, and format the root partition with your preferred filesystem, give it the `/` mount point and let the installer create a filesystem on it. If you have `swap`, mark it with `swap` and when asked whether to create a filesystem, answer `yes`. Then you're good to go.
 
 ### NewWorld PowerPC Macs
 
 You will be given something like this:
 
-![Mac filesystem](https://i.imgur.com/Zpq6dsr.png)
+![Mac filesystem](https://i.imgur.com/9TgYKTd.png)
 
-The first partition is also the partition table itself, so leave it alone. You want to format the `bootstrap` partition as `hfs`:
-
-![Mac bootstrap](https://i.imgur.com/WCRbEPY.png)
-
-Have it mount at `/boot/apple_bootstrap`:
-
-![Bootstrap mount](https://i.imgur.com/YoUkTVX.png)
-
-Then format the root filesystem partition as you wish, and if you have `swap`, mark it with `swap` and when asked whether to create a filesystem, answer `yes`. That's pretty much it.
+The first partition is also the partition table itself, so leave it alone. The second partition is the bootstrap partition, also leave it alone. Format the root filesystem partition as you wish, and if you have `swap`, mark it with `swap` and when asked whether to create a filesystem, answer `yes`. That's pretty much it.
 
 ### OldWorld PowerPC Macs
 
@@ -153,9 +141,9 @@ Select the `PowerPC PReP boot` partition. Whether to use a graphical bootloader 
 
 ### NewWorld PowerPC Macs
 
-![Mac GRUB](https://i.imgur.com/FdgWEUl.png)
+![Mac GRUB](https://i.imgur.com/yTk8Y7S.png)
 
-You will probably want to select the drive you will be booting.
+Select the bootstrap partition you have created. The choice of whether to use a graphical bootloader or not is up to you, but keep in mind that it'll probably be slow (and if you're emulating a Mac in `qemu`, it does not work at all), so perhaps just choose text.
 
 ### OldWorld PowerPC Macs
 
@@ -167,15 +155,23 @@ You need to set these up manually.
 
 ## Installing
 
-Finally, you will be presented with one of the three:
+Finally, you will be presented with something like this:
 
-![Install 1](https://i.imgur.com/vMXUs9K.png)
-![Install 2](https://i.imgur.com/s2XdH33.png)
-![Install 3](https://i.imgur.com/EZICOUh.png)
+![Install](https://i.imgur.com/vMXUs9K.png)
 
-That depends on your hardware configuration. If you selected network installation, the installer will download some packages, after which you will need to confirm it to resume installation.
+Of course, the partitions formatted will differ. If you selected network installation, the installer will download some packages and unpack them, after which you will need to confirm it to resume installation.
 
 ![Downloaded](https://i.imgur.com/WfNcNnn.png)
+
+### NewWorld PowerPC Macs
+
+When installing on a Mac, it will ask you whether to update the boot device NVRAM record:
+
+![NVRAM](https://i.imgur.com/goCBwPG.png)
+
+You can choose to update it or not. If you update it, the installer will set the default boot device so that it will load `GRUB` by default. If you don't choose it, you will still get a blessed bootstrap partition, which means by holding the `Option` key during boot you should be able to choose the partition to boot from.
+
+On `qemu`, this is known to fail, so you will receive an error dialog about that if you choose `Yes`. However, a failed NVRAM update will never make the whole installer fail.
 
 ## Finalizing
 
