@@ -93,7 +93,7 @@ Once you have your drive partitioned, you will need to put filesystems on it.
 
 There it's straightforward. It will present you with one (or two with `swap`) partition.
 
-![OpenPOWER filesystem](https://i.imgur.com/asdUyqu.png)
+![OpenPOWER filesystem](https://i.imgur.com/xZwB10n.png)
 
 Format this partition with your preferred filesystem and give it the `/` mount point. Then if you have swap, mark it with `swap` and when asked whether to create a filesystem on it, answer `yes`. It does not actually create a real file system, but it will set up the `swap`. Then you're good to go.
 
