@@ -41,6 +41,8 @@ For 32-bit there are no specific restrictions, there is no AltiVec requirement a
 
 This is for the packages currently covered in the binary repository, it does not necessarily reflect what is *possible* or currently working if you build it yourself.
 
+There are comprehensive statistics available at https://void-power.octaforge.org/stats.html. For something more condensed:
+
 #### ppc64le glibc
 
 - [x] `base-chroot`
@@ -53,8 +55,8 @@ This is for the packages currently covered in the binary repository, it does not
 - [x] `go` (native bootstrap)
 - [x] `java` (binary bootstrap from AdoptOpenJDK)
 - [x] `ghc`
-- [ ] installer images
-- [ ] rootfs tarballs
+- [x] installer images
+- [x] rootfs tarballs
 
 #### ppc64le musl
 
@@ -68,8 +70,8 @@ This is for the packages currently covered in the binary repository, it does not
 - [ ] `go` (cross-libc same-arch is broken)
 - [ ] `java`
 - [ ] `ghc`
-- [ ] installer images
-- [ ] rootfs tarballs
+- [x] installer images
+- [x] rootfs tarballs
 
 #### ppc64 glibc
 
@@ -83,8 +85,8 @@ This is for the packages currently covered in the binary repository, it does not
 - [ ] `go` (unsupported on ELFv2 BE, also power8+ only)
 - [ ] `java` (binary bootstrap from AdoptOpenJDK)
 - [ ] `ghc`
-- [ ] installer images
-- [ ] rootfs tarballs
+- [x] installer images
+- [x] rootfs tarballs
 
 #### ppc64 musl
 
@@ -98,8 +100,8 @@ This is for the packages currently covered in the binary repository, it does not
 - [ ] `go` (unsupported on ELFv2 BE, also power8+ only)
 - [ ] `java`
 - [ ] `ghc`
-- [ ] installer images
-- [ ] rootfs tarballs
+- [x] installer images
+- [x] rootfs tarballs
 
 
 #### ppc glibc
@@ -114,8 +116,8 @@ This is for the packages currently covered in the binary repository, it does not
 - [ ] `go` (not supported upstream)
 - [ ] `java`
 - [ ] `ghc`
-- [ ] installer images
-- [ ] rootfs tarballs
+- [x] installer images
+- [x] rootfs tarballs
 
 #### ppc musl
 
@@ -129,8 +131,8 @@ This is for the packages currently covered in the binary repository, it does not
 - [ ] `go` (not supported upstream)
 - [ ] `java`
 - [ ] `ghc`
-- [ ] installer images
-- [ ] rootfs tarballs
+- [x] installer images
+- [x] rootfs tarballs
 
 ## Package/build mirrors
 
@@ -180,7 +182,7 @@ Both primary branches contain all types of changes as described in the Rationale
 
 ## Contributing
 
-If your changes are ready for upstream submission, please submit them upstream and mention the respective maintainers from this org for review and tracking.
+If you wish to contribute code and you have changes ready for upstream submission, please submit them upstream and mention the respective maintainers from this org for review and tracking.
 
 Current maintainers:
 
@@ -189,6 +191,8 @@ Current maintainers:
 - `stenstorp` - anything affecting 32-bit
 
 If you do not wish to submit it upstream yet, you can try submitting it here, by raising a pull request and/or opening an issue. Then it can receive feedback and potentially make it upstream.
+
+If you wish to support the project by other means, donating relevant hardware is always appreciated. The project does not take financial donations.
 
 ## Communication
 
