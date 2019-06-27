@@ -23,13 +23,17 @@ Simply `dd` the image onto your USB stick (recommended) or burn the image onto y
 
 ## Booting
 
-Once you're done, boot up your media on your target hardware. You should be presented with `GRUB`, where you can pick the way to run your live OS. You can go with either way, the first one is better for low RAM machines.
+Once you're done, boot up your media on your target hardware. The way to boot will differ by hardware. In `qemu` it will start automatically (if selected the right boot drive), on OpenPOWER you will be presented with the boot options in Petitboot, on Macs you will have to drop into the OpenFirmware prompt (hold Cmd + Opt + O + F once you hear the initial bootup sound) and type something like `boot ud:,\\:tbxi`.
+
+Either way, you will be presented with some kind of boot menu (typically Petitboot or `GRUB`), where you can pick the way to run your live OS. You can go with either way, the first one is better for low RAM machines.
 
 ![Live GRUB](https://i.imgur.com/GdY8T3c.png)
 
 Once booted, you will be asked to log in. Once you do that, you will have a live system at your disposal, which can be used for recovery or installation or anything else.
 
 ![Live OS](https://i.imgur.com/8RrB9yU.png)
+
+If you run into a message like `dracut: FATAL: Failed to mount block device of live image` after selecting your boot option in `GRUB`, it may be [this issue](https://github.com/void-power/void-mklive/issues/2). In that case, apply the mentioned workaround.
 
 ## Starting the installation
 
