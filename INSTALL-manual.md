@@ -6,14 +6,14 @@ Use this if https://github.com/void-power/documentation/blob/master/INSTALL.md d
 
 You will need the following:
 
-1. A USB stick of any Linux distribution for the target you want to install (64-bit little endian distro for 64-bit LE Void, 64-bit BE distro for 64-bit BE Void, for 32-bit you need any BE environment, either 64 or 32-bit)
+1. A USB stick (or other media) of any Linux distribution for the target you want to install (64-bit little endian distro for 64-bit LE Void, 64-bit BE distro for 64-bit BE Void, for 32-bit you need any BE environment, either 64 or 32-bit)
 2. A static binary copy of the `xbps` package manager, available at https://void-power.octaforge.org/static/ - not needed when 1) is a Void image
 
 Don't worry about the archives being marked `musl`, these work the same on `glibc` as well. The key point here is that the binaries are statically linked, so they will work on any distribution/environment regardless of the software packages you have. **You just need to get the right archive for the endianness you want.**
 
 ## Booting and setting up environment
 
-Boot your Linux USB stick. If it does not come with `xbps`, fetch+extract the archive in a directory, like this:
+Boot your Linux removable media. If you don't know how to, follow the main `INSTALL.md` instructions (at least for Void media). If it does not come with `xbps`, fetch+extract the archive in a directory, like this:
 
 ```
 $ # only for a 64-bit little endian system
