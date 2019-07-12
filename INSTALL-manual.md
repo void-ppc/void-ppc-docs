@@ -1,13 +1,13 @@
 # Manual installation
 
-Use this if https://github.com/void-power/documentation/blob/master/INSTALL.md does not suffice or if you need more control over the process. You can use a Void live image or any other distro's.
+Use this if https://github.com/void-ppc/documentation/blob/master/INSTALL.md does not suffice or if you need more control over the process. You can use a Void live image or any other distro's.
 
 ## Preparation
 
 You will need the following:
 
 1. A USB stick (or other media) of any Linux distribution for the target you want to install (64-bit little endian distro for 64-bit LE Void, 64-bit BE distro for 64-bit BE Void, for 32-bit you need any BE environment, either 64 or 32-bit)
-2. A static binary copy of the `xbps` package manager, available at https://void-power.octaforge.org/static/ - not needed when 1) is a Void image
+2. A static binary copy of the `xbps` package manager, available at https://void-ppc.octaforge.org/static/ - not needed when 1) is a Void image
 
 Don't worry about the archives being marked `musl`, these work the same on `glibc` as well. The key point here is that the binaries are statically linked, so they will work on any distribution/environment regardless of the software packages you have. **You just need to get the right archive for the endianness you want.**
 
@@ -17,11 +17,11 @@ Boot your Linux removable media. If you don't know how to, follow the main `INST
 
 ```
 $ # only for a 64-bit little endian system
-$ wget https://void-power.octaforge.org/static/xbps-static-0.53_1.ppc64le-musl.tar.xz
+$ wget https://void-ppc.octaforge.org/static/xbps-static-0.53_1.ppc64le-musl.tar.xz
 $ # only for a 64-bit big endian system
-$ wget https://void-power.octaforge.org/static/xbps-static-0.53_1.ppc64-musl.tar.xz
+$ wget https://void-ppc.octaforge.org/static/xbps-static-0.53_1.ppc64-musl.tar.xz
 $ # only for a 32-bit system
-$ wget https://void-power.octaforge.org/static/xbps-static-0.53_1.ppc-musl.tar.xz
+$ wget https://void-ppc.octaforge.org/static/xbps-static-0.53_1.ppc-musl.tar.xz
 $ mkdir sxbps && cd sxbps
 $ tar xvf ../xbps-static*.tar.xz
 ```
