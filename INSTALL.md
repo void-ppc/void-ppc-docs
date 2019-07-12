@@ -1,6 +1,6 @@
 # Installation
 
-These instructions apply when using the installer. You can also install the distro manually if you wish to have more control over the process. You can find the instructions [here](https://github.com/void-power/documentation/blob/master/INSTALL-manual.md).
+These instructions apply when using the installer. You can also install the distro manually if you wish to have more control over the process. You can find the instructions [here](https://github.com/void-ppc/documentation/blob/master/INSTALL-manual.md).
 
 ## Supported targets
 
@@ -17,7 +17,7 @@ For each target there's a matching `-musl` target as well, that lets you use the
 You will need the following:
 
 - A USB stick or an empty CD/DVD
-- A Void live system. You can get images [here](https://void-power.octaforge.org/live/)
+- A Void live system. You can get images [here](https://void-ppc.octaforge.org/live/)
 
 Simply `dd` the image onto your USB stick (recommended) or burn the image onto your optical media and you should be good to go.
 
@@ -33,7 +33,7 @@ Once booted, you will be asked to log in. Once you do that, you will have a live
 
 ![Live OS](https://i.imgur.com/8RrB9yU.png)
 
-If you run into a message like `dracut: FATAL: Failed to mount block device of live image` after selecting your boot option in `GRUB`, it may be [this issue](https://github.com/void-power/void-mklive/issues/2). In that case, apply the mentioned workaround.
+If you run into a message like `dracut: FATAL: Failed to mount block device of live image` after selecting your boot option in `GRUB`, it may be [this issue](https://github.com/void-ppc/void-mklive/issues/2). In that case, apply the mentioned workaround.
 
 ## Starting the installation
 
