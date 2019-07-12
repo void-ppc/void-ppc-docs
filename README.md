@@ -1,6 +1,6 @@
-# Void Linux for Power architecture
+# Void Linux for PowerPC and Power ISA
 
-This is the Void Linux porting project for the Power architecture and PowerPC, both 32 and 64-bit. Keep in mind that **it is unofficial at this point**.
+This is the Void Linux porting project for PowerPC and related systems, both 32 and 64-bit. Keep in mind that **it is unofficial at this point**.
 
 ## Rationale
 
@@ -41,7 +41,7 @@ For 32-bit there are no specific restrictions, there is no AltiVec requirement a
 
 This is for the packages currently covered in the binary repository, it does not necessarily reflect what is *possible* or currently working if you build it yourself.
 
-There are comprehensive statistics available at https://void-power.octaforge.org/stats.html. For something more condensed:
+There are comprehensive statistics available at https://void-ppc.octaforge.org/stats.html. For something more condensed:
 
 #### ppc64le glibc
 
@@ -136,28 +136,28 @@ There are comprehensive statistics available at https://void-power.octaforge.org
 
 ## Package/build mirrors
 
-The main project binary location is https://void-power.octaforge.org.
+The main project binary location is https://void-ppc.octaforge.org.
 
-- xbps repository (`ppc64le` direct): https://repo.void-power.octaforge.org/current
-- xbps repository (`ppc64le-musl` direct): https://repo.void-power.octaforge.org/current/musl
-- xbps repository (`ppc64` direct): https://repo.void-power.octaforge.org/current/be
-- xbps repository (`ppc64-musl` direct): https://repo.void-power.octaforge.org/current/be/musl
-- xbps repository (`ppc` direct): https://repo.void-power.octaforge.org/current/ppc
-- xbps repository (`ppc-musl` direct): https://repo.void-power.octaforge.org/current/ppc/musl
-- xbps repository (`ppc64le` load balancing): https://auto.void-power.octaforge.org/current
-- xbps repository (`ppc64le-musl` load balancing): https://auto.void-power.octaforge.org/current/musl
-- xbps repository (`ppc64` load balancing): https://auto.void-power.octaforge.org/current/be
-- xbps repository (`ppc64-musl` load balancing): https://auto.void-power.octaforge.org/current/be/musl
-- xbps repository (`ppc` load balancing): https://auto.void-power.octaforge.org/current/ppc
-- xbps repository (`ppc-musl` load balancing): https://auto.void-power.octaforge.org/current/ppc/musl
-- static xbps for all (built using musl): https://void-power.octaforge.org/static
-- rsync for mirroring: `rsync://octaforge.org/void-power`
+- xbps repository (`ppc64le` direct): https://repo.void-ppc.octaforge.org/current
+- xbps repository (`ppc64le-musl` direct): https://repo.void-ppc.octaforge.org/current/musl
+- xbps repository (`ppc64` direct): https://repo.void-ppc.octaforge.org/current/be
+- xbps repository (`ppc64-musl` direct): https://repo.void-ppc.octaforge.org/current/be/musl
+- xbps repository (`ppc` direct): https://repo.void-ppc.octaforge.org/current/ppc
+- xbps repository (`ppc-musl` direct): https://repo.void-ppc.octaforge.org/current/ppc/musl
+- xbps repository (`ppc64le` load balancing): https://auto.void-ppc.octaforge.org/current
+- xbps repository (`ppc64le-musl` load balancing): https://auto.void-ppc.octaforge.org/current/musl
+- xbps repository (`ppc64` load balancing): https://auto.void-ppc.octaforge.org/current/be
+- xbps repository (`ppc64-musl` load balancing): https://auto.void-ppc.octaforge.org/current/be/musl
+- xbps repository (`ppc` load balancing): https://auto.void-ppc.octaforge.org/current/ppc
+- xbps repository (`ppc-musl` load balancing): https://auto.void-ppc.octaforge.org/current/ppc/musl
+- static xbps for all (built using musl): https://void-ppc.octaforge.org/static
+- rsync for mirroring: `rsync://octaforge.org/void-ppc`
 
 The load balancing variants will try to use different mirrors and are default for our `xbps` packages and so on.
 
 ## Live images and rootfs tarballs
 
-The primary location is https://void-power.octaforge.org/live/ and contains regularly updated ISO images (at very least for base system for every supported target) and rootfs tarballs (`base-voidstrap` for each supported target, useful for containers and so on). By extension, every mirror below also provides those images.
+The primary location is https://void-ppc.octaforge.org/live/ and contains regularly updated ISO images (at very least for base system for every supported target) and rootfs tarballs (`base-voidstrap` for each supported target, useful for containers and so on). By extension, every mirror below also provides those images.
 
 ## Mirror list
 
@@ -165,7 +165,7 @@ Since my server space is not free, mirrors are always appreciated! Let me know i
 
 Current list:
 
-- https://mirrors.servercentral.com/void-power/ (provided by `zdykstra` of the Void Linux as well as the Talos community, also hosts a Void mirror)
+- https://mirrors.servercentral.com/void-ppc/ (provided by `zdykstra` of the Void Linux as well as the Talos community, also hosts a Void mirror)
 - https://ppc.exqa.de/ (provided by `Cogitri` of the Void Linux community)
 
 Big thanks to all the mirror providers, as my bandwidth is limited and shared with my other projects.
@@ -209,4 +209,4 @@ Otherwise, for general Void related things, you can use the official Void channe
 **A:** This is a problem with the kernel `ast` driver. Since the fix appears to be non-trivial and there is no proper patch available, this is WONTFIX from our side. Either use a dedicated GPU (ideally PCIe, USB2 DisplayLink is known to work) or use little endian if you really need the `ast` to work properly.
 
 **Q:** How do I install this?  
-**A:** https://github.com/void-power/documentation/blob/master/INSTALL.md
+**A:** https://github.com/void-ppc/documentation/blob/master/INSTALL.md
