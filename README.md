@@ -35,104 +35,15 @@ For 64-bit big endian, the PowerPC 970 (also known as the G5) is the minimum sup
 
 For 32-bit there are no specific restrictions, there is no AltiVec requirement and no specific CPU requirement. The builds are tuned for the G4 though.
 
-**All 64-bit targets, including BE glibc and musl, use the ELFv2 ABI.** The `musl` libc always uses ELFv2 regardless of endianness, glibc uses ELFv2 by default on little endian on all distros but big endian distros typically default to the older ELFv1 ABI; this is for legacy and compatibility reasons, but ELFv2 has other benefits and we have no legacy support, therefore we're targeting ELFv2 on BE glibc as one of the first distributions to do so.
+**All 64-bit targets, including BE glibc and musl, use the ELFv2 ABI (userland and kernel).** The `musl` libc always uses ELFv2 regardless of endianness, glibc uses ELFv2 by default on little endian on all distros but big endian distros typically default to the older ELFv1 ABI; this is for legacy and compatibility reasons, but ELFv2 has other benefits and we have no legacy support, therefore we're targeting ELFv2 on BE glibc as one of the first distributions to do so.
 
 ### Target status
 
-This is for the packages currently covered in the binary repository, it does not necessarily reflect what is *possible* or currently working if you build it yourself.
-
 There are comprehensive statistics available at https://void-ppc.octaforge.org/stats.html. For something more condensed:
 
-#### ppc64le glibc
+All major desktops are packaged for all targets and all targets are capable of booting a graphical Xorg or Wayland environment. Application packaging varies, but at least those that come with desktops are all there. Web browsers are problematic on 32-bit systems, as no modern browser is fully functional right now. On big endian, Firefox works almost perfectly (minus some color breakage), on little endian Firefox and qt5-webengine are available (webengine also works on big endian bit colors are broken). Language toolchains vary. Notably Rust is available on all targets, Go only on little endian (gcc-go everywhere but musl). Haskell and Java are glibc LE only, but that is only a temporary bootstrapping issue.
 
-- [x] `base-chroot`
-- [x] `base-voidstrap`
-- [x] `base-system`
-- [x] `cross-powerpc64le-linux-gnu`
-- [x] `linux`
-- [x] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
-- [x] `rust`
-- [x] `go` (native bootstrap)
-- [x] `java` (binary bootstrap from AdoptOpenJDK)
-- [x] `ghc`
-- [x] installer images
-- [x] rootfs tarballs
-
-#### ppc64le musl
-
-- [x] `base-chroot`
-- [x] `base-voidstrap`
-- [x] `base-system`
-- [x] `cross-powerpc64le-linux-musl`
-- [x] `linux`
-- [x] graphical environment (gtk, qt, xorg, wayland, gnome, xfce4, etc.)
-- [x] `rust` (native and cross)
-- [ ] `go` (cross-libc same-arch is broken)
-- [ ] `java`
-- [ ] `ghc`
-- [x] installer images
-- [x] rootfs tarballs
-
-#### ppc64 glibc
-
-- [x] `base-chroot`
-- [x] `base-voidstrap`
-- [x] `base-system`
-- [x] `cross-powerpc64-linux-gnu`
-- [x] `linux`
-- [x] graphical environment (only xorg + dependencies, wayland core, some minimal WMs)
-- [x] `rust`
-- [ ] `go` (unsupported on ELFv2 BE, also power8+ only)
-- [ ] `java` (binary bootstrap from AdoptOpenJDK)
-- [ ] `ghc`
-- [x] installer images
-- [x] rootfs tarballs
-
-#### ppc64 musl
-
-- [x] `base-chroot`
-- [x] `base-voidstrap`
-- [x] `base-system`
-- [x] `cross-powerpc64le-linux-musl`
-- [x] `linux`
-- [x] graphical environment (a bit less than ppc64 glibc)
-- [x] `rust` (native and cross)
-- [ ] `go` (unsupported on ELFv2 BE, also power8+ only)
-- [ ] `java`
-- [ ] `ghc`
-- [x] installer images
-- [x] rootfs tarballs
-
-
-#### ppc glibc
-
-- [x] `base-chroot`
-- [x] `base-voidstrap`
-- [x] `base-system`
-- [x] `cross-powerpc-linux-gnu`
-- [x] `linux`
-- [ ] graphical environment
-- [x] `rust`
-- [ ] `go` (not supported upstream)
-- [ ] `java`
-- [ ] `ghc`
-- [x] installer images
-- [x] rootfs tarballs
-
-#### ppc musl
-
-- [x] `base-chroot`
-- [x] `base-voidstrap`
-- [x] `base-system`
-- [x] `cross-powerpc-linux-musl`
-- [x] `linux`
-- [ ] graphical environment
-- [x] `rust`
-- [ ] `go` (not supported upstream)
-- [ ] `java`
-- [ ] `ghc`
-- [x] installer images
-- [x] rootfs tarballs
+Rootfs tarballs and installable iso images are available for all.
 
 ## Package/build mirrors
 
