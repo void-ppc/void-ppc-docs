@@ -12,18 +12,9 @@ The installer supports OpenPOWER (Petitboot stack), CHRP (SLOF stack) and NewWor
 
 For each target there's a matching `-musl` target as well, that lets you use the `musl` libc instead of `glibc`. The hardware support is the same for those.
 
-## Preparation
+## Preparation and booting
 
-You will need the following:
-
-- A USB stick or an empty CD/DVD
-- A Void live system. You can get images [here](https://void-ppc.octaforge.org/live/)
-
-Simply `dd` the image onto your USB stick (recommended) or burn the image onto your optical media and you should be good to go.
-
-## Booting
-
-Once you're done, boot up your media on your target hardware. The way to boot will differ by hardware. In `qemu` it will start automatically (if selected the right boot drive), on OpenPOWER you will be presented with the boot options in Petitboot, on Macs you will have to drop into the OpenFirmware prompt (hold Cmd + Opt + O + F once you hear the initial bootup sound) and type something like `boot ud:,\\:tbxi`.
+For preparation and boot instructions on different hardware, there's a separate document [here](https://github.com/void-ppc/documentation/blob/master/BOOTING.md).
 
 Either way, you will be presented with some kind of boot menu (typically Petitboot or `GRUB`), where you can pick the way to run your live OS. You can go with either way, the first one is better for low RAM machines.
 
