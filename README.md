@@ -39,7 +39,7 @@ For 32-bit there are no specific restrictions, there is no AltiVec requirement a
 
 ### Target status
 
-There are comprehensive statistics available at https://void-ppc.octaforge.org/stats.html. For something more condensed:
+There are comprehensive statistics available at https://voidlinux-ppc.org/stats.html. For something more condensed:
 
 All major desktops are packaged for all targets and all targets are capable of booting a graphical Xorg or Wayland environment. Application packaging varies, but at least those that come with desktops are all there. Web browsers are problematic on 32-bit systems, as no modern browser is fully functional right now. On big endian, Firefox works almost perfectly (minus some color breakage), on little endian Firefox and qt5-webengine are available (webengine also works on big endian bit colors are broken). Language toolchains vary. Notably Rust is available on all targets, Go only on little endian (gcc-go everywhere but musl). Haskell and Java are glibc LE only, but that is only a temporary bootstrapping issue.
 
@@ -47,28 +47,28 @@ Rootfs tarballs and installable iso images are available for all.
 
 ## Package/build mirrors
 
-The main project binary location is https://void-ppc.octaforge.org.
+The main project binary location is https://repo.voidlinux-ppc.org.
 
-- xbps repository (`ppc64le` direct): https://repo.void-ppc.octaforge.org/current
-- xbps repository (`ppc64le-musl` direct): https://repo.void-ppc.octaforge.org/current/musl
-- xbps repository (`ppc64` direct): https://repo.void-ppc.octaforge.org/current/be
-- xbps repository (`ppc64-musl` direct): https://repo.void-ppc.octaforge.org/current/be/musl
-- xbps repository (`ppc` direct): https://repo.void-ppc.octaforge.org/current/ppc
-- xbps repository (`ppc-musl` direct): https://repo.void-ppc.octaforge.org/current/ppc/musl
-- xbps repository (`ppc64le` load balancing): https://auto.void-ppc.octaforge.org/current
-- xbps repository (`ppc64le-musl` load balancing): https://auto.void-ppc.octaforge.org/current/musl
-- xbps repository (`ppc64` load balancing): https://auto.void-ppc.octaforge.org/current/be
-- xbps repository (`ppc64-musl` load balancing): https://auto.void-ppc.octaforge.org/current/be/musl
-- xbps repository (`ppc` load balancing): https://auto.void-ppc.octaforge.org/current/ppc
-- xbps repository (`ppc-musl` load balancing): https://auto.void-ppc.octaforge.org/current/ppc/musl
-- static xbps for all (built using musl): https://void-ppc.octaforge.org/static
-- rsync for mirroring: `rsync://octaforge.org/void-ppc`
+- xbps repository (`ppc64le` direct): https://repo.voidlinux-ppc.org/current
+- xbps repository (`ppc64le-musl` direct): https://repo.voidlinux-ppc.org/current/musl
+- xbps repository (`ppc64` direct): https://repo.voidlinux-ppc.org/current/be
+- xbps repository (`ppc64-musl` direct): https://repo.voidlinux-ppc.org/current/be/musl
+- xbps repository (`ppc` direct): https://repo.voidlinux-ppc.org/current/ppc
+- xbps repository (`ppc-musl` direct): https://repo.voidlinux-ppc.org/current/ppc/musl
+- xbps repository (`ppc64le` load balancing): https://auto.voidlinux-ppc.org/current
+- xbps repository (`ppc64le-musl` load balancing): https://auto.voidlinux-ppc.org/current/musl
+- xbps repository (`ppc64` load balancing): https://auto.voidlinux-ppc.org/current/be
+- xbps repository (`ppc64-musl` load balancing): https://auto.voidlinux-ppc.org/current/be/musl
+- xbps repository (`ppc` load balancing): https://auto.voidlinux-ppc.org/current/ppc
+- xbps repository (`ppc-musl` load balancing): https://auto.voidlinux-ppc.org/current/ppc/musl
+- static xbps for all (built using musl): https://repo.voidlinux-ppc.org/static
+- rsync for mirroring: `rsync://voidlinux-ppc.org/void-ppc`
 
 The load balancing variants will try to use different mirrors and are default for our `xbps` packages and so on.
 
 ## Live images and rootfs tarballs
 
-The primary location is https://void-ppc.octaforge.org/live/ and contains regularly updated ISO images (at very least for base system for every supported target) and rootfs tarballs (`base-voidstrap` for each supported target, useful for containers and so on). By extension, every mirror below also provides those images.
+The primary location is https://repo.voidlinux-ppc.org/live/ and contains regularly updated ISO images (at very least for base system for every supported target) and rootfs tarballs (`base-voidstrap` for each supported target, useful for containers and so on). By extension, every mirror below also provides those images.
 
 ## Mirror list
 
