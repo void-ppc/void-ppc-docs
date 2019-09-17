@@ -7,7 +7,7 @@ Use this if https://github.com/void-ppc/documentation/blob/master/INSTALL.md doe
 You will need the following:
 
 1. A USB stick (or other media) of any Linux distribution for the target you want to install (64-bit little endian distro for 64-bit LE Void, 64-bit BE distro for 64-bit BE Void, for 32-bit you need any BE environment, either 64 or 32-bit)
-2. A static binary copy of the `xbps` package manager, available at https://void-ppc.octaforge.org/static/ - not needed when 1) is a Void image
+2. A static binary copy of the `xbps` package manager, available at https://repo.voidlinux-ppc.org/static/ - not needed when 1) is a Void image
 
 Don't worry about the archives being marked `musl`, these work the same on `glibc` as well. The key point here is that the binaries are statically linked, so they will work on any distribution/environment regardless of the software packages you have. **You just need to get the right archive for the endianness you want.**
 
@@ -17,11 +17,11 @@ Boot your Linux removable media. If you don't know how to, follow the main `INST
 
 ```
 $ # only for a 64-bit little endian system
-$ wget https://void-ppc.octaforge.org/static/xbps-static-0.53_1.ppc64le-musl.tar.xz
+$ wget https://repo.voidlinux-ppc.org/static/xbps-static-0.53_1.ppc64le-musl.tar.xz
 $ # only for a 64-bit big endian system
-$ wget https://void-ppc.octaforge.org/static/xbps-static-0.53_1.ppc64-musl.tar.xz
+$ wget https://repo.voidlinux-ppc.org/static/xbps-static-0.53_1.ppc64-musl.tar.xz
 $ # only for a 32-bit system
-$ wget https://void-ppc.octaforge.org/static/xbps-static-0.53_1.ppc-musl.tar.xz
+$ wget https://repo.voidlinux-ppc.org/static/xbps-static-0.53_1.ppc-musl.tar.xz
 $ mkdir sxbps && cd sxbps
 $ tar xvf ../xbps-static*.tar.xz
 ```
@@ -142,7 +142,7 @@ $ # install base-voidstrap, a minimal base system package for container environm
 $ # -R == repository URL, -r == target directory, -S == sync
 $ # add /be to URL for big endian, and /musl for musl (/be/musl for BE musl)
 $ # use just xbps-install if host distro comes with xbps
-$ ./xbps-install.static -R https://repo.void-ppc64.octaforge.org/current -r /media/rootfs -S base-voidstrap
+$ ./xbps-install.static -R https://repo.voidlinux-ppc.org/current -r /media/rootfs -S base-voidstrap
 ```
 
 This will get a minimal system installed. We're not installing a full system yet, as we're not sure about the outside environment's software selection. The smaller the system is, the less likely it is to result in a failure.
