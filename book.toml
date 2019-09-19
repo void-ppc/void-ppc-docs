@@ -1,0 +1,11 @@
+[book]
+authors = ["The Void-ppc Team"]
+multilingual = false
+src = "src"
+title = "Void Linux for PPC (unofficial) documentation"
+
+[output.html]
+theme = "src/theme"
+
+[preprocessor.toc]
+command = "mdbook-toc"
