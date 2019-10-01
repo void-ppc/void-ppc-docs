@@ -44,7 +44,7 @@ The main project binary location is <https://repo.voidlinux-ppc.org>.
 - xbps repository (`ppc` load balancing): <https://auto.voidlinux-ppc.org/current/ppc>
 - xbps repository (`ppc-musl` load balancing): <https://auto.voidlinux-ppc.org/current/ppc/musl>
 - static xbps for all (built using musl): <https://repo.voidlinux-ppc.org/static>
-- rsync for mirroring: `rsync://voidlinux-ppc.org/void-ppc`
+- rsync for mirroring: `rsync://repo.voidlinux-ppc.org/void-ppc`
 
 ## Live images and rootfs tarballs
 
