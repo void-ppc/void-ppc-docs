@@ -20,6 +20,13 @@ is old. Void is a rolling distribution and therefore updates frequently. Run:
 # xbps-install -Su
 ```
 
+If there is a package manager upgrade (libxbps, xbps)
+it will be done before upgrading any other packages,
+because in case the transaction fails at least the package manager
+needs to stay intact.
+In that case, you’ll need to run `xbps-install -Su` again
+to get all the upgrades.
+
 ## NTP (time syncing)
 
 You might want to enable a time syncing daemon. This is especially important
