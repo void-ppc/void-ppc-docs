@@ -4,7 +4,7 @@ There are several mirrors to help lighten the load on the primary infrastructure
 
 Tier 1 mirrors sync directly from the primary and contain everything. They are
 also required to provide https. Other mirrors may sync from somewhere else and
-are allowed to host specific things only.
+are allowed to host specific things only (and may not always be up to date).
 
 To change your mirrors to use a different set, you must create files in
 `/etc/xbps.d` with the same names as those in `/usr/share/xbps.d`. Once you
@@ -18,14 +18,14 @@ work, so it’s equivalent to the primary for the time being.
 
 ## Tier 1 Mirrors
 
-- <https://repo.voidlinux-ppc.org> (EU: Czech Republic)
-- <https://mirrors.servercentral.com/void-ppc/> (USA: Chicago)
-- <https://ppc.exqa.de>
+- <https://repo.voidlinux-ppc.org> (USA: Chicago)
+- <https://mirrors.servercentral.com/void-ppc> (USA: Chicago)
 
 ## Tier 2 Mirrors
 
-The are currently no Tier 2 mirrors. If you want to provide a mirror of either
-kind, please contact us.
+- <http://ftp.lysator.liu.se/pub/void-ppc> (EU: Sweden)
+- <http://lysator7eknrfl47rlyxvgeamrv7ucefgrrlhk7rouv3sna25asetwid.onion/pub/void-ppc> (EU: Sweden)
+- <https://ppc.exqa.de>
 
 ## Package repositories
 
