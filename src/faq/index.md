@@ -88,3 +88,33 @@ scratch.
 
 You should not need this when modifying an existing APM (e.g. resizing partitions
 or creating new ones in free space).
+
+## I get 'error: unrecognized number' when starting GRUB
+
+If your error looks like this:
+
+```
+Welcome to GRUB!
+
+error: unrecognized number.
+
+Decrementer exception at $SRR0: ...
+```
+
+You are most likely on an iBook/PowerBook with BootROM `4.8.7f1`. Since GRUB
+will fall back to OpenFirmware console, you can see the model and BootROM
+version before the console comes up.
+
+If this is the case, the problem is a firmware bug in that version, which results
+in spurious data left in the MMU, which confuses GRUB during number parsing.
+
+The solution is to type this in the OpenFirmware console that comes up:
+
+```
+dev /memory@0 100000 1000 do-unmap
+```
+
+and reboot. GRUB should come up afterwards.
+
+It is possible that this issue may manifest in different ways as well. So far
+this is the only one we've come across, though.
