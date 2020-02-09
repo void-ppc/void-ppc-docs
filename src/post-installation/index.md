@@ -53,10 +53,6 @@ If you feel like helping us take over usage statistics in
 # ln -s /etc/sv/popcorn /var/service/
 ```
 
-The packages are unfortunately only available for little endian right now,
-as it's written in Go and we haven't yet set up Go `build-style` to build with
-`gccgo` on platforms where official Go is not available.
-
 ## Other things
 
 The official handbook at <https://docs.voidlinux.org> should come in handy.
