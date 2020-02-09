@@ -32,6 +32,12 @@ if your hardware can't keep clock. For example, you can do:
 
 There are other NTP daemons to choose from as well.
 
+Keep in mind that `openntpd` by default uses the https constraint feature. That
+means that unless your time is set to a correct value in the first place, the
+daemon will fail to set the date/time. Either use `date` to manually set a
+close enough date/time, or remove/comment out the `constraints from` line in
+`/etc/ntpd.conf`.
+
 ## Logging
 
 By default, Void comes with no logging daemon. There are different implementations
