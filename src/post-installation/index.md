@@ -53,6 +53,63 @@ If you feel like helping us take over usage statistics in
 # ln -s /etc/sv/popcorn /var/service/
 ```
 
+## Apple hardware
+
+### Media keys and keyboard backlight on laptops
+
+Install and enable `pbbuttonsd`:
+
+```
+# xbps-install pbbuttonsd
+# ln -s /etc/sv/pbbuttonsd /var/service/
+```
+
+### Right click emulation
+
+Install and enable `mouseemu`:
+
+```
+# xbps-install mouseemu
+# ln -s /etc/sv/mouseemu /var/service/
+```
+
+Middle click defaults to F10, right click to F11. Scrolling modifier
+defaults to Alt.
+
+### Wireless networking
+
+The `b43` driver is usually used. Unfortunately, the firmware for that is
+not redistributable, and we don't have a `restricted` template yet. But it
+is not very difficult to set up. First install `b43-fwcutter`:
+
+```
+# xbps-install b43-fwcutter
+```
+
+Then fetch the firmware:
+
+```
+$ xbps-uhelper fetch http://www.lwfinger.com/b43-firmware/broadcom-wl-6.30.163.46.tar.bz2
+```
+
+You're free to use any fetching tool you want.
+
+Extract it:
+
+```
+$ tar xf broadcom-wl-*.tar.bz2
+```
+
+And finally use the cutter to extract the firmware:
+
+```
+# b43-fwcutter -w /usr/lib/firmware broadcom-wl-*.wl_apsta.o
+```
+
+This will make sure to place the firmware in the appropriate location. After
+that, just reboot and wireless network should just work, but don't expect it
+to be fast :)
+
 ## Other things
 
 The official handbook at <https://docs.voidlinux.org> should come in handy.
