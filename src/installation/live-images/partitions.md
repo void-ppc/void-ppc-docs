@@ -78,7 +78,7 @@ on the drive. If you don't want that, read below.**
 
 In an APM, the first partition is always automatic, being the APM itself.
 
-Keep in mind that the bootstrap partition is **not** the `/boot` partition! Unless
+**Keep in mind that the bootstrap partition is not the `/boot` partition!** Unless
 you make a separate one, `/boot` will be in your `/` partition. The only thing that
 resides in the bootstrap partition is the bootloader, which even with all modules
 will have a few megabytes at most. The 10MB size is actually very generous and
@@ -95,7 +95,7 @@ everything is good and you can just create a new bootstrap partition somewhere.
 If you don't have available unused space, you will need to delete some other
 partition, or shrink some existing filesystem to make more free space.
 
-On installations with OS X, it seems to be a common occurences that there are
+On installations with OS X, it seems to be a common occurence that there are
 unused `Apple_Free` spaces sized about 128MB scattered around the disk. If that
 is the case, that is a good place to make your bootstrap partition. OS X does not
 need anything other than its own HFS+ partition, which is blessed and acts as its
