@@ -84,6 +84,13 @@ resides in the bootstrap partition is the bootloader, which even with all module
 will have a few megabytes at most. The 10MB size is actually very generous and
 generally will not be used up.
 
+**Do not use the `b` command to create bootstrap for GRUB.** The command was
+originally added by Debian for `yaboot` and it creates a bootstrap paritition
+sized 800 kilobytes. This is not enough for a full GRUB binary (it's enough for
+a reduced GRUB binary, which takes some effort to create). The `b <n>` command
+is actually equivalent to `C <n> 800k bootstrap Apple_Bootstrap`; therefore,
+just use `C` with a larger size than 800 kilobytes.
+
 ### Dual or multiboot
 
 If you want to preserve your existing system(s) and multi-boot the computer, you
