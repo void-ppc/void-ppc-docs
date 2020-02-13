@@ -134,6 +134,8 @@ C 2p 10M bootstrap Apple_Bootstrap # bootstrap partition, could also be 4p
 d 5p                               # delete the empty Apple_HFS
 c 4p 45G rootfs                    # root filesystem (/)
 c 5p 5p swap                       # remaining space as swap
+w
+q
 ```
 
 Note how the rootfs is `4p`; this is because deleting a partition inbetween two
