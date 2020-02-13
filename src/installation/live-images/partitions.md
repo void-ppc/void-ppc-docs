@@ -43,6 +43,12 @@ can be on anything Linux supports.
 
 You can use `pmac-fdisk` for APM partitioning. Standard `fdisk` does not support it.
 
+**Note that partitioning has nothing to do with filesystems present.**
+Partitioning will only ensure that you will have the partitions with correct
+types available. Do not get confused by partition types like `Apple_HFS`;
+that is unrelated to the filesystem in the partition. You will format your
+filesystems once everything is partitioned correctly.
+
 You will need at least one partition on your APM, the bootstrap partition,
 which will be used by OpenFirmware to invoke the bootloader. The actual OS
 can be anywhere that GRUB can use. In an APM-only setup, your partitioning
