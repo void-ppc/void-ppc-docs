@@ -68,7 +68,7 @@ You can create it for example like this:
 i                                    # init partition table, wipes all data
 C 2p 10M bootstrap Apple_Bootstrap   # bootstrap partition
 c 3p 120G rootfs                     # root filesystem (/)
-c 4p 4p swap                         # swap partition
+c 4p 4p swap                         # swap partition, all unused space
 w
 q
 ```
@@ -132,8 +132,8 @@ You'd do something like this:
 # pmac-fdisk /dev/sdX
 C 2p 10M bootstrap Apple_Bootstrap # bootstrap partition, could also be 4p
 d 5p                               # delete the empty Apple_HFS
-c 4p 45G rootfs                    # root filesystem (/)
-c 5p 5p swap                       # remaining space as swap
+c 4p 46G rootfs                    # root filesystem (/)
+c 5p 5p swap                       # remaining (4G) unused space as swap
 w
 q
 ```
