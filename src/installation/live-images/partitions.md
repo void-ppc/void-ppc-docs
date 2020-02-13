@@ -59,7 +59,7 @@ You can create it for example like this:
 
 ```
 # pmac-fdisk /dev/sdX
-i                                    # init partition table
+i                                    # init partition table, wipes all data
 C 2p 10M bootstrap Apple_Bootstrap   # bootstrap partition
 c 3p 120G rootfs                     # root filesystem (/)
 c 4p 4p swap                         # swap partition
@@ -67,4 +67,64 @@ w
 q
 ```
 
+**This is only for clean installations! It will wipe anything else present
+on the drive. If you don't want that, read below.**
+
 In an APM, the first partition is always automatic, being the APM itself.
+
+Keep in mind that the bootstrap partition is **not** the `/boot` partition! Unless
+you make a separate one, `/boot` will be in your `/` partition. The only thing that
+resides in the bootstrap partition is the bootloader, which even with all modules
+will have a few megabytes at most. The 10MB size is actually very generous and
+generally will not be used up.
+
+### Dual or multiboot
+
+If you want to preserve your existing system(s) and multi-boot the computer, you
+will probably not want to reinitialize your partition layout.
+
+In that case, you will need to look if you have free space (should be marked
+`Apple_Free` when you print out the partition table in `pmac-fdisk`). If you do,
+everything is good and you can just create a new bootstrap partition somewhere.
+If you don't have available unused space, you will need to delete some other
+partition, or shrink some existing filesystem to make more free space.
+
+On installations with OS X, it seems to be a common occurences that there are
+unused `Apple_Free` spaces sized about 128MB scattered around the disk. If that
+is the case, that is a good place to make your bootstrap partition. OS X does not
+need anything other than its own HFS+ partition, which is blessed and acts as its
+own bootstrap.
+
+Generally, it does not matter how the disk is layouted, as long as you have a
+bootstrap partition somewhere and then another partition or a few for your rootfs
+and possibly other things.
+
+As an example, if you have an existing layout like this:
+
+| Device    | Type                | Name      | Size | System             |
+| --------- | ------------------- | --------- | ---- | ------------------ |
+| /dev/sdX1 | Apple_partition_map | Apple     | -    | Partition map      |
+| /dev/sdX2 | Apple_Free          |           | 128M | Free space         |
+| /dev/sdX3 | Apple_HFS           | OS X      | 100G | HFS                |
+| /dev/sdX4 | Apple_Free          |           | 128M | Free space         |
+| /dev/sdX5 | Apple_HFS           | empty     | 50G  | HFS                |
+| /dev/sdX6 | Apple_Free          |           | 8k   | Free space         |
+
+In this context, `sdX3` is OS X, and `sdX5` is an empty HFS+ formatted partition
+you want to install Void on. `sdX2` and `sdX4` are just unused gaps, as is `sdX6`.
+
+You'd do something like this:
+
+```
+# pmac-fdisk /dev/sdX
+C 2p 10M bootstrap Apple_Bootstrap # bootstrap partition, could also be 4p
+d 5p                               # delete the empty Apple_HFS
+c 4p 45G rootfs                    # root filesystem (/)
+c 5p 5p swap                       # remaining space as swap
+```
+
+Note how the rootfs is `4p`; this is because deleting a partition inbetween two
+free spaces merges them all together, so `sdX4`, `sdX5` and `sdX6` will become
+just `sdX4`.
+
+Other configurations will need equivalent changes.
