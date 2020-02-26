@@ -116,6 +116,31 @@ This will make sure to place the firmware in the appropriate location. After
 that, just reboot and wireless network should just work, but don't expect it
 to be fast :)
 
+### Audio
+
+By default, it might seem like audio "doesn't work". This is not actually true,
+it's just that PCM is muted by default.
+
+To remedy this, install `alsa-utils`:
+
+```
+# xbps-install alsa-utils
+```
+
+The open `alsamixer`. Press the F6 key to switch the card to something like
+`SoundByLayout`; if you're using plain ALSA, you might not have to switch
+anything, but PulseAudio will show its own mixer first.
+
+Then once you see the `PCM` slider (you might have to scroll a little to the
+right), up its level, it'll probably be at 0 by default. Don't up it too much,
+or you will introduce distortion; it seems 80 is the maximum safe value.
+
+Audio should work afterwards and you can change the volume using the `Master`
+slider or using PulseAudio or whichever other solution you like. Don't get
+confused by there being just one output instead of separate ones for
+headphones and speakers; automatic jack sensing works and it will switch
+depending on if there's anything plugged in.
+
 ## Other things
 
 The official handbook at <https://docs.voidlinux.org> should come in handy.
