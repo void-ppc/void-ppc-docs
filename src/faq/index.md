@@ -105,8 +105,13 @@ You are most likely on an iBook/PowerBook with BootROM `4.8.7f1`. Since GRUB
 will fall back to OpenFirmware console, you can see the model and BootROM
 version before the console comes up.
 
-If this is the case, the problem is a firmware bug in that version, which results
-in spurious data left in the MMU, which confuses GRUB during number parsing.
+The issue also seems to affect at least some iMacs G5 and possibly other
+models (though you might not see a decrementer exception), so proceed anyway
+if you see the error, even if you don't have the model listed here.
+
+The problem is a firmware bug, which results in spurious data left in the MMU,
+which confuses GRUB during number parsing (it doesn't encounter a trailing
+zero like it should, continues parsing, finds junk and fails).
 
 The solution is to type this in the OpenFirmware console that comes up:
 
@@ -116,5 +121,6 @@ dev /memory@0 100000 1000 do-unmap
 
 and reboot. GRUB should come up afterwards.
 
-It is possible that this issue may manifest in different ways as well. So far
+It is possible that this issue may manifest in different ways as well, as there
+are multiple places in GRUB where this could potentially be a problem. So far
 this is the only one we've come across, though.
