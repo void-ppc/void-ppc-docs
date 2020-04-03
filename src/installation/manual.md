@@ -27,19 +27,19 @@ Boot your Linux removable media. If you don't know how to, follow the
 If the environment is not Void, grab your static `xbps` copy.
 
 ```
-# wget https://repo.voidlinux-ppc.org/static/xbps-static-0.53_1.ppc64le-musl.tar.xz
+# wget https://repo.voidlinux-ppc.org/static/xbps-static-0.59_5.ppc64le-musl.tar.xz
 ```
 
 or:
 
 ```
-# wget https://repo.voidlinux-ppc.org/static/xbps-static-0.53_1.ppc64-musl.tar.xz
+# wget https://repo.voidlinux-ppc.org/static/xbps-static-0.59_5.ppc64-musl.tar.xz
 ```
 
 or:
 
 ```
-# wget https://repo.voidlinux-ppc.org/static/xbps-static-0.53_1.ppc-musl.tar.xz
+# wget https://repo.voidlinux-ppc.org/static/xbps-static-0.59_5.ppc-musl.tar.xz
 ```
 
 and then:
