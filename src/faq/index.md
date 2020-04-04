@@ -124,3 +124,11 @@ and reboot. GRUB should come up afterwards.
 It is possible that this issue may manifest in different ways as well, as there
 are multiple places in GRUB where this could potentially be a problem. So far
 this is the only one we've come across, though.
+
+## I have strange rendering issues with Qt-based desktops (KDE, LXQt, ...) on big endian systems
+
+This may manifest as the panel or menus behaving strangely and so on.
+
+The workaround is to start the desktop with `QT_QUICK_BACKEND=software`
+exported. The cause here is some endianness related bug(s) in the default
+backend.
