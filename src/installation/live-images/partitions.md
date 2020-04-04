@@ -91,6 +91,11 @@ a reduced GRUB binary, which takes some effort to create). The `b <n>` command
 is actually equivalent to `C <n> 800k bootstrap Apple_Bootstrap`; therefore,
 just use `C` with a larger size than 800 kilobytes.
 
+**When creating the bootstrap partition, make sure your parameter order is
+correct.** The `pmac-fdisk` utility will happily create a partition with name
+`Apple_Bootstrap` and type `bootstrap` (rather than the other way around) but
+the system will not boot from it. Use the `p` command to verify this.
+
 ### Dual or multiboot
 
 If you want to preserve your existing system(s) and multi-boot the computer, you
