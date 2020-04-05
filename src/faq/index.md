@@ -89,6 +89,21 @@ scratch.
 You should not need this when modifying an existing APM (e.g. resizing partitions
 or creating new ones in free space).
 
+## I can boot the installation media on a Mac, but after installation the bootloader doesn't come up
+
+Since several people complained about this, it probably deserves its own FAQ
+entry.
+
+You need to verify that your bootstrap partition has the correct partition
+type. Like noted in the Partitioning Notes section, `pmac-fdisk` will happily
+let you reverse the parameter order and create a partition of type `bootstrap`
+named `Apple_Bootstrap` rather than a partition of type `Apple_Bootstrap` named
+`bootstrap`. The bootloader will install on such partition, but Open Firmware
+will not boot from it.
+
+You can use the `p` command in `pmac-fdisk` to print out the partition table
+and check.
+
 ## I get 'error: unrecognized number' when starting GRUB
 
 If your error looks like this:
