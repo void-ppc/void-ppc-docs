@@ -195,11 +195,51 @@ might take a minute or a few) and eventually Linux should load.
 
 Proceed with installation and so on.
 
+### Yaboot
+
+If GRUB for some reason won't work and there are no available workarounds,
+we also ship `yaboot` as a fallback. You can boot it from the OpenFirmware
+console as well. Just replace this:
+
+```
+boot ud:,\\:tbxi
+```
+
+with:
+
+```
+boot ud:,\boot\yaboot conf=ud:,\etc\yaboot.conf
+```
+
+The `conf` argument may not always be necessary but generally is, as it will
+otherwise often try to use incorrect media to look for the config file.
+
 ## Other OpenFirmware machines
 
 These are not tested but should still work, as long as the CPU is good enough
 to run your variant. The instructions will likely overlap with those for SLOF
 or for Macs. Feel free to submit modifications for this chapter.
+
+## Serial console
+
+By default, the system will boot assuming output on your monitor. If you don't
+have a monitor, or for some other reason need to access the system via the
+serial port, you need to enable it.
+
+Just proceed booting as usual, and once at the `GRUB` screen, edit the menu
+item you want to boot and append something like this:
+
+```
+console=tty0 console=hvc0
+```
+
+This applies for machines such as the Talos 2, Blackbird or `qemu` `pSeries`
+virtual machines. There is a special initramfs hook which makes sure to enable
+the appropriate `agetty` service for the console. The supported values are
+`ttyS0`, `hvc0` and `hvsi0`. If you don't need output on your monitor at all,
+you can skip specifying `console=tty0`. But keep in mind that for the hook to
+work, the `console` for the serial needs to be last! Otherwise the hook will
+not pick it up.
 
 ## Other hardware
 
