@@ -57,7 +57,7 @@ will look for example like this:
 | Device    | Type                | Name      | Size | System             |
 | --------- | ------------------- | --------- | ---- | ------------------ |
 | /dev/sdX1 | Apple_partition_map | Apple     | -    | Partition map      |
-| /dev/sdX2 | Apple_Bootstrap     | bootstrap | ~10M | NewWorld bootblock |
+| /dev/sdX2 | Apple_Bootstrap     | bootstrap | 800k | NewWorld bootblock |
 | /dev/sdX3 | Apple_UNIX_SVR2     | rootfs    | any  | Linux native       |
 | /dev/sdX4 | Apple_UNIX_SVR2     | swap      | any  | Linux swap         |
 
@@ -66,7 +66,7 @@ You can create it for example like this:
 ```
 # pmac-fdisk /dev/sdX
 i                                    # init partition table, wipes all data
-C 2p 10M bootstrap Apple_Bootstrap   # bootstrap partition
+b 2p                                 # bootstrap partition
 c 3p 120G rootfs                     # root filesystem (/)
 c 4p 4p swap                         # swap partition, all unused space
 w
@@ -78,23 +78,21 @@ on the drive. If you don't want that, read below.**
 
 In an APM, the first partition is always automatic, being the APM itself.
 
-**Keep in mind that the bootstrap partition is not the `/boot` partition!** Unless
-you make a separate one, `/boot` will be in your `/` partition. The only thing that
-resides in the bootstrap partition is the bootloader, which even with all modules
-will have a few megabytes at most. The 10MB size is actually very generous and
-generally will not be used up.
+**Keep in mind that the bootstrap partition is not the `/boot` partition!**
+Unless you make a separate one, `/boot` will be in your `/` partition. The only
+thing that resides in the bootstrap partition is the bootloader executable,
+which ends up around 300 kilobytes of space in total. Since by default, all
+extra GRUB modules end up being in `/boot/grub`, there is nothing to worry
+about space-wise.
 
-**Do not use the `b` command to create bootstrap for GRUB.** The command was
-originally added by Debian for `yaboot` and it creates a bootstrap paritition
-sized 800 kilobytes. This is not enough for a full GRUB binary (it's enough for
-a reduced GRUB binary, which takes some effort to create). The `b <n>` command
-is actually equivalent to `C <n> 800k bootstrap Apple_Bootstrap`; therefore,
-just use `C` with a larger size than 800 kilobytes.
+A different case would be putting an entire monolithic GRUB executable into
+the bootstrap partition. An executable like that can take way more than 800
+kilobytes. If you want to create that kind of setup, you will need to make
+a bigger bootstrap partition manually. However, this does not apply if you
+use the Void installer or follow the manual installation documentation.
 
-**When creating the bootstrap partition, make sure your parameter order is
-correct.** The `pmac-fdisk` utility will happily create a partition with name
-`Apple_Bootstrap` and type `bootstrap` (rather than the other way around) but
-the system will not boot from it. Use the `p` command to verify this.
+The `b <x>` command in `pmac-fdisk` is functionally equivalent to something
+like `C <x> 800k bootstrap Apple_Bootstrap`.
 
 ### Dual or multiboot
 
@@ -135,7 +133,7 @@ You'd do something like this:
 
 ```
 # pmac-fdisk /dev/sdX
-C 2p 10M bootstrap Apple_Bootstrap # bootstrap partition, could also be 4p
+b 2p                               # bootstrap partition, could also be 4p
 d 5p                               # delete the empty Apple_HFS
 c 4p 46G rootfs                    # root filesystem (/)
 c 5p 5p swap                       # remaining (4G) unused space as swap
