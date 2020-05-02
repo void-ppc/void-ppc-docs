@@ -18,8 +18,9 @@ On pSeries, virtual machines and so on, the default recommended choice is a
 MBR. On newer versions of SLOF, GPT will also work (and in virtual machines
 it does), but MBR is a safe choice.
 
-In order to boot, you will need to create a `PowerPC PReP Boot` partition,
-sized around 10MB. If using MBR, you will also need to mark it bootable.
+In order to boot, you will need to create a `PowerPC PReP Boot` partition
+(type 41 on MBR), sized around 10MB. **If using MBR, you will also need to
+mark it bootable.**
 
 Example:
 

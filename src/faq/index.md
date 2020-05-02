@@ -132,3 +132,10 @@ This may manifest as the panel or menus behaving strangely and so on.
 The workaround is to start the desktop with `QT_QUICK_BACKEND=software`
 exported. The cause here is some endianness related bug(s) in the default
 backend.
+
+## My virtual machine is not booting after installation, using pseries and MBR
+
+You might have forgotten to mark the PReP boot partition as bootable when
+partitioning. In that case, boot the live image again, open the drive with
+`cfdisk`, set the bootable flag, and save the changes. Your system should
+boot then.
