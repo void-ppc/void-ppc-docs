@@ -7,27 +7,47 @@ for your machine.
 
 ## OpenPOWER
 
+**Necessary partitions:**
+
+- Root partition (`/`)
+
 Since OpenPOWER systems use the Petitboot stack, which runs in a simple Linux
 system, you're free to choose any partitioning model that environment supports.
-The `/boot` partition must be mountable from it. Usually this means a GPT with
-an `ext4` /boot on it will be safe.
+
+If you intend to use a root file system that is not mountable within the
+Petitboot environment, you will also need to make a separate `/boot` partition
+with a supported filesystem (e.g. `ext4`). This is notably the case for `btrfs`
+(page size msimatch, Void uses `4 kB` and Petitboot environment generally uses
+`64 kB`) or out of tree filesystems such as `zfs`.
 
 ## SLOF
+
+**Necessary partitions:**
+
+- `PowerPC PReP Boot` (contains bootloader executable)
+- Root partition (`/`)
 
 On pSeries, virtual machines and so on, the default recommended choice is a
 MBR. On newer versions of SLOF, GPT will also work (and in virtual machines
 it does), but MBR is a safe choice.
 
 In order to boot, you will need to create a `PowerPC PReP Boot` partition
-(type 41 on MBR), sized around 10MB. **If using MBR, you will also need to
-mark it bootable.**
+(type 41 on MBR), big enough to fit the GRUB (or another bootloader) executable.
+Typically, around 1MB should be way more than enough. **If using MBR, you will
+also need to mark it bootable.** This is the partition the installer will ask
+you to select when installing the bootloader.
+
+**The PReP boot partition is never your `/boot` partition.** In fact, this
+partition is not even mounted, and is too small to fit anything but the GRUB
+ELF executable. The GRUB configuration file will be present in `/boot/grub`
+which will be on the `/` partition, unless you make a separate `/boot`.
 
 Example:
 
 ```
 # fdisk /dev/sdX
 o # MBR, g for GPT
-n # new partition for PReP boot; make it 10 megabytes
+n # new partition for PReP boot; make it 1 megabyte
 t # change partition type to PowerPC PReP boot
 n # new partition for /
 a # set first partition bootable
@@ -39,8 +59,13 @@ The partition type number for `PowerPC PReP boot` should be `7` for GPT and
 
 ## PowerPC Macs
 
-Macs use APM (Apple Partition Map), at least for booting. The actual / partition
-can be on anything Linux supports.
+**Necessary partitions:**
+
+- `Apple_Bootstrap` (legacy HFS, contains bootloader executable)
+- Root partition (`/`)
+
+Macs use APM (Apple Partition Map), at least for booting. The actual `/`
+partition can be on anything Linux supports.
 
 You can use `pmac-fdisk` for APM partitioning. Standard `fdisk` does not support it.
 
