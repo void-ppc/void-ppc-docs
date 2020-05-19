@@ -7,40 +7,68 @@ for your machine.
 
 ## OpenPOWER
 
+OpenPOWER machines, such as the Talos 2 or IBM PowerNV servers, load into Linux
+and feature a bootloader called Petitboot. The final kernel is then loaded via
+the `kexec` mechanism. POWER8 and newer machines are in general OpenPOWER, but
+not always (the other ones use SLOF, see below).
+
+That's why there is no bootstrap partition necessary. However, the partition
+that contains `/boot` must be mountable from the firmware environment. The
+partition table does not matter either, as long as the firmware can see it;
+the typical choice is either GPT or MBR.
+
 **Necessary partitions:**
 
 - Root partition (`/`)
 
-Since OpenPOWER systems use the Petitboot stack, which runs in a simple Linux
-system, you're free to choose any partitioning model that environment supports.
+**When using an unsupported root filesystem:**
 
-If you intend to use a root file system that is not mountable within the
-Petitboot environment, you will also need to make a separate `/boot` partition
-with a supported filesystem (e.g. `ext4`). This is notably the case for `btrfs`
-(page size msimatch, Void uses `4 kB` and Petitboot environment generally uses
-`64 kB`) or out of tree filesystems such as `zfs`.
+- Root partition (`/`)
+- `/boot` partition (with a supported filesystem)
 
-## SLOF
+Unsupported root file systems generally include out of tree ones such as ZFS,
+and Btrfs is usually affected as well, since it requires page size and
+endianness to match the machine where it was created, and Void uses 4 kB kernel
+pages (a typical OpenPOWER firmware uses 64 kB).
+
+## Open Firmware
+
+Other machines the live images can boot on use Open Firmware. This comes in
+several flavors:
+
+- IBM PowerVM servers use SLOF (SlimLine Open Firmware)
+- Virtual machines in `qemu` by default use SLOF
+- Apple hardware uses Apple's version of OF
+
+Open Firmware based machines always use some kind of bootstrap partition. The
+bootstrap partition contains the first stage bootloader executable - this is
+usually GRUB. The executable is just plain ELF.
+
+The bootstrap partition is generally small, and **is not `/boot`**. The first
+stage bootloader size is at most a few hundred kilobytes in general, unless
+you manually install a full GRUB image, which may be larger (this is not
+necessary in general, other GRUB modules can be loaded from a filesystem).
+
+The rest of GRUB generally goes in `/boot/grub` which is either on your `/`
+partition or your `/boot` partition if you have one.
+
+**When using the installer, the bootstrap partition is what you should select
+when it asks you where to install the bootloader.**
+
+### SLOF
 
 **Necessary partitions:**
 
-- `PowerPC PReP Boot` (contains bootloader executable)
+- `PowerPC PReP Boot` (bootstrap)
 - Root partition (`/`)
 
 On pSeries, virtual machines and so on, the default recommended choice is a
 MBR. On newer versions of SLOF, GPT will also work (and in virtual machines
 it does), but MBR is a safe choice.
 
-In order to boot, you will need to create a `PowerPC PReP Boot` partition
-(type 41 on MBR), big enough to fit the GRUB (or another bootloader) executable.
-Typically, around 1MB should be way more than enough. **If using MBR, you will
-also need to mark it bootable.** This is the partition the installer will ask
-you to select when installing the bootloader.
-
-**The PReP boot partition is never your `/boot` partition.** In fact, this
-partition is not even mounted, and is too small to fit anything but the GRUB
-ELF executable. The GRUB configuration file will be present in `/boot/grub`
-which will be on the `/` partition, unless you make a separate `/boot`.
+The bootstrap in SLOF is a special partition of type `PowerPC PReP Boot`.
+Make it around 1 megabyte; this should be generous. This partition is never
+mounted and does not contain a mountable filesystem.
 
 Example:
 
@@ -57,17 +85,18 @@ w # write changes and quit
 The partition type number for `PowerPC PReP boot` should be `7` for GPT and
 `41` for MBR.
 
-## PowerPC Macs
+### PowerPC Macs
 
 **Necessary partitions:**
 
-- `Apple_Bootstrap` (legacy HFS, contains bootloader executable)
+- `Apple_Bootstrap` (bootstrap)
 - Root partition (`/`)
 
 Macs use APM (Apple Partition Map), at least for booting. The actual `/`
 partition can be on anything Linux supports.
 
-You can use `pmac-fdisk` for APM partitioning. Standard `fdisk` does not support it.
+You can use `pmac-fdisk` for APM partitioning. Standard `fdisk` does not
+support it.
 
 **Note that partitioning has nothing to do with filesystems present.**
 Partitioning will only ensure that you will have the partitions with correct
@@ -104,23 +133,14 @@ on the drive. If you don't want that, read below.**
 
 In an APM, the first partition is always automatic, being the APM itself.
 
-**Keep in mind that the bootstrap partition is not the `/boot` partition!**
-Unless you make a separate one, `/boot` will be in your `/` partition. The only
-thing that resides in the bootstrap partition is the bootloader executable,
-which ends up around 300 kilobytes of space in total. Since by default, all
-extra GRUB modules end up being in `/boot/grub`, there is nothing to worry
-about space-wise.
-
-A different case would be putting an entire monolithic GRUB executable into
-the bootstrap partition. An executable like that can take way more than 800
-kilobytes. If you want to create that kind of setup, you will need to make
-a bigger bootstrap partition manually. However, this does not apply if you
-use the Void installer or follow the manual installation documentation.
-
 The `b <x>` command in `pmac-fdisk` is functionally equivalent to something
 like `C <x> 800k bootstrap Apple_Bootstrap`.
 
-### Dual or multiboot
+The bootstrap partition contains a legacy HFS filesystem when installed, but
+the installer takes care of correctly formatting it and you should never worry
+about doing that manually.
+
+#### Dual or multiboot
 
 If you want to preserve your existing system(s) and multi-boot the computer, you
 will probably not want to reinitialize your partition layout.
