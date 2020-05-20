@@ -120,8 +120,9 @@ or:
 $ ./xbps-src pkg b43-firmware-classic
 ```
 
-Whether you should use `b43-firmware` or `b43-firmware-classic` depends on
-the wireless card you have. First, find out which one it is:
+Whether you should use `b43-firmware` (version `6.x.x.x`) or `b43-firmware-classic`
+(version `5.x.x`) depends on the wireless card you have. First, find out which
+one it is:
 
 ```
 $ lspci|grep Wireless
@@ -161,13 +162,13 @@ Make a dedicated directory:
 $ mkdir broadcom_fw && cd broadcom_fw
 ```
 
-Then fetch the firmware:
+Then fetch the firmware. This is for `b43-firmware`:
 
 ```
 $ xbps-uhelper fetch http://www.lwfinger.com/b43-firmware/broadcom-wl-6.30.163.46.tar.bz2
 ```
 
-or:
+or for `b43-firmware-classic`:
 
 ```
 $ xbps-uhelper fetch http://www.lwfinger.com/b43-firmware/broadcom-wl-5.100.138.tar.bz2
@@ -181,13 +182,13 @@ Extract it:
 $ tar xf broadcom-wl-*.tar.bz2
 ```
 
-And finally use the cutter to extract the firmware. For `6.30.163.46`:
+And finally use the cutter to extract the firmware. For `b43-firmware`:
 
 ```
 # b43-fwcutter -w /usr/lib/firmware broadcom-wl-*.wl_apsta.o
 ```
 
-Or for `5.100.138`:
+Or for `b43-firmware-classic`:
 
 ```
 # b43-fwcutter -w /usr/lib/firmware linux/wl_apsta.o
