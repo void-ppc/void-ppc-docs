@@ -125,12 +125,19 @@ Whether you should use `b43-firmware` (version `6.x.x.x`) or `b43-firmware-class
 one it is:
 
 ```
-$ lspci|grep Wireless
+$ lspci | grep Wireless
 ```
 
-If you have one of BCM4306 rev.3, BCM4311, BCM4312 or BCM4318 rev.2, you should
-use `b43-firmware-classic`. If you have a BCM4331, you should use `b43-firmware`.
-In other cases, you should probably be able to use either.
+The output may be something like (this is from a 2005 PowerBook G4 15"):
+
+```
+0001:10:12.0 Network controller: Broadcom Inc. and subsidiaries BCM4306 802.11b/g Wireless LAN Controller (rev 03)
+```
+
+If you have one of BCM4306 rev.3 (this is the above), BCM4311, BCM4312 or
+BCM4318 rev.2, you should use `b43-firmware-classic`. If you have a BCM4331,
+you should use `b43-firmware`. In other cases, you should probably be able to
+use either.
 
 Install the firmware:
 
