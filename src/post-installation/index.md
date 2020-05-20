@@ -205,6 +205,15 @@ This will make sure to place the firmware in the appropriate location. After
 that, just reboot and wireless network should just work, but don't expect it
 to be fast :)
 
+If you need to remove it later, just
+
+```
+# rm -rf /usr/lib/firmware/b43
+```
+
+Particularly you will need to do that when switching versions, as you should
+not install two conflicting versions at the same time.
+
 ### Audio
 
 By default, it might seem like audio "doesn't work". This is not actually true,
