@@ -101,9 +101,9 @@ Now we will need to set up the target so that we can chroot into it.
 ```
 # cp /etc/resolv.conf /media/rootfs/etc
 # cp /etc/hosts /media/rootfs/etc
-# mount --bind /dev /media/rootfs/dev
-# mount --bind /proc /media/rootfs/proc
-# mount --bind /sys /media/rootfs/sys
+# mount -t devtmpfs none /dev
+# mount -t proc none /proc
+# mount -t sysfs none /sys
 ```
 
 If the `dev`, `proc` and `sys` directories do not exist in the target for some
