@@ -133,9 +133,29 @@ The workaround is to start the desktop with `QT_QUICK_BACKEND=software`
 exported. The cause here is some endianness related bug(s) in the default
 backend.
 
-## My virtual machine is not booting after installation, using pseries and MBR
+**Note:** This should no longer be needed since the latest build of `qt5-5.14.2_2`
+in the repos, as the code has been patched to always use `software` on big endian
+by default (you can still override it back to the old default via the environment
+variable). This is not an upstream change, however.
+
+## My SLOF machine (e.g. qemu/pseries) is not booting after installation, using MBR
 
 You might have forgotten to mark the PReP boot partition as bootable when
 partitioning. In that case, boot the live image again, open the drive with
 `cfdisk`, set the bootable flag, and save the changes. Your system should
 boot then.
+
+## I'm having trouble with WebKit rendering on big endian machines
+
+Drivers on big endian are more buggy than usual, so with some cards you might
+be having rendering issues with accelerated compositing, which is on by default.
+Whether you are affected or not depends on the specific card. Old cards that do
+not support unified shaders are more likely to be affected.
+
+To use WebKit without accelerated compositing, export the following:
+
+```
+export WEBKIT_DISABLE_COMPOSITING_MODE=1
+```
+
+Then start the web browser of your choice again.
