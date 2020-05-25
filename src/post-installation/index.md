@@ -142,13 +142,13 @@ use either.
 Install the firmware:
 
 ```
-# xbps-install -R hostdir/binpkgs b43-firmware
+# xbps-install -R hostdir/binpkgs/nonfree b43-firmware
 ```
 
 or:
 
 ```
-# xbps-install -R hostdir/binpkgs b43-firmware-classic
+# xbps-install -R hostdir/binpkgs/nonfree b43-firmware-classic
 ```
 
 If one doesn't work for you, try the other.
