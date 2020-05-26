@@ -184,3 +184,9 @@ mainline kernel for at least 2 years, but older branches still have it.
 This is a known issue and there is currently no workaround available. It doesn't
 seem to be the AGP mode, and basic OpenGL works (e.g. `glxgears`, or menus in
 video games). This will be updated if something is found.
+
+## Networking
+
+### WiFi does not work on Apple machines (b43)
+
+See the [post-installation section](./post-installation/index.md#wireless-networking)
