@@ -193,8 +193,8 @@ See the [post-installation section](../post-installation/index.md#wireless-netwo
 
 ### HTTPS does not work (e.g. repo sync)
 
-Your date/time may be set wrong (common trouble on Apple machines). If that is
-the case, use this:
+Your date/time may be set wrong (common trouble on Apple machines). Use `date`
+to check it. If that is the case, use this:
 
 ```
 # date -s "YYYY-MM-DD HH:mm:ss"
