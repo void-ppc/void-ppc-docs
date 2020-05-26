@@ -190,3 +190,15 @@ video games). This will be updated if something is found.
 ### WiFi does not work on Apple machines (b43)
 
 See the [post-installation section](../post-installation/index.md#wireless-networking).
+
+### HTTPS does not work (e.g. repo sync)
+
+Your date/time may be set wrong (common trouble on Apple machines). If that is
+the case, use this:
+
+```
+# date -s "YYYY-MM-DD HH:mm:ss"
+```
+
+Replace the letters with the current date and time. After that, it is recommended
+that you set up [NTP](../post-installation/index.md#ntp-time-syncing).
