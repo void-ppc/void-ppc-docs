@@ -189,4 +189,4 @@ video games). This will be updated if something is found.
 
 ### WiFi does not work on Apple machines (b43)
 
-See the [post-installation section](./post-installation/index.md#wireless-networking)
+See the [post-installation section](../post-installation/index.md#wireless-networking).
