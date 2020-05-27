@@ -108,14 +108,45 @@ or creating new ones in free space).
 
 ## Kernel
 
-### Why use 4 kB page kernels instead of 64 kB (like other distros)?
+### Why use 4 KiB page kernels instead of 64 KiB (like other distros)?
 
-One reason is that 64k is only supported starting with POWER8. New hardware
-supports both 64k and 4k. On systems without a massive amount of RAM, 4k is
-generally better because of its finer granularity (less fragmentation, guard
-pages without wasting too much virtual memory etc.). Additionally, it is more
-compatible with various software, which sometimes tends to assume 4k as is
-standard on `x86` systems.
+There are multiple reasons:
+
+1) 64 KiB pages are only supported starting with POWER8 and older archs will
+   emulate them
+2) Software is generally more compatible with 4 KiB, since other architectures
+   use KiB page size as well
+3) On desktop/workstation oriented systems, 4 KiB will generally perform better
+   thanks to finer granularity (which leads to lower fragmentation etc.)
+4) The systems that benefit from larger kernel pages are mostly single-purpose
+   servers with huge amounts of RAM, which Void does not primarily target
+   (other distros primarily aim at servers)
+5) Guard pages become viable again, without wasting virtual memory
+
+There are some drawbacks, which typically have workarounds, and have their own
+FAQ entries.
+
+### Booting from Btrfs volumes on OpenPOWER (Talos 2 etc.)
+
+By default it is not possible to boot directly from a Btrfs volume on OpenPOWER
+systems because Btrfs volumes are tied to the page size of the kernel they were
+created on.
+
+Since the Skiroot kernel on OpenPOWER systems typically uses 64 KiB pages and
+Void kernels use 4kB pages, the firmware will not see the volume. Conversely,
+Void will not see Btrfs volumes created on 64kB page hosts, just like e.g.
+x86 systems won't see it.
+
+The same thing applies to big endian vs little endian systems - Btrfs is also
+tied to endianness.
+
+There have also been reports about higher resource usage and lower reliability
+with Btrfs volumes on 64 KiB page hosts.
+
+Workarounds include:
+
+1) Use a separate `/boot` partition with a filesystem other than Btrfs
+2) Compile your own kernel with 64 KiB pages.
 
 ## Virtual Machines
 
