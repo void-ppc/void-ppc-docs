@@ -122,6 +122,8 @@ There are multiple reasons:
    servers with huge amounts of RAM, which Void does not primarily target
    (other distros primarily aim at servers)
 5) Guard pages become viable again, without wasting virtual memory
+6) Transparent hugepages mostly allow addressing scenarios which would benefit
+   from bigger pages than default
 
 There are some drawbacks, which typically have workarounds, and have their own
 FAQ entries.
