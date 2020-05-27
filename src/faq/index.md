@@ -115,7 +115,7 @@ There are multiple reasons:
 1) 64 KiB pages are only supported starting with POWER8 and older archs will
    emulate them
 2) Software is generally more compatible with 4 KiB, since other architectures
-   use KiB page size as well
+   use 4 KiB page size as well
 3) On desktop/workstation oriented systems, 4 KiB will generally perform better
    thanks to finer granularity (which leads to lower fragmentation etc.)
 4) The systems that benefit from larger kernel pages are mostly single-purpose
@@ -148,7 +148,7 @@ with Btrfs volumes on 64 KiB page hosts.
 Workarounds include:
 
 1) Use a separate `/boot` partition with a filesystem other than Btrfs
-2) Compile your own kernel with 64 KiB pages.
+2) Compile your own kernel with 64 KiB pages
 
 ## Virtual Machines
 
