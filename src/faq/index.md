@@ -218,6 +218,30 @@ This is a known issue and there is currently no workaround available. It doesn't
 seem to be the AGP mode, and basic OpenGL works (e.g. `glxgears`, or menus in
 video games). This will be updated if something is found.
 
+### Console is 800x600 rectangle on Mac Mini G4
+
+On Mac Mini G4, the console may by default display only on a portion of the
+screen. This is seemingly because there is an S-Video port connected and
+used by Linux by default.
+
+To work around this, edit `/etc/default/grub` and add the following parameter
+into `GRUB_CMDLINE_LINUX_DEFAULT`:
+
+```
+video=SVIDEO-1:d
+```
+
+If you run into the same problem on another machine, the output port name
+might be different. You can check by listing the contents of `/sys/class/drm`.
+
+You can also set the console video mode with something like:
+
+```
+video=DVI-I-1:1280x1024@60
+```
+
+You need to combine the two if you do.
+
 ## Networking
 
 ### WiFi does not work on Apple machines (b43)
