@@ -152,8 +152,9 @@ host. **That means Void will by default not be able to boot 64 KiB page kernels
 with HPT.** There is no existing workaround for that. You can run other
 distributions as containers, or compile your own alternative kernels for them.
 
-Moreover, ever since https://patchwork.kernel.org/patch/11393187 (`qemu` 5.0),
-HPT guests will not boot out of box. You will get an error like this instead:
+Moreover, ever since [this patch](https://patchwork.kernel.org/patch/11393187)
+(`qemu` 5.0), HPT guests will not boot out of box. You will get an error like
+this instead:
 
 ```
 qemu-system-ppc64: Unable to create 2048MiB RMA (VRMA only allows 512MiB)
