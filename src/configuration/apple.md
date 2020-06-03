@@ -1,67 +1,6 @@
-# Post-Installation
+# Apple Hardware
 
-Once you have a working system, there are things you might want to do.
-
-## Page poisoning and SLUB debug
-
-By default, Void enables `slub_debug=P page_poison=1`. These are hardening
-options and have little effect on modern hardware, but on old PowerPC Macs,
-the performance hit may be significant.
-
-Therefore, you might want to remove these from `/etc/default/grub` and then
-run `update-grub`.
-
-## Updates
-
-You will definitely want to update your system, especially if the live media
-is old. Void is a rolling distribution and therefore updates frequently. Run:
-
-```
-# xbps-install -Su
-```
-
-## NTP (time syncing)
-
-You might want to enable a time syncing daemon. This is especially important
-if your hardware can't keep clock. For example, you can do:
-
-```
-# xbps-install -S openntpd
-# ln -s /etc/sv/ntpd /var/service/
-```
-
-There are other NTP daemons to choose from as well.
-
-Keep in mind that `openntpd` by default uses the https constraint feature. That
-means that unless your time is set to a correct value in the first place, the
-daemon will fail to set the date/time. Either use `date` to manually set a
-close enough date/time, or remove/comment out the `constraints from` line in
-`/etc/ntpd.conf`.
-
-## Logging
-
-By default, Void comes with no logging daemon. There are different implementations
-available, `socklog` is simplistic and easy to use:
-
-```
-# xbps-install -S socklog-void
-# ln -s /etc/sv/socklog-unix /var/service/
-# ln -s /etc/sv/nanoklogd /var/service/
-```
-
-## PopCorn
-
-If you feel like helping us take over usage statistics in
-<https://popcorn.voidlinux.org>, install and enable `PopCorn`:
-
-```
-# xbps-install PopCorn
-# ln -s /etc/sv/popcorn /var/service/
-```
-
-## Apple hardware
-
-### Media keys and keyboard backlight on laptops
+## Media keys and keyboard backlight on laptops
 
 Install and enable `pbbuttonsd`:
 
@@ -70,7 +9,7 @@ Install and enable `pbbuttonsd`:
 # ln -s /etc/sv/pbbuttonsd /var/service/
 ```
 
-### Right click emulation
+## Right click emulation
 
 Install and enable `mouseemu`:
 
@@ -82,13 +21,13 @@ Install and enable `mouseemu`:
 Middle click defaults to F10, right click to F11. Scrolling modifier
 defaults to Alt.
 
-### Wireless networking
+## Wireless networking
 
 The `b43` driver is usually used. Unfortunately, the firmware for that is
 not redistributable. Our templates collection ships some templates which you
 can use to build your own firmware packages.
 
-#### Using void-packages
+### Using void-packages
 
 You will need to set up `void-packages`. Follow the standard instructions,
 using our `void-ppc` fork. The condensed version would be:
@@ -153,7 +92,7 @@ or:
 
 If one doesn't work for you, try the other.
 
-#### Using b43-fwcutter manually
+### Using b43-fwcutter manually
 
 If you don't want to clone the `void-packages` repository for some reason,
 you can always set it up manually. First, read the section above anyway; it
@@ -214,7 +153,7 @@ If you need to remove it later, just
 Particularly you will need to do that when switching versions, as you should
 not install two conflicting versions at the same time.
 
-### Audio
+## Audio
 
 By default, it might seem like audio "doesn't work". This is not actually true,
 it's just that PCM is muted by default.
@@ -238,7 +177,3 @@ slider or using PulseAudio or whichever other solution you like. Don't get
 confused by there being just one output instead of separate ones for
 headphones and speakers; automatic jack sensing works and it will switch
 depending on if there's anything plugged in.
-
-## Other things
-
-The official handbook at <https://docs.voidlinux.org> should come in handy.

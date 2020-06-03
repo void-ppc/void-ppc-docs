@@ -152,22 +152,8 @@ Workarounds include:
 
 ## Virtual Machines
 
-### KVM not working on 4k kernels by default
-
-The default `pseries` machine type will raise an error like this:
-
-```
-qemu-system-ppc64: KVM can't supply 64kiB CI pages, which guest expects
-```
-
-One workaround is using `-machine pseries-2.11` or other `2.x` series.
-
-If you are on a system that has Radix MMU (POWER9 and newer), you can also work
-around this by using something like `-machine pseries,cap-hpt-max-page-size=4096`.
-This will prevent booting of 64k guest kernels with HPT though; Radix enabled
-kernels will work fine.
-
-On POWER8, there is no known workaround other than downgrading machine type.
+For things such as 4 KiB page virtualization troubles, we have an entire
+page (no pun intended) dedicated to it [here](../configuration/virtualization.md).
 
 ## Graphics
 
@@ -246,7 +232,7 @@ You need to combine the two if you do.
 
 ### WiFi does not work on Apple machines (b43)
 
-See the [post-installation section](../post-installation/index.md#wireless-networking).
+See the [relevant section](../configuration/apple.md#wireless-networking).
 
 ### HTTPS does not work (e.g. repo sync)
 
@@ -258,4 +244,4 @@ to check it. If that is the case, use this:
 ```
 
 Replace the letters with the current date and time. After that, it is recommended
-that you set up [NTP](../post-installation/index.md#ntp-time-syncing).
+that you set up [NTP](../configuration/post-installation.md#ntp-time-syncing).
