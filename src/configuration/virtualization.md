@@ -164,8 +164,9 @@ The guest memory must be backed by larger than default pages. Fortunately, this
 can be worked around rather easily, by using the hugepages feature of the Linux
 kernel, which is one of the workarounds mentioned in the patch.
 
-To manage hugepage mappings, you can use a tool such as `hugeadm`. However, for
-simple configurations, you don't need any external tools.
+To manage hugepage mappings, you can use the `hugeadm` utility (`glibc` only,
+package `libhugetlbfs-tools`). However, for simple configurations, you don't
+need any external tools.
 
 First check your default huge page size:
 
@@ -179,10 +180,9 @@ the first one will be the default (the choices are 2M, 16M, 1G, 16G). You can
 also use the kernel command line to pre-allocate a specific number of hugepages
 of each type.
 
-Let's go with the easy default (for multiple pools you can use `hugeadm`),
-in this case 2 MiB (2048 KiB). Allocate enough hugepages to cover guest
-memory. Let's say, 2 GiB - this will be 1024 hugepages, plus some extra,
-let's say 1100.
+Let's go with the easy default, in this case 2 MiB (2048 KiB). Allocate enough
+hugepages to cover guest memory. Let's say, 2 GiB - this will be 1024 hugepages,
+plus some extra, let's say 1100.
 
 ```
 # sysctl vm.nr_hugepages=1100
@@ -208,8 +208,6 @@ Later you can add this to `fstab`. The `fstab` line for that would be something
 like `hugetlbfs /dev/hugepages hugetlbfs mode=01770,gid=<gid of kvm> 0 0`.
 
 You can also use the `pagesize=` option to mount hugepages of a specific size.
-Or just use `hugeadm`, which can manage pools, page numbers and mounts for you,
-but that is out of scope here.
 
 Either way, once you have mounted your backing somehow, you can easily pass
 it to `qemu`. On 4 KiB page hosts like Void, you will need to restrict the
