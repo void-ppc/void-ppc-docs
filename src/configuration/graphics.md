@@ -14,13 +14,13 @@ and newer.
 
 ### Rage, Rage Pro etc.
 
-**Interface:** PCI, AGP
-**OpenGL:** 1.2
-**Works:** Console, X11 untested but may work
-**KMS:** No
-**3D acceleration:** No/possibly
-**2D acceleration:** X11
-**X11 driver:** `xf86-video-mach64`
+**Interface:** PCI, AGP  
+**OpenGL:** 1.2  
+**Works:** Console, X11 untested but may work  
+**KMS:** No  
+**3D acceleration:** No/possibly  
+**2D acceleration:** X11  
+**X11 driver:** `xf86-video-mach64`  
 **Wayland:** Only compositors that support `fbdev`
 
 These models can generally be found in some old Macs. The framebuffer console
@@ -37,26 +37,26 @@ and use the resulting DRI drivers within modern Mesa.
 
 ### Rage 128 series
 
-**Interface:** PCI, AGP
-**OpenGL:** 1.2
-**Works:** Console, X11 untested but may work
-**KMS:** No
-**3D acceleration:** No/possibly
-**2D acceleration:** X11
-**X11 driver:** `xf86-video-r128`
-**Wayland:** Only compositors that support `fbdev`
+**Interface:** PCI, AGP  
+**OpenGL:** 1.2  
+**Works:** Console, X11 untested but may work  
+**KMS:** No  
+**3D acceleration:** No/possibly  
+**2D acceleration:** X11  
+**X11 driver:** `xf86-video-r128`  
+**Wayland:** Only compositors that support `fbdev`  
 
 Similar things as above apply.
 
 ### Radeon 7000 series
 
-**Interface:** AGP
-**OpenGL:** 1.3
-**Works:** With issues/in practice no
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11
-**X11 driver:** `xf86-video-ati`
+**Interface:** AGP  
+**OpenGL:** 1.3  
+**Works:** With issues/in practice no  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11  
+**X11 driver:** `xf86-video-ati`  
 **Wayland:** Only compositors that support `fbdev`
 
 These cards come up, but experience freezes shortly after boot, as far as
@@ -66,13 +66,13 @@ driver or GLAMOR with them.
 
 ### Radeon 8000 series to 9250
 
-**Interface:** AGP
-**OpenGL:** 1.4
-**Works:** Yes, issues on `musl`
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11
-**X11 driver:** `xf86-video-ati`
+**Interface:** AGP  
+**OpenGL:** 1.4  
+**Works:** Yes, issues on `musl`  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11  
+**X11 driver:** `xf86-video-ati`  
 **Wayland:** Only compositors that support `fbdev`
 
 These cards work, including 3D acceleration. However, on `musl` systems,
@@ -84,13 +84,13 @@ or GLAMOR with them.
 
 ### Radeon 9500 and newer, X300 - X600, X1050
 
-**Interface:** AGP
-**OpenGL:** 2.0/2.1
-**Works:** With issues
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-ati`, `modesetting`
+**Interface:** AGP  
+**OpenGL:** 2.0/2.1  
+**Works:** With issues  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-ati`, `modesetting`  
 **Wayland:** Yes
 
 These cards seemingly work, but experience system hangs when running complex
@@ -107,39 +107,39 @@ issues. Running games results in those hangs, though.
 
 ### Radeon X700 - X850, X12xx
 
-**Interface:** AGP, PCI Express
-**OpenGL:** 2.0/2.1
-**Works:** Yes (untested)
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-ati`, `modesetting`
+**Interface:** AGP, PCI Express  
+**OpenGL:** 2.0/2.1  
+**Works:** Yes (untested)  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-ati`, `modesetting`  
 **Wayland:** Yes
 
 These cards should work but haven't been widely tested.
 
 ### Radeon X700 - X850, X12xx
 
-**Interface:** AGP, PCI Express
-**OpenGL:** 2.0/2.1
-**Works:** Yes (untested)
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-ati`, `modesetting`
+**Interface:** AGP, PCI Express  
+**OpenGL:** 2.0/2.1  
+**Works:** Yes (untested)  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-ati`, `modesetting`  
 **Wayland:** Yes
 
 These cards should work but haven't been widely tested.
 
 ### Radeon X1300 - X19xx
 
-**Interface:** AGP, PCI Express
-**OpenGL:** 2.0/2.1
-**Works:** Depending on model
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-ati`, `modesetting`
+**Interface:** AGP, PCI Express  
+**OpenGL:** 2.0/2.1  
+**Works:** Depending on model  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-ati`, `modesetting`  
 **Wayland:** Yes
 
 These cards should technically work.
@@ -153,26 +153,26 @@ into Linux.
 
 ### Radeon HD 2xxx - 4xxx
 
-**Interface:** AGP, PCI Express
-**OpenGL:** 3.3 (3.2 on big endian)
-**Works:** Yes
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-ati`, `modesetting`
+**Interface:** AGP, PCI Express  
+**OpenGL:** 3.3 (3.2 on big endian)  
+**Works:** Yes  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-ati`, `modesetting`  
 **Wayland:** Yes
 
 These cards work. You may experience driver bugs on big endian systems.
 
 ### Radeon HD 5xxx, 6xxx, 7450, 8450, R5 230/235 etc.
 
-**Interface:** PCI Express
-**OpenGL:** 4.4/4.5 (3.2 on big endian)
-**Works:** Yes
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-ati`, `modesetting`
+**Interface:** PCI Express  
+**OpenGL:** 4.4/4.5 (3.2 on big endian)  
+**Works:** Yes  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-ati`, `modesetting`  
 **Wayland:** Yes
 
 These cards work. You may experience driver bugs on big endian systems. You
@@ -183,13 +183,13 @@ GCN cards currently have broken kernel drivers in all kernels.
 
 ### Radeon GCN (HD 7000/8000 series, R/RX/WX series etc.)
 
-**Interface:** PCI Express
-**OpenGL:** 4.6
-**Works:** Little endian
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-amdgpu`, `modesetting`
+**Interface:** PCI Express  
+**OpenGL:** 4.6  
+**Works:** Little endian  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-amdgpu`, `modesetting`  
 **Wayland:** Yes
 
 This includes everything up to Vega. These cards only work on little endian
@@ -197,13 +197,13 @@ systems due to `amdgpu` kernel driver requirement.
 
 ### Radeon RDNA (Navi)
 
-**Interface:** PCI Express
-**OpenGL:** 4.6
-**Works:** Little endian and kernel 5.4+
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-amdgpu`, `modesetting`
+**Interface:** PCI Express  
+**OpenGL:** 4.6  
+**Works:** Little endian and kernel 5.4+  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-amdgpu`, `modesetting`  
 **Wayland:** Yes
 
 In Void, AMD Navi cards (RX 5xxx etc.) work starting with kernel 5.4. In
@@ -216,13 +216,13 @@ need to use the `nouveau` driver.
 
 ### Pre-GeForce (RIVA etc.)
 
-**Interface:** PCI, AGP
-**OpenGL:** 1.2
-**Works:** Console, X11 may work with `fbdev`
-**KMS:** No
-**3D acceleration:** No
-**2D acceleration:** No
-**X11 driver:** `xf86-video-fbdev`
+**Interface:** PCI, AGP  
+**OpenGL:** 1.2  
+**Works:** Console, X11 may work with `fbdev`  
+**KMS:** No  
+**3D acceleration:** No  
+**2D acceleration:** No  
+**X11 driver:** `xf86-video-fbdev`  
 **Wayland:** Only compositors that support `fbdev`
 
 The framebuffer console is served by an `fbdev` driver, there is no modern KMS
@@ -233,13 +233,13 @@ with `xf86-video-fbdev`.
 
 ### GeForce 2 and older, 4 MX
 
-**Interface:** AGP
-**OpenGL:** 1.3
-**Works:** Issues
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11
-**X11 driver:** `xf86-video-nouveau`
+**Interface:** AGP  
+**OpenGL:** 1.3  
+**Works:** Issues  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11  
+**X11 driver:** `xf86-video-nouveau`  
 **Wayland:** Only compositors that support `fbdev`
 
 At least GeForce 2 MX only comes up in kernel 4.4, with newer kernels failing
@@ -251,13 +251,13 @@ disappearing when scanning EDID.
 
 ### GeForce 2 and older, 4 MX
 
-**Interface:** AGP
-**OpenGL:** 1.3
-**Works:** Issues
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11
-**X11 driver:** `xf86-video-nouveau`
+**Interface:** AGP  
+**OpenGL:** 1.3  
+**Works:** Issues  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11  
+**X11 driver:** `xf86-video-nouveau`  
 **Wayland:** Only compositors that support `fbdev`
 
 At least GeForce 2 MX only comes up in kernel 4.4, with newer kernels failing
@@ -269,39 +269,39 @@ disappearing when scanning EDID.
 
 ### GeForce 3 and 4
 
-**Interface:** AGP
-**OpenGL:** 1.3
-**Works:** Unknown
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11
-**X11 driver:** `xf86-video-nouveau`
+**Interface:** AGP  
+**OpenGL:** 1.3  
+**Works:** Unknown  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11  
+**X11 driver:** `xf86-video-nouveau`  
 **Wayland:** Only compositors that support `fbdev`
 
 It is currently unknown whether these cards work.
 
 ### GeForce FX
 
-**Interface:** AGP
-**OpenGL:** 2.1
-**Works:** Unknown
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-nouveau`
+**Interface:** AGP  
+**OpenGL:** 2.1  
+**Works:** Unknown  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-nouveau`  
 **Wayland:** Yes
 
 It is currently unknown whether these cards work.
 
 ### GeForce 6xxx, 7xxx
 
-**Interface:** AGP, PCI Express
-**OpenGL:** 2.1
-**Works:** Yes
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-nouveau`
+**Interface:** AGP, PCI Express  
+**OpenGL:** 2.1  
+**Works:** Yes  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-nouveau`  
 **Wayland:** Yes
 
 These cards work, but suffer from `nouveau` bugs, which may cause broken
@@ -310,26 +310,26 @@ broken. In general it is good enough for video and accelerated desktop.
 
 ### GeForce 8xxx, 9xxx, 200 series
 
-**Interface:** PCI Express
-**OpenGL:** 3.3
-**Works:** Little endian
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-nouveau`
+**Interface:** PCI Express  
+**OpenGL:** 3.3  
+**Works:** Little endian  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-nouveau`  
 **Wayland:** Yes
 
 These cards should work with `nouveau` at least on little endian systems.
 
 ### GeForce 400 and newer series
 
-**Interface:** PCI Express
-**OpenGL:** 4.6
-**Works:** Little endian, when supported by `nouveau`
-**KMS:** Yes
-**3D acceleration:** Yes
-**2D acceleration:** X11, GLAMOR
-**X11 driver:** `xf86-video-nouveau`
+**Interface:** PCI Express  
+**OpenGL:** 4.6  
+**Works:** Little endian, when supported by `nouveau`  
+**KMS:** Yes  
+**3D acceleration:** Yes  
+**2D acceleration:** X11, GLAMOR  
+**X11 driver:** `xf86-video-nouveau`  
 **Wayland:** Yes
 
 These cards should work with `nouveau` at least on little endian systems.
