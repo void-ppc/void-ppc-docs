@@ -18,4 +18,5 @@
   - [Post-Installation](./configuration/post-installation.md)
   - [Apple Hardware](./configuration/apple.md)
   - [Virtualization](./configuration/virtualization.md)
+  - [Graphics](./configuration/graphics.md)
 - [FAQ](./faq/index.md)

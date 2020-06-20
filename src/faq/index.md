@@ -157,6 +157,8 @@ page (no pun intended) dedicated to it [here](../configuration/virtualization.md
 
 ## Graphics
 
+Also see the [dedicated page](../configuration/graphics.md).
+
 ### Broken colors in ASpeed VGA on big endian
 
 This is a problem with the kernel `ast` driver. Since the fix appears
