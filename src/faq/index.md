@@ -17,6 +17,14 @@ independent on a libc) while not burdening the higher level infrastructure.
 If you really need to build or use 32-bit software, use a 32-bit chroot, it
 should work just fine.
 
+### When compiling a C program, why do I get an error message about `long double`?
+
+Void Linux PPC uses 64 bit long doubles, while GCC’s default is 128 bit.
+To compile with 64 bit long doubles, add the option `-mlong-double-64`, for instance:
+```
+export CFLAGS=-mlong-double-64; ./configure; make
+```
+
 ## Boot
 
 ### Why is yaboot not supported?
