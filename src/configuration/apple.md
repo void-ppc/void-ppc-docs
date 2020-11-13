@@ -47,7 +47,7 @@ Enable `restricted` packages:
 $ echo XBPS_ALLOW_RESTRICTED=yes >> etc/conf
 ```
 
-Then build the appropriate firwmare package:
+Then build the appropriate firmware package:
 
 ```
 $ ./xbps-src pkg b43-firmware
