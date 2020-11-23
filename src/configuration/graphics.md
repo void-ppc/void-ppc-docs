@@ -50,9 +50,9 @@ Similar things as above apply.
 
 ### Radeon 7000 series
 
-**Interface:** AGP  
+**Interface:** PCI, AGP  
 **OpenGL:** 1.3  
-**Works:** With issues/in practice no  
+**Works:** Yes, AGP may have issues  
 **KMS:** Yes  
 **3D acceleration:** Yes  
 **2D acceleration:** X11  
