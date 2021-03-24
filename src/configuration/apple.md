@@ -164,7 +164,7 @@ To remedy this, install `alsa-utils`:
 # xbps-install alsa-utils
 ```
 
-The open `alsamixer`. Press the F6 key to switch the card to something like
+Then open `alsamixer`. Press the F6 key to switch the card to something like
 `SoundByLayout`; if you're using plain ALSA, you might not have to switch
 anything, but PulseAudio will show its own mixer first.
 
