@@ -249,24 +249,6 @@ series as well.
 X11 will not come up on GeForce 2 MX. There is some issue with the video outputs
 disappearing when scanning EDID.
 
-### GeForce 2 and older, 4 MX
-
-**Interface:** AGP  
-**OpenGL:** 1.3  
-**Works:** Issues  
-**KMS:** Yes  
-**3D acceleration:** Yes  
-**2D acceleration:** X11  
-**X11 driver:** `xf86-video-nouveau`  
-**Wayland:** Only compositors that support `fbdev`
-
-At least GeForce 2 MX only comes up in kernel 4.4, with newer kernels failing
-to initialize the card. It is not known whether this affects GeForce 3 and 4 MX
-series as well.
-
-X11 will not come up on GeForce 2 MX. There is some issue with the video outputs
-disappearing when scanning EDID.
-
 ### GeForce 3 and 4
 
 **Interface:** AGP  
