@@ -230,6 +230,27 @@ video=DVI-I-1:1280x1024@60
 
 You need to combine the two if you do.
 
+### Xfce/Xfwm4 crashes on big endian
+
+This turns out to be a graphics driver issue. Xfce turned on their compositor by
+default in the 4.16 release, which now uses OpenGL, and that makes the issue show
+up; while we currently patch `xfwm4` to disable compositing on big endian out of
+box, you may still run into it if you manually enable it or if you caught a
+package where it was still enabled.
+
+To disable compositing from command line, you should be able to run something like:
+
+```
+xfconf-query -c xfwm4 -p /general/use_compositing -t bool -s false
+```
+
+Alternatively, you can start Xfce with `LIBGL_ALWAYS_SOFTWARE=1` exported in your
+environment, disable the compositor in GUI (Window Manager Tweaks) and restart with
+accelerated driver afterwards.
+
+If you want compositing on affected machines, you should still be able to use an
+alternative compositor such as `picom`, given proper configuration.
+
 ## Networking
 
 ### WiFi does not work on Apple machines (b43)

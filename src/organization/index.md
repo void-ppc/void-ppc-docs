@@ -15,16 +15,23 @@ that case, please tag the respective maintainers in order to keep track.
 The current active maintainers are:
 
 - `q66` - lead maintainer, all targets; tag always
-- `pullmoll` - 64-bit big endian related matters
-- `stenstorp` - 32-bit related matters
 
 ## Discussion channels
 
-All decisions are made in our GitHub organization and there is an IRC discussion
-channel on freenode, `#voidlinux-ppc`. You might want to join for quick contact
-and keeping track of discussion. Since the channel does not have that much
-activity, off-topic discussion is permitted, as well as discussion related to
-PowerPC but not Void itself.
+Decisions are made in our Github organization, with the main real-time chat tool
+being IRC (`#voidlinux-ppc` on `irc.oftc.net`). Feel free to join us if you want
+to keep track or if you just want to chat (most topics are welcome, and everyone
+is expected to do their part in keeping the place fun - we want everyone to get
+along so please use common sense). In case of on-topic talk going on, it should
+be prioritized over off-topic stuff at the time.
+
+At this point there is no code of conduct and we have no immediate plans to
+introduce one. That, however, does not mean our standards are any lower than
+those of places that do have it, it simply means there hasn't been a need to
+introduce one yet. Please do not give us a reason to introduce one; any kind
+of harassment or other toxic behavior will not be tolerated. If you suspect
+this kind of activity is going on without being noticed, reach out to anyone
+with operator rights.
 
 ## Donations
 
