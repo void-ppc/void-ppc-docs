@@ -101,9 +101,9 @@ Now we will need to set up the target so that we can chroot into it.
 ```
 # cp /etc/resolv.conf /media/rootfs/etc
 # cp /etc/hosts /media/rootfs/etc
-# mount -t devtmpfs none /dev
-# mount -t proc none /proc
-# mount -t sysfs none /sys
+# mount -t devtmpfs none /media/rootfs/dev
+# mount -t proc none /media/rootfs/proc
+# mount -t sysfs none /media/rootfs/sys
 ```
 
 If the `dev`, `proc` and `sys` directories do not exist in the target for some
@@ -219,7 +219,7 @@ the bootstrap partition, format it and mount it:
 # mkdir -p /media/bootstrap
 # dd if=/dev/zero of=/dev/sdXM bs=512
 # hformat -l bootstrap /dev/sdXM
-# mount -t hfs /dev/sda2 /media/bootstrap
+# mount -t hfs /dev/sdXM /media/bootstrap
 ```
 
 And proceed to install the bootloader, then unmount the bootstrap partition:
