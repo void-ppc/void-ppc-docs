@@ -18,8 +18,8 @@ and newer.
 **OpenGL:** 1.2  
 **Works:** Console, X11 untested but may work  
 **KMS:** No  
-**3D acceleration:** No/possibly  
-**2D acceleration:** X11  
+**3D acceleration:** No
+**2D acceleration:** X11 (untested)
 **X11 driver:** `xf86-video-mach64`  
 **Wayland:** Only compositors that support `fbdev`
 
@@ -30,20 +30,15 @@ In X11, these GPUs are served by the `xf86-video-mach64` driver. It will not
 work out of box - you need to correctly set up your modelines in `xorg.conf.d`
 to make it work.
 
-3D acceleration is provided via the legacy DRM infrastructure. As the legacy
-drivers have been removed from Mesa, Void currently offers no out of box 3D
-support for these cards. It should be possible to compile an older Mesa (7.x)
-and use the resulting DRI drivers within modern Mesa.
-
 ### Rage 128 series
 
 **Interface:** PCI, AGP  
 **OpenGL:** 1.2  
 **Works:** Console, X11 untested but may work  
 **KMS:** No  
-**3D acceleration:** No/possibly  
-**2D acceleration:** X11  
-**X11 driver:** `xf86-video-r128`  
+**3D acceleration:** No
+**2D acceleration:** X11 (untested)
+**X11 driver:** `xf86-video-r128`, `xf86-video-fbdev`
 **Wayland:** Only compositors that support `fbdev`  
 
 Similar things as above apply.
