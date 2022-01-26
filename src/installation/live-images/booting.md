@@ -49,12 +49,137 @@ installation or whatever else you need.
 
 ## SLOF (virtual machines, pSeries, etc)
 
-Unfortunately, I don't have a physical SLOF system available, so this section
-could use expansion.
+### Virtual Machines
 
 In a virtual machine, just specify the ISO image as a `cdrom` or a `drive` and
 make `qemu` use it as the boot device. `GRUB` will automatically come up. Then
 proceed with installation and so on.
+
+### IBM pSeries
+
+To boot on physical pSeries machine, you need to define a `cd` or `ud`
+device alias, since those machines doesn't seem to define it automatically.
+
+#### Using optical media
+
+If booting from optical media, we need to get the CD drive's OF path through
+the SMS menu:
+
+First, boot to the SMS menu (please check your machine documentation on how
+to do it).
+
+Then, go through those menu items:
+1. Boot Options
+2. Install/Boot Device
+3. CD/DVD
+4. List All Devices
+5. Pick your CD drive here, for example it might be shown as
+  `SATA CD-ROM (loc=U78A0.001.DNWKAM4-P2-D2)`.
+6. Information
+
+In the Information page, there will be a string that looks like
+`/pci@XXXXXX/pciYYYY/sata/disk@ZZZZZZ`.
+That's the OF path of your CD drive. Copy it somewhere else, we'll use it to set
+up the `cd` device alias.
+
+Now, exit SMS and reboot to the OF prompt.
+
+On the prompt, create a device alias for `cd` using the path we got from SMS.
+```
+0 > devalias cd /pci@XXXXXX/pciYYYY/sata/disk@ZZZZZZ
+```
+
+Print the alias listing again to check if it's correctly defined:
+```
+0 > devalias
+...
+...
+cd          /pci@XXXXXX/pciYYYY/sata/disk@ZZZZZZ
+```
+
+Now that we've defined the `cd` device alias, it's time to boot into GRUB:
+```
+0 > boot cd:,\boot\grub.img
+```
+
+Now you can choose the menu item you want, boot into it and proceed with
+installation.
+
+#### Using a USB disk
+
+If booting from USB disk, you can boot directly to the OF prompt since it's
+possible get the USB disk's OF path from there.
+
+Once you get into the OF prompt, list the whole device tree:
+```
+0 > dev / ls
+```
+
+It'll then list all the devices recognized by the firmware. For example here's
+a simplified listing on a Power 750:
+```
+XXXXXXXXXXXX: ...
+XXXXXXXXXXXX: ...
+XXXXXXXXXXXX: ...
+XXXXXXXXXXXX: /pci@800000020000201
+XXXXXXXXXXXX:   /usb@1
+XXXXXXXXXXXX:     /...
+XXXXXXXXXXXX:   /usb@1,1
+XXXXXXXXXXXX:     /hub@1
+XXXXXXXXXXXX:       /usb-scsi@1
+XXXXXXXXXXXX:         /disk
+XXXXXXXXXXXX:         /tape
+XXXXXXXXXXXX:   /usb@1,2
+XXXXXXXXXXXX:     /...
+XXXXXXXXXXXX: ...
+XXXXXXXXXXXX: ...
+XXXXXXXXXXXX: ...
+```
+We can see that there's a USB disk `/disk` under `/usb-scsi@1`.
+
+Now, create a device alias for `ud` using that path. Of course, do adjust
+the command using the path from your own machine.
+```
+0 > devalias ud /pci@800000020000201/usb@1,1/hub@1/usb-scsi@1/disk
+```
+
+Print the alias listing again to check if it's correctly defined:
+```
+0 > devalias
+...
+...
+ud          /pci@800000020000201/usb@1,1/hub@1/usb-scsi@1/disk
+```
+
+Now that we've defined the `ud` device alias, it's time to boot into GRUB:
+```
+0 > boot cd:,\boot\grub.img
+```
+
+In GRUB, there's some adjustment to be made before we can boot successfully to
+the live environment when booting through a USB disk. Select the menu item you
+want, then press `E` to edit it. Now, do the following edits:
+1. Delete the `insmod part_apple` line.
+2. Delete the `search --label "VOID_LIVE"` line.
+3. In the `linux` line, find the part that says `root=live:CDLABEL=VOID_LIVE`
+   and change it into `root=live:LABEL=VOID_LIVE` (that is, remove the `CD`
+   from `CDLABEL`).
+
+When you're done with the edits, press Ctrl-x to boot into the live environment
+and proceed with the installation.
+
+#### Additional notes
+
+Note that regardless of the method you choose, the live CD might take a long
+time (up to twenty minutes) to fully boot, so don't worry if the boot process
+appears to be stalling. Once installed, the slow booting problem seems to
+disappear, though.
+
+Also, on some machines, the main interactive console uses the `hvsi0` console,
+so you may need to tell the kernel to use it; edit the menu item you want to
+boot and append `console=hvsi0` to the `linux` line.
+
+(See also the [Serial Console](#serial-console) section)
 
 ## NewWorld PowerPC Macs
 
